@@ -4,7 +4,7 @@ QBER (Quantum Bit Error Rate) calculation for the BB84 protocol.
 Security threshold: QBER >= 11% signals a compromised channel (Eve present).
 """
 
-QBER_SECURITY_THRESHOLD = 0.11
+QBER_SECURITY_THRESHOLD = 0.11 # 11% QBER threshold for security in BB84 algorithm. anything above this is marked as 'compromised'
 
 
 def calculate_qber(alice_key: list[int], bob_key: list[int]) -> float:

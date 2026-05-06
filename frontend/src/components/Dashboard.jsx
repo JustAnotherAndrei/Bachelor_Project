@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Shield } from 'lucide-react'
 import StatusBadge from './StatusBadge'
 import SimulationControls from './SimulationControls'
+import QBERChart from './QBERChart'
 
 const DEFAULT_CONFIG = {
   n_qubits: 100,
@@ -14,15 +15,28 @@ export default function Dashboard() {
   const [config, setConfig] = useState(DEFAULT_CONFIG)
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState(null)
+  const [history, setHistory] = useState([])
 
   function handleChange(key, value) {
     setConfig(prev => ({ ...prev, [key]: value }))
   }
 
-  function handleRun() {
+  async function handleRun() {
     setLoading(true)
-    // API call — pasul următor
-    setTimeout(() => setLoading(false), 1000)
+    try {
+      const res = await fetch('/api/v1/simulate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(config),
+      })
+      const data = await res.json()
+      setResult(data)
+      setHistory(prev => [...prev, data])
+    } catch (err) {
+      console.error('Simulation failed:', err)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -31,7 +45,7 @@ export default function Dashboard() {
       <header className="border-b border-gray-800 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Shield className="text-violet-400" size={28} />
-          <span className="text-xl font-semibold tracking-tight">Q-Shield</span>
+          <span className="text-xl font-semibold tracking-tight">Sequre</span>
           <span className="text-xs text-gray-500 font-mono">BB84 QKD Platform</span>
         </div>
         <StatusBadge online />
@@ -59,9 +73,7 @@ export default function Dashboard() {
             />
           </div>
 
-          <div className="flex-1 bg-gray-900 border border-gray-800 rounded-xl flex items-center justify-center">
-            <p className="text-gray-600 text-sm">QBER chart will appear here after simulation</p>
-          </div>
+          <QBERChart history={history} />
         </section>
 
       </main>
