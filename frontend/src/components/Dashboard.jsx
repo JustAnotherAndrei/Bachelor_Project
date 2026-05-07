@@ -3,6 +3,7 @@ import { Shield } from 'lucide-react'
 import StatusBadge from './StatusBadge'
 import SimulationControls from './SimulationControls'
 import QBERChart from './QBERChart'
+import PhotonGrid from './PhotonGrid'
 
 const DEFAULT_CONFIG = {
   n_qubits: 100,
@@ -74,6 +75,7 @@ export default function Dashboard() {
           </div>
 
           <QBERChart history={history} />
+          <PhotonGrid result={result} />
         </section>
 
       </main>
