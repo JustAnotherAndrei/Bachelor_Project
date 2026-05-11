@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Shield } from 'lucide-react'
 import StatusBadge from './StatusBadge'
 import SimulationControls from './SimulationControls'
 import QBERChart from './QBERChart'
 import PhotonGrid from './PhotonGrid'
+import useSimulationSocket from '../hooks/useSimulationSocket'
 
 const DEFAULT_CONFIG = {
   n_qubits: 100,
@@ -14,30 +15,19 @@ const DEFAULT_CONFIG = {
 
 export default function Dashboard() {
   const [config, setConfig] = useState(DEFAULT_CONFIG)
-  const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState(null)
   const [history, setHistory] = useState([])
+  const { result, loading, complete, progress, run } = useSimulationSocket()
+
+  const prevCompleteRef = useRef(false)
+  useEffect(() => {
+    if (complete && !prevCompleteRef.current && result) {
+      setHistory(prev => [...prev, result])
+    }
+    prevCompleteRef.current = complete
+  }, [complete, result])
 
   function handleChange(key, value) {
     setConfig(prev => ({ ...prev, [key]: value }))
-  }
-
-  async function handleRun() {
-    setLoading(true)
-    try {
-      const res = await fetch('/api/v1/simulate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(config),
-      })
-      const data = await res.json()
-      setResult(data)
-      setHistory(prev => [...prev, data])
-    } catch (err) {
-      console.error('Simulation failed:', err)
-    } finally {
-      setLoading(false)
-    }
   }
 
   return (
@@ -58,24 +48,32 @@ export default function Dashboard() {
           <SimulationControls
             config={config}
             onChange={handleChange}
-            onRun={handleRun}
+            onRun={() => run(config)}
             loading={loading}
           />
         </aside>
 
         <section className="flex-1 flex flex-col gap-4">
           <div className="grid grid-cols-3 gap-4">
-            <StatCard label="Sifted Key Length" value={result?.sifted_key_length ?? '—'} unit={result ? 'bits' : ''} />
-            <StatCard label="QBER" value={result ? `${(result.qber * 100).toFixed(1)}` : '—'} unit={result ? '%' : ''} />
+            <StatCard
+              label="Sifted Key Length"
+              value={result?.sifted_key_length ?? '—'}
+              unit={result?.sifted_key_length != null ? 'bits' : ''}
+            />
+            <StatCard
+              label="QBER"
+              value={result?.qber != null ? `${(result.qber * 100).toFixed(1)}` : '—'}
+              unit={result?.qber != null ? '%' : ''}
+            />
             <StatCard
               label="Channel Status"
-              value={result ? (result.is_secure ? 'Secure' : 'Compromised') : '—'}
-              accent={result ? (result.is_secure ? 'green' : 'red') : 'gray'}
+              value={result?.is_secure != null ? (result.is_secure ? 'Secure' : 'Compromised') : '—'}
+              accent={result?.is_secure != null ? (result.is_secure ? 'green' : 'red') : 'gray'}
             />
           </div>
 
           <QBERChart history={history} />
-          <PhotonGrid result={result} />
+          <PhotonGrid result={result} loading={loading} progress={progress} />
         </section>
 
       </main>

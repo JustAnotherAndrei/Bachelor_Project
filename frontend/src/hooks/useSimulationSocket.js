@@ -1,0 +1,57 @@
+import { useState, useRef, useCallback } from 'react'
+
+export default function useSimulationSocket() {
+  const [result, setResult] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [complete, setComplete] = useState(false)
+  const [progress, setProgress] = useState({ current: 0, total: 0 })
+  const wsRef = useRef(null)
+
+  const run = useCallback((config) => {
+    if (wsRef.current) {
+      wsRef.current.onmessage = null
+      wsRef.current.close()
+    }
+
+    const sessionId = crypto.randomUUID()
+    const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws'
+    const ws = new WebSocket(`${protocol}://${window.location.host}/ws/simulate/${sessionId}`)
+    wsRef.current = ws
+
+    setLoading(true)
+    setComplete(false)
+    setProgress({ current: 0, total: config.n_qubits })
+    setResult(null)
+
+    ws.onopen = () => ws.send(JSON.stringify(config))
+
+    ws.onmessage = (e) => {
+      const msg = JSON.parse(e.data)
+
+      if (msg.type === 'qubit') {
+        setProgress(p => ({ ...p, current: msg.index + 1 }))
+        setResult(prev => ({
+          alice_bits: [...(prev?.alice_bits ?? []), msg.alice_bit],
+          alice_bases: [...(prev?.alice_bases ?? []), msg.alice_basis],
+          bob_bases: [...(prev?.bob_bases ?? []), msg.bob_basis],
+          bob_results: [...(prev?.bob_results ?? []), msg.bob_result],
+        }))
+      } else if (msg.type === 'result') {
+        setResult(prev => prev ? {
+          ...prev,
+          sifted_key_length: msg.sifted_key_length,
+          qber: msg.qber,
+          is_secure: msg.is_secure,
+          final_key: msg.final_key,
+        } : null)
+        setComplete(true)
+        setLoading(false)
+      }
+    }
+
+    ws.onerror = () => setLoading(false)
+    ws.onclose = () => { setLoading(false) }
+  }, [])
+
+  return { result, loading, complete, progress, run }
+}

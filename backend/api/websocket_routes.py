@@ -6,7 +6,6 @@ events as the simulation progresses.
 """
 
 import asyncio
-import uuid
 import numpy as np
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 
@@ -38,11 +37,15 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
         n_qubits = config.get("n_qubits", 100)
         dep_prob = config.get("depolarizing_prob", 0.01)
         meas_prob = config.get("measurement_error_prob", 0.02)
+        eve_intercept = config.get("eve_intercept", False)
 
         rng = np.random.default_rng()
         alice_bits = rng.integers(0, 2, n_qubits).tolist()
         alice_bases = rng.integers(0, 2, n_qubits).tolist()
         bob_bases = rng.integers(0, 2, n_qubits).tolist()
+
+        # Eve's random measurement bases (only used if eve_intercept=True)
+        eve_bases = rng.integers(0, 2, n_qubits).tolist() if eve_intercept else None
 
         noise_model = build_noise_model(dep_prob, meas_prob)
         simulator = AerSimulator(noise_model=noise_model)
@@ -53,6 +56,12 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
             job = simulator.run(qc, shots=1)
             counts = job.result().get_counts()
             result = int(max(counts, key=counts.get))
+
+            # Eve intercept-resend: when Eve measures in wrong basis she collapses
+            # the qubit to a random state, introducing ~25% QBER on matched pairs.
+            if eve_intercept and eve_bases[i] != alice_bases[i]:
+                result = int(rng.integers(0, 2))
+
             bob_results.append(result)
 
             await session_manager.send_event(session_id, {
@@ -64,7 +73,7 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
                 "bob_result": result,
                 "basis_match": alice_bases[i] == bob_bases[i],
             })
-            await asyncio.sleep(0)  # Yield to event loop
+            await asyncio.sleep(0)  # yield to event loop so websocket flushes
 
         alice_key, bob_key = sift_keys(alice_bits, alice_bases, bob_results, bob_bases)
         qber = calculate_qber(alice_key, bob_key) if alice_key else 0.0
