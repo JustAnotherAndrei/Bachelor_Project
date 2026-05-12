@@ -18,6 +18,13 @@ export default function Dashboard() {
   const [history, setHistory] = useState([])
   const { result, loading, complete, progress, run } = useSimulationSocket()
 
+  useEffect(() => {
+    fetch('/api/v1/history')
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(data => setHistory(data))
+      .catch(() => {})
+  }, [])
+
   const prevCompleteRef = useRef(false)
   useEffect(() => {
     if (complete && !prevCompleteRef.current && result) {
@@ -28,6 +35,13 @@ export default function Dashboard() {
 
   function handleChange(key, value) {
     setConfig(prev => ({ ...prev, [key]: value }))
+  }
+
+  function handleClearHistory() {
+    if (!window.confirm('Clear all simulation history? This action cannot be undone. Be careful...')) return
+    fetch('/api/v1/history', { method: 'DELETE' })
+      .then(r => r.ok ? setHistory([]) : Promise.reject(r.status))
+      .catch(() => {})
   }
 
   return (
@@ -72,7 +86,7 @@ export default function Dashboard() {
             />
           </div>
 
-          <QBERChart history={history} />
+          <QBERChart history={history} onClear={handleClearHistory} />
           <PhotonGrid result={result} loading={loading} progress={progress} />
         </section>
 

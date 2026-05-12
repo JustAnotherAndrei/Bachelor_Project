@@ -6,6 +6,7 @@ events as the simulation progresses.
 """
 
 import asyncio
+import logging
 import numpy as np
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 
@@ -17,6 +18,10 @@ from classical_processing.qber import calculate_qber, is_channel_secure
 from classical_processing.error_correction import correct_errors
 from classical_processing.privacy_amplification import amplify_privacy
 from qiskit_aer import AerSimulator
+from database.db import SessionLocal
+from database.models import SimulationRun
+
+log = logging.getLogger(__name__)
 
 ws_router = APIRouter(tags=["websocket"])
 
@@ -81,13 +86,34 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
         corrected_alice, _ = correct_errors(alice_key, bob_key)
         final_key = amplify_privacy(corrected_alice) if corrected_alice else ""
 
+        final_qber = round(qber, 4)
         await session_manager.send_event(session_id, {
             "type": "result",
             "sifted_key_length": len(alice_key),
-            "qber": round(qber, 4),
+            "qber": final_qber,
             "is_secure": secure,
             "final_key": final_key,
         })
+
+        db = SessionLocal()
+        try:
+            db.add(SimulationRun(
+                n_qubits=n_qubits,
+                depolarizing_prob=dep_prob,
+                measurement_error_prob=meas_prob,
+                eve_intercept=eve_intercept,
+                sifted_key_length=len(alice_key),
+                qber=final_qber,
+                is_secure=secure,
+                final_key=final_key,
+            ))
+            db.commit()
+            log.info("Simulation run saved to DB (qber=%.4f, sifted=%d)", final_qber, len(alice_key))
+        except Exception as exc:
+            db.rollback()
+            log.error("Failed to save simulation run to DB: %s", exc)
+        finally:
+            db.close()
 
     except WebSocketDisconnect:
         pass

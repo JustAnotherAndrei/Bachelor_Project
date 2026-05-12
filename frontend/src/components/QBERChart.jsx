@@ -2,13 +2,14 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid,
   Tooltip, ReferenceLine, ResponsiveContainer, Legend,
 } from 'recharts'
+import { Trash2 } from 'lucide-react'
 
 const THRESHOLD = 11
 
-export default function QBERChart({ history }) {
+export default function QBERChart({ history, onClear }) {
   if (history.length === 0) {
     return (
-      <div className="flex-1 bg-gray-900 border border-gray-800 rounded-xl flex items-center justify-center">
+      <div className="bg-gray-900 border border-gray-800 rounded-xl flex items-center justify-center" style={{ height: 280 }}>
         <p className="text-gray-600 text-sm">Run a simulation to see the QBER chart</p>
       </div>
     )
@@ -21,11 +22,21 @@ export default function QBERChart({ history }) {
   }))
 
   return (
-    <div className="flex-1 bg-gray-900 border border-gray-800 rounded-xl p-5 flex flex-col gap-3">
-      <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
-        QBER over simulation runs
-      </p>
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="bg-gray-900 border border-gray-800 rounded-xl p-5 flex flex-col gap-3">
+      <div className="flex items-center justify-between">
+        <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
+          QBER over simulation runs
+        </p>
+        <button
+          onClick={onClear}
+          className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-red-400 transition-colors"
+          title="Clear history"
+        >
+          <Trash2 size={14} />
+          Clear
+        </button>
+      </div>
+      <ResponsiveContainer width="100%" height={240}>
         <LineChart data={data} margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
           <XAxis
