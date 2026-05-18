@@ -1,31 +1,36 @@
 """
 IBM Quantum Runtime integration for running BB84 circuits on real hardware.
 
-Uses Qiskit IBM Runtime (SamplerV2) with a configurable backend.
+Uses Qiskit IBM Runtime (SamplerV2) with the new ibm_cloud channel.
 """
 
 from qiskit_ibm_runtime import QiskitRuntimeService, SamplerV2 as Sampler
 from qiskit import QuantumCircuit
 
 
-def get_ibm_service(token: str, instance: str = "ibm-q/open/main") -> QiskitRuntimeService:
+def get_ibm_service(token: str, instance: str = "open-instance") -> QiskitRuntimeService:
     """
-    Authenticate with IBM Quantum and return the service object.
+    Authenticate with IBM Quantum (new platform) and return the service object.
 
     Args:
-        token:    IBM Quantum API token.
-        instance: IBM Quantum instance string (hub/group/project).
+        token:    IBM Cloud API key.
+        instance: Service instance name. Default is "open-instance" (free/trial plan).
 
     Returns:
         An authenticated QiskitRuntimeService.
     """
-    return QiskitRuntimeService(channel="ibm_quantum", token=token, instance=instance)
+    return QiskitRuntimeService(channel="ibm_cloud", token=token, instance=instance)
+
+
+def list_available_backends(service: QiskitRuntimeService) -> list[str]:
+    """Return names of all operational backends on this account."""
+    return [b.name for b in service.backends(operational=True)]
 
 
 def run_on_ibm(
     circuits: list[QuantumCircuit],
     service: QiskitRuntimeService,
-    backend_name: str = "ibm_brisbane",
+    backend_name: str = "ibm_fez",
     shots: int = 1,
 ) -> list[int]:
     """

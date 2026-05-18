@@ -5,6 +5,7 @@ export default function useSimulationSocket() {
   const [loading, setLoading] = useState(false)
   const [complete, setComplete] = useState(false)
   const [progress, setProgress] = useState({ current: 0, total: 0 })
+  const [statusMessage, setStatusMessage] = useState(null)
   const wsRef = useRef(null)
 
   const run = useCallback((config) => {
@@ -22,13 +23,17 @@ export default function useSimulationSocket() {
     setComplete(false)
     setProgress({ current: 0, total: config.n_qubits })
     setResult(null)
+    setStatusMessage(null)
 
     ws.onopen = () => ws.send(JSON.stringify(config))
 
     ws.onmessage = (e) => {
       const msg = JSON.parse(e.data)
 
-      if (msg.type === 'qubit') {
+      if (msg.type === 'status') {
+        setStatusMessage(msg.message)
+      } else if (msg.type === 'qubit') {
+        setStatusMessage(null)
         setProgress(p => ({ ...p, current: msg.index + 1 }))
         setResult(prev => ({
           alice_bits: [...(prev?.alice_bits ?? []), msg.alice_bit],
@@ -43,8 +48,13 @@ export default function useSimulationSocket() {
           qber: msg.qber,
           is_secure: msg.is_secure,
           final_key: msg.final_key,
+          mode: msg.mode,
+          ibm_backend: msg.ibm_backend,
         } : null)
         setComplete(true)
+        setLoading(false)
+      } else if (msg.type === 'error') {
+        setStatusMessage(`Error: ${msg.message}`)
         setLoading(false)
       }
     }
@@ -53,5 +63,5 @@ export default function useSimulationSocket() {
     ws.onclose = () => { setLoading(false) }
   }, [])
 
-  return { result, loading, complete, progress, run }
+  return { result, loading, complete, progress, statusMessage, run }
 }

@@ -10,13 +10,15 @@ const DEFAULT_CONFIG = {
   n_qubits: 100,
   depolarizing_prob: 0.01,
   measurement_error_prob: 0.02,
-  eve_intercept: false,
+  eve_mode: 'none',
+  mode: 'simulator',
+  ibm_backend: 'ibm_fez',
 }
 
 export default function Dashboard() {
   const [config, setConfig] = useState(DEFAULT_CONFIG)
   const [history, setHistory] = useState([])
-  const { result, loading, complete, progress, run } = useSimulationSocket()
+  const { result, loading, complete, progress, statusMessage, run } = useSimulationSocket()
 
   useEffect(() => {
     fetch('/api/v1/history')
@@ -64,6 +66,7 @@ export default function Dashboard() {
             onChange={handleChange}
             onRun={() => run(config)}
             loading={loading}
+            statusMessage={statusMessage}
           />
         </aside>
 
