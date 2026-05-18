@@ -18,7 +18,7 @@ const DEFAULT_CONFIG = {
 export default function Dashboard() {
   const [config, setConfig] = useState(DEFAULT_CONFIG)
   const [history, setHistory] = useState([])
-  const { result, loading, complete, progress, statusMessage, run } = useSimulationSocket()
+  const { result, loading, complete, progress, statusMessage, run, cancel } = useSimulationSocket()
 
   useEffect(() => {
     fetch('/api/v1/history')
@@ -65,6 +65,7 @@ export default function Dashboard() {
             config={config}
             onChange={handleChange}
             onRun={() => run(config)}
+            onCancel={cancel}
             loading={loading}
             statusMessage={statusMessage}
           />

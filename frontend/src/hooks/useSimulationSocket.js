@@ -8,6 +8,15 @@ export default function useSimulationSocket() {
   const [statusMessage, setStatusMessage] = useState(null)
   const wsRef = useRef(null)
 
+  const cancel = useCallback(() => {
+    if (wsRef.current) {
+      wsRef.current.onmessage = null
+      wsRef.current.close()
+    }
+    setLoading(false)
+    setStatusMessage(null)
+  }, [])
+
   const run = useCallback((config) => {
     if (wsRef.current) {
       wsRef.current.onmessage = null
@@ -63,5 +72,5 @@ export default function useSimulationSocket() {
     ws.onclose = () => { setLoading(false) }
   }, [])
 
-  return { result, loading, complete, progress, statusMessage, run }
+  return { result, loading, complete, progress, statusMessage, run, cancel }
 }

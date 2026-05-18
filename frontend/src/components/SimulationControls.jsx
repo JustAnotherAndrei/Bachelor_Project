@@ -1,6 +1,6 @@
 const IBM_BACKENDS = ['ibm_fez', 'ibm_marrakesh', 'ibm_kingston']
 
-export default function SimulationControls({ config, onChange, onRun, loading, statusMessage }) {
+export default function SimulationControls({ config, onChange, onRun, onCancel, loading, statusMessage }) {
   const isIBM = config.mode === 'ibm_hardware'
 
   return (
@@ -86,7 +86,7 @@ export default function SimulationControls({ config, onChange, onRun, loading, s
       <div className="flex flex-col gap-1.5">
         <span className="text-sm text-gray-300">Eve</span>
         <div className="flex rounded-lg overflow-hidden border border-gray-700 text-xs font-medium">
-          {[
+          {[  
             { value: 'none',   label: 'None' },
             { value: 'weak',   label: 'Weak' },
             { value: 'strong', label: 'Strong' },
@@ -127,7 +127,7 @@ export default function SimulationControls({ config, onChange, onRun, loading, s
         </p>
       )}
 
-      <div className="mt-auto">
+      <div className="mt-auto flex flex-col gap-2">
         <button
           onClick={onRun}
           disabled={loading}
@@ -140,6 +140,14 @@ export default function SimulationControls({ config, onChange, onRun, loading, s
             </>
           ) : isIBM ? 'Run on IBM Hardware' : 'Run Simulation'}
         </button>
+        {loading && (
+          <button
+            onClick={onCancel}
+            className="w-full bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium py-2 rounded-lg transition-colors"
+          >
+            Cancel
+          </button>
+        )}
       </div>
     </div>
   )
