@@ -4,7 +4,9 @@ import StatusBadge from './StatusBadge'
 import SimulationControls from './SimulationControls'
 import QBERChart from './QBERChart'
 import PhotonGrid from './PhotonGrid'
+import SimulationSummary from './SimulationSummary'
 import useSimulationSocket from '../hooks/useSimulationSocket'
+import EducationalPanel from './EducationalPanel'
 
 const DEFAULT_CONFIG = {
   n_qubits: 100,
@@ -18,7 +20,7 @@ const DEFAULT_CONFIG = {
 export default function Dashboard() {
   const [config, setConfig] = useState(DEFAULT_CONFIG)
   const [history, setHistory] = useState([])
-  const { result, loading, complete, progress, statusMessage, run, cancel } = useSimulationSocket()
+  const { result, summary, loading, complete, progress, statusMessage, run, cancel } = useSimulationSocket()
 
   useEffect(() => {
     fetch('/api/v1/history')
@@ -90,8 +92,12 @@ export default function Dashboard() {
             />
           </div>
 
-          <QBERChart history={history} onClear={handleClearHistory} />
           <PhotonGrid result={result} loading={loading} progress={progress} />
+          {summary && (
+            <SimulationSummary summary={summary} eveMode={config.eve_mode} />
+          )}
+          <QBERChart history={history} onClear={handleClearHistory} />
+          <EducationalPanel />
         </section>
 
       </main>

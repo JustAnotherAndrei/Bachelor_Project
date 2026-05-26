@@ -9,13 +9,15 @@ export default function PhotonGrid({ result, loading, progress }) {
     )
   }
 
-  const { alice_bits, alice_bases, bob_bases, bob_results } = result
+  const { alice_bits, alice_bases, bob_bases, bob_results, eve_intercepts } = result
   const qubits = alice_bits.slice(0, 80).map((bit, i) => {
     const match = alice_bases[i] === bob_bases[i]
     const error = match && bit !== bob_results[i]
-    return { i, bit, a_basis: alice_bases[i], b_basis: bob_bases[i], b_result: bob_results[i], match, error }
+    const eve = eve_intercepts ? (eve_intercepts[i] ?? false) : false
+    return { i, bit, a_basis: alice_bases[i], b_basis: bob_bases[i], b_result: bob_results[i], match, error, eve }
   })
 
+  const hasEve = qubits.some(q => q.eve)
   const pct = progress.total > 0 ? Math.round((progress.current / progress.total) * 100) : 100
 
   return (
@@ -32,9 +34,23 @@ export default function PhotonGrid({ result, loading, progress }) {
           )}
         </div>
         <div className="flex items-center gap-4 text-xs text-gray-500">
-          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-sm bg-violet-500 inline-block" /> Key bit</span>
-          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-sm bg-red-500 inline-block" /> Error</span>
-          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-sm bg-gray-700 inline-block" /> Discarded</span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-3 h-3 rounded-sm bg-violet-500 inline-block" /> Key bit
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-3 h-3 rounded-sm bg-red-500 inline-block" /> Error
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-3 h-3 rounded-sm bg-gray-700 inline-block" /> Discarded
+          </span>
+          {hasEve && (
+            <span className="flex items-center gap-1.5">
+              <span className="relative w-3 h-3 rounded-sm bg-gray-800 border border-orange-500 inline-block">
+                <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-orange-500 rounded-full" />
+              </span>
+              Eve-intercepted
+            </span>
+          )}
         </div>
       </div>
 
@@ -71,20 +87,39 @@ export default function PhotonGrid({ result, loading, progress }) {
   )
 }
 
-function Qubit({ bit, a_basis, b_basis, match, error }) {
+function Qubit({ bit, a_basis, b_basis, match, error, eve }) {
   const bg = error
-    ? 'bg-red-900 border-red-600'
+    ? 'bg-red-900'
     : match
-      ? 'bg-violet-900 border-violet-600'
-      : 'bg-gray-800 border-gray-700'
+      ? 'bg-violet-900'
+      : 'bg-gray-800'
+
+  const border = eve
+    ? 'border-orange-400 border-2'
+    : error
+      ? 'border-red-600 border'
+      : match
+        ? 'border-violet-600 border'
+        : 'border-gray-700 border'
 
   const textColor = error ? 'text-red-300' : match ? 'text-violet-300' : 'text-gray-500'
 
+  const basisLabel = b => b === 0 ? 'Z' : 'X'
+  const tooltip = [
+    `Alice: ${bit} (${basisLabel(a_basis)})`,
+    `Bob basis: ${basisLabel(b_basis)}`,
+    `Match: ${match}`,
+    eve ? 'Eve intercepted' : null,
+  ].filter(Boolean).join(' | ')
+
   return (
     <div
-      className={`w-10 h-10 rounded-md border flex flex-col items-center justify-center gap-0.5 ${bg}`}
-      title={`Alice: ${bit} (${a_basis === 0 ? 'Z' : 'X'}) | Bob basis: ${b_basis === 0 ? 'Z' : 'X'} | Match: ${match}`}
+      className={`relative w-10 h-10 rounded-md flex flex-col items-center justify-center gap-0.5 ${bg} ${border}`}
+      title={tooltip}
     >
+      {eve && (
+        <span className="absolute -top-1 -right-1 w-2 h-2 bg-orange-500 rounded-full border border-gray-900 z-10" />
+      )}
       <span className={`text-xs leading-none ${textColor}`}>
         {BASIS_SYMBOL[a_basis]}
       </span>

@@ -8,6 +8,7 @@ events as the simulation progresses.
 import asyncio
 import logging
 import os
+import time
 import numpy as np
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from dotenv import load_dotenv
@@ -36,6 +37,7 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
     await session_manager.connect(session_id, websocket)
     try:
         config = await websocket.receive_json()
+        start_time = time.perf_counter()
         n_qubits = config.get("n_qubits", 100)
         dep_prob = config.get("depolarizing_prob", 0.01)
         meas_prob = config.get("measurement_error_prob", 0.02)
@@ -81,6 +83,7 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
                     "bob_basis": bob_bases[i],
                     "bob_result": bob_results[i],
                     "basis_match": alice_bases[i] == bob_bases[i],
+                    "eve_intercept": eve_intercepts[i] if eve_intercepts else False,
                 })
                 await asyncio.sleep(0.01)
 
@@ -106,6 +109,7 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
                     "bob_basis": bob_bases[i],
                     "bob_result": result,
                     "basis_match": alice_bases[i] == bob_bases[i],
+                    "eve_intercept": eve_intercepts[i] if eve_intercepts else False,
                 })
                 await asyncio.sleep(0)
 
@@ -115,13 +119,18 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
         corrected_alice, _ = correct_errors(alice_key, bob_key)
         final_key = amplify_privacy(corrected_alice) if corrected_alice else ""
         final_qber = round(qber, 4)
+        elapsed = round(time.perf_counter() - start_time, 3)
 
         await session_manager.send_event(session_id, {
             "type": "result",
+            "n_qubits": n_qubits,
             "sifted_key_length": len(alice_key),
+            "bits_after_ec": len(corrected_alice),
+            "final_key_length": len(final_key) * 4,
             "qber": final_qber,
             "is_secure": secure,
             "final_key": final_key,
+            "elapsed_seconds": elapsed,
             "mode": mode,
             "ibm_backend": ibm_backend_name if mode == "ibm_hardware" else None,
         })
