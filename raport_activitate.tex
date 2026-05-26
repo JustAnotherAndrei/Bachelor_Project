@@ -1,0 +1,349 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{microtype}
+
+\geometry{
+  top=2.5cm, bottom=2.5cm,
+  left=3cm,  right=2.5cm
+}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue,
+  pdftitle={Activity Report --- Vezeteu Andrei},
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\small Activity Report}
+\lhead{\small Vezeteu Andrei}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\setlist[itemize]{noitemsep, topsep=4pt}
+
+% ---------------------------------------------------------------
+\begin{document}
+
+% ===== HEADER ===================================================
+\begin{center}
+  {\large \textbf{``Alexandru Ioan Cuza'' University of Iasi}} \\[4pt]
+  {\normalsize Faculty of Computer Science} \\[16pt]
+
+  \rule{\linewidth}{0.5pt} \\[10pt]
+
+  {\LARGE \textbf{Activity Report}} \\[6pt]
+  {\large Bachelor's Thesis} \\[16pt]
+
+  \rule{\linewidth}{0.5pt}
+\end{center}
+
+\vspace{10pt}
+
+\begin{tabular}{@{}ll}
+  \textbf{Title:}            & \textit{Sequre: A Real-Time Simulation and Visualization} \\
+                             & \textit{Platform for the BB84 Quantum Key Distribution Protocol} \\[4pt]
+  \textbf{Student:}          & Vezeteu Andrei \\[4pt]
+  \textbf{Supervisor:}       & Conf.\ Dr.\ Andreea Arusoaie \\[4pt]
+  \textbf{Academic year:}    & 2025 -- 2026 \\
+\end{tabular}
+
+\vspace{16pt}
+
+% ===== 1. INTRODUCTION ==========================================
+\section{Introduction}
+
+This thesis aims to design and implement an interactive web platform for the
+simulation and visualization of the \textbf{BB84} protocol --- the first
+\textit{Quantum Key Distribution} (QKD) scheme, proposed by Charles Bennett
+and Gilles Brassard in 1984. The protocol enables two parties, Alice and Bob,
+to establish a shared secret key over an insecure channel, with security
+guaranteed by the laws of quantum mechanics rather than computational hardness.
+
+The platform, named \textbf{Sequre}, provides a complete, end-to-end
+demonstration of the quantum cryptographic pipeline: qubit generation and
+transmission, basis sifting, Quantum Bit Error Rate (QBER) estimation, error
+correction, and privacy amplification. A distinguishing feature of the project
+is its real integration with \textbf{IBM Quantum} hardware, allowing simulations
+to run on both classical noise simulators and physical quantum processors.
+      
+Beyond its pedagogical role, Sequre is conceived as a research-oriented
+testbed: its broader goal is to \textbf{probe the practical limits of
+quantum key distribution and quantum cryptography} under realistic noise,
+hardware imperfections, and adversarial conditions. The long-term ambition
+is for the platform to evolve from an academic prototype into a tool with
+\textbf{real-world applicability} --- usable by researchers, educators, and,
+eventually, as a reference implementation for the integration of QKD
+primitives into production cryptographic systems.
+
+% ===== 2. WORK CARRIED OUT =====================================
+\section{Work Carried Out}
+
+\subsection{2.1 System Architecture}
+
+The application follows a client-server architecture:
+
+\begin{itemize}
+  \item \textbf{Backend:} FastAPI (Python), providing real-time communication
+        via WebSockets and persistent storage using SQLite.
+  \item \textbf{Frontend:} React (Vite) with Tailwind CSS, consuming a
+        WebSocket stream to animate simulation events live in the browser.
+  \item \textbf{Runtime environment:} Docker Compose for service isolation
+        and reproducibility across development environments.
+\end{itemize}
+
+\subsection{2.2 BB84 Protocol Implementation}
+
+The full BB84 protocol was implemented using \textbf{Qiskit} for quantum
+circuit construction and \textbf{Qiskit-Aer} for noisy simulation:
+
+\begin{itemize}
+  \item Alice--Bob quantum circuits with configurable basis choices (Z and X).
+  \item Composite noise model: depolarizing errors and measurement errors,
+        with user-configurable probabilities.
+  \item Basis sifting: retention of bits where Alice and Bob chose the same
+        measurement basis (~50\% of raw qubits).
+  \item QBER calculation and security decision using an 11\% abort threshold.
+  \item Error correction via 4-bit parity blocks (simplified CASCADE-style).
+  \item Privacy amplification via SHA-256 truncated to a 128-bit final key.
+\end{itemize}
+
+\subsection{2.3 Eve Eavesdropping Simulation}
+
+An \textit{intercept-resend} attack model was implemented with two modes:
+
+\begin{itemize}
+  \item \textbf{Weak Eve:} intercepts 30\% of qubits, producing a moderate
+        QBER increase that may remain below the security threshold.
+  \item \textbf{Strong Eve:} intercepts 100\% of qubits, generating a QBER
+        of approximately 25\%, well above the 11\% abort threshold.
+\end{itemize}
+
+Both modes demonstrate the no-cloning theorem and Heisenberg uncertainty
+principle in practice: Eve's forced measurement inevitably disturbs the
+quantum states, leaving a detectable trace in the error rate.
+
+\subsection{2.4 IBM Quantum Hardware Integration}
+
+The platform supports executing simulations on real quantum hardware via
+\textbf{Qiskit IBM Runtime} (\textit{SamplerV2}), with support for the
+\texttt{ibm\_fez}, \texttt{ibm\_marrakesh}, and \texttt{ibm\_kingston}
+backends. Circuit transpilation and job polling are handled asynchronously,
+with live status messages streamed to the frontend via WebSocket.
+
+\subsection{2.5 User Interface}
+
+The following visualization components were implemented:
+
+\begin{itemize}
+  \item \textbf{PhotonGrid:} cell-by-cell animated visualization of the
+        first 80 qubits exchanged. Eve-intercepted qubits are highlighted
+        with an orange border and a badge indicator. Each cell encodes
+        Alice's basis symbol, bit value, and Bob's basis.
+  \item \textbf{SimulationSummary:} a full key distillation pipeline
+        (Raw $\to$ Sifted $\to$ After EC $\to$ Final Key, 128-bit),
+        a contextual security status banner, per-run statistics, and
+        a final secret key display with a one-click copy button.
+  \item \textbf{QBERChart:} a line chart of QBER values across all
+        previous simulation runs, with the 11\% security threshold
+        marked as a reference line.
+  \item \textbf{EducationalPanel:} five accordion cards covering the
+        core concepts of quantum cryptography: the BB84 protocol, basis
+        sifting, QBER interpretation, the no-cloning theorem and
+        Heisenberg uncertainty principle, and error correction with
+        privacy amplification.
+\end{itemize}
+
+\subsection{2.6 Data Persistence}
+
+Each completed simulation is automatically persisted to a SQLite database,
+storing configuration parameters, QBER, sifted key length, and security
+status. REST endpoints are exposed for history retrieval and deletion
+(\texttt{GET /api/v1/history}, \texttt{DELETE /api/v1/history}).
+
+% ===== 3. CURRENT STATUS ========================================
+\section{Current Status of the Project}
+
+At the time of writing this report, all major components of the platform
+are \textbf{fully functional and integrated}. The simulator produces results
+consistent with the theoretical predictions of the BB84 protocol: the sifting
+rate is approximately 50\%, Strong Eve reliably generates QBER $\approx$ 25\%,
+and Weak Eve produces values below the security threshold in roughly 70\% of
+runs, consistent with its 30\% interception rate.
+
+The source code is version-controlled on the \texttt{main} branch, with a
+documented commit history on GitHub.
+
+% ===== 4. FUTURE WORK ===========================================
+\section{Future Work}
+
+The following extensions are identified as meaningful directions for future
+development, grounded in current research in quantum cryptography:
+
+\begin{itemize}
+
+  \item \textbf{Decoy-state BB84 with weak coherent pulse modelling.}
+        Practical QKD systems do not use ideal single-photon sources; instead,
+        they rely on attenuated laser pulses (weak coherent pulses, WCP) that
+        occasionally emit multi-photon states. This makes them vulnerable to
+        the \textit{Photon Number Splitting} (PNS) attack, in which an
+        eavesdropper retains extra photons without disturbing the transmission.
+        The decoy-state method~\cite{lo2005decoy} mitigates this by randomly
+        injecting pulses of varying intensities, allowing Alice and Bob to
+        estimate single-photon channel statistics and detect PNS attempts.
+        Incorporating a WCP source model and decoy-state parameter
+        optimisation into Sequre would substantially improve the realism of
+        the simulation~\cite{arxiv2405}.
+
+  \item \textbf{Channel loss and key rate vs.\ distance modelling.}
+        The current platform models gate-level noise (depolarising, measurement
+        error), but does not account for \emph{photon loss} due to transmission
+        distance over optical fibre or free-space links. Adding an
+        attenuation model (loss coefficient $\alpha$ in dB/km for fibre, or
+        beam-divergence loss for free-space) and plotting the resulting
+        \emph{secure key rate as a function of channel length} would bring
+        the simulator in line with standard QKD benchmarking
+        methodology~\cite{arxiv2505, arxiv2503}.
+
+  \item \textbf{CASCADE error correction algorithm.}
+        The current scheme discards entire 4-bit parity blocks on mismatch,
+        leading to significant key loss at higher QBER values. The CASCADE
+        algorithm~\cite{brassard1994} performs iterative multi-pass
+        reconciliation, identifying and correcting individual erroneous bits
+        rather than whole blocks, and achieves near-optimal information
+        reconciliation efficiency. Replacing the existing scheme with CASCADE
+        would make post-processing suitable for realistic noisy channels.
+
+  \item \textbf{Support for additional QKD protocols.}
+        Implementing \textbf{E91}~\cite{ekert1991} (entanglement-based,
+        using Bell-state measurements to detect eavesdropping) and
+        \textbf{B92}~\cite{bennett1992} (two non-orthogonal states) within
+        the same platform would enable direct performance and security
+        comparisons with BB84~\cite{ieee10872935}. This is particularly
+        relevant given that E91 relies on entanglement rather than
+        key-sifting, providing a fundamentally different security guarantee.
+
+  \item \textbf{Delayed measurement via quantum memory.}
+        A recent proposal~\cite{arxiv2410} demonstrates that if Bob stores
+        received qubits in a quantum memory and defers measurement until after
+        Alice publicly announces her basis choices, the sifting step is
+        eliminated entirely --- all transmitted qubits contribute to the
+        final key, doubling the raw key rate compared to standard BB84.
+        Simulating this variant within Sequre would illustrate the practical
+        impact of quantum memory on QKD efficiency.
+
+  \item \textbf{Extended attack models: Trojan-horse and PNS.}
+        Beyond the intercept-resend model currently implemented, two
+        additional attack strategies are relevant for a complete security
+        analysis. In a \textit{Trojan-horse attack}~\cite{arxiv2502}, Eve
+        injects bright probe pulses into Alice's or Bob's optical components
+        and analyses the back-reflected light to infer internal settings
+        without interacting with the quantum channel. In a
+        \textit{Photon Number Splitting attack}, Eve exploits multi-photon
+        pulses emitted by weak coherent sources to intercept one photon while
+        forwarding the rest~\cite{arxiv2509}. Simulating both would
+        demonstrate the security boundaries of BB84 under hardware-level
+        imperfections.
+
+\end{itemize}
+
+\begin{thebibliography}{9}
+  \bibitem{lo2005decoy}
+    H.-K. Lo, X. Ma, K. Chen,
+    \textit{Decoy State Quantum Key Distribution},
+    Physical Review Letters, 94, 230504, 2005.
+
+  \bibitem{arxiv2405}
+    M. Zahidy et al.,
+    \textit{Comparison of non-decoy single-photon source and decoy weak
+    coherent pulse in quantum key distribution},
+    arXiv:2405.19963, 2024.
+
+  \bibitem{arxiv2505}
+    arXiv:2505.20838 --- \textit{QKD channel attenuation modelling}, 2025.
+
+  \bibitem{arxiv2503}
+    \textit{High-rate self-referenced CV-QKD over high-loss free-space channel},
+    arXiv:2503.10168, 2025.
+
+  \bibitem{brassard1994}
+    G. Brassard, L. Salvail,
+    \textit{Secret-Key Reconciliation by Public Discussion},
+    EUROCRYPT 1993, LNCS 765, pp.\ 410--423, 1994.
+
+  \bibitem{ekert1991}
+    A. K. Ekert,
+    \textit{Quantum Cryptography Based on Bell's Theorem},
+    Physical Review Letters, 67(6), pp.\ 661--663, 1991.
+
+  \bibitem{bennett1992}
+    C. H. Bennett,
+    \textit{Quantum Cryptography Using Any Two Nonorthogonal States},
+    Physical Review Letters, 68(21), pp.\ 3121--3124, 1992.
+
+  \bibitem{ieee10872935}
+    \textit{A Novel Approach Based on QKD Using BB84 and E91 Protocol for
+    Resilient Encryption and Eavesdropper Detection},
+    IEEE Xplore, DOI: 10.1109/ACCESS.2025.10872935.
+
+  \bibitem{arxiv2410}
+    \textit{Improving BB84 Efficiency with Delayed Measurement via Quantum
+    Memory}, arXiv:2410.21191, 2024.
+
+  \bibitem{arxiv2502}
+    \textit{Imperfect Preparation and Trojan Attack on the Phase Modulator
+    in the Decoy-State BB84 Protocol}, arXiv:2502.21160, 2025.
+
+  \bibitem{arxiv2509}
+    \textit{Resisting Quantum Key Distribution Attacks Using Quantum Machine
+    Learning}, arXiv:2509.14282, 2025.
+\end{thebibliography}
+
+% ===== 5. CONCLUSIONS ===========================================
+\section{Conclusions}
+
+\textbf{Sequre} represents a complete, end-to-end implementation of the BB84
+quantum key distribution protocol, with an emphasis on real-time visualization
+and the accessibility of quantum cryptography concepts. The integration with IBM
+Quantum hardware adds a practically unique dimension compared to purely simulated
+solutions, enabling direct observation of real decoherence noise effects on key
+exchange outcomes.
+
+The project aims to demonstrate that quantum security is not an abstract concept
+but a physically verifiable reality, and to serve as a pedagogically useful tool
+for students and researchers interested in quantum cryptography.
+
+Looking forward, Sequre is intended to grow beyond a thesis prototype into
+a platform that actively \textbf{tests the boundaries of QKD} --- from
+hardware-induced decoherence on IBM backends to advanced attack scenarios
+such as PNS and Trojan-horse interception --- and that can find a
+\textbf{practical use} in research, education, and as a building block in
+future secure-communication systems where quantum-safe key exchange becomes
+operationally required.
+
+\vspace{24pt}
+\noindent
+\begin{tabular}{@{}p{7cm}p{7cm}@{}}
+  \textbf{Student,}          & \textbf{Supervisor,} \\[24pt]
+  Vezeteu Andrei             & Conf.\ Dr.\ Andreea Arusoaie \\
+\end{tabular}
+
+\end{document}
