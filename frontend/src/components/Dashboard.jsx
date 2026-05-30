@@ -7,6 +7,7 @@ import PhotonGrid from './PhotonGrid'
 import SimulationSummary from './SimulationSummary'
 import useSimulationSocket from '../hooks/useSimulationSocket'
 import EducationalPanel from './EducationalPanel'
+import KeyRateChart from './KeyRateChart'
 
 const DEFAULT_CONFIG = {
   n_qubits: 100,
@@ -15,6 +16,8 @@ const DEFAULT_CONFIG = {
   eve_mode: 'none',
   mode: 'simulator',
   ibm_backend: 'ibm_fez',
+  channel_distance_km: 0,
+  ec_method: 'cascade',
 }
 
 export default function Dashboard() {
@@ -90,6 +93,16 @@ export default function Dashboard() {
               value={result?.is_secure != null ? (result.is_secure ? 'Secure' : 'Compromised') : '—'}
               accent={result?.is_secure != null ? (result.is_secure ? 'green' : 'red') : 'gray'}
             />
+            {result?.channel_distance_km > 0 && (
+              <StatCard
+                label={`Transmission (${result.channel_distance_km} km)`}
+                value={result.transmission_efficiency != null
+                  ? `${(result.transmission_efficiency * 100).toFixed(1)}`
+                  : '—'}
+                unit={result.transmission_efficiency != null ? '%' : ''}
+                accent="blue"
+              />
+            )}
           </div>
 
           <PhotonGrid result={result} loading={loading} progress={progress} />
@@ -97,6 +110,11 @@ export default function Dashboard() {
             <SimulationSummary summary={summary} eveMode={config.eve_mode} />
           )}
           <QBERChart history={history} onClear={handleClearHistory} />
+          <KeyRateChart
+            depProb={config.depolarizing_prob}
+            measProb={config.measurement_error_prob}
+            currentDistance={config.channel_distance_km}
+          />
           <EducationalPanel />
         </section>
 
@@ -110,6 +128,7 @@ function StatCard({ label, value, unit, accent = 'gray' }) {
     gray: 'text-gray-100',
     green: 'text-green-400',
     red: 'text-red-400',
+    blue: 'text-blue-300',
   }
   return (
     <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">

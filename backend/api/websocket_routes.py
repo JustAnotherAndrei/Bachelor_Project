@@ -16,9 +16,11 @@ from dotenv import load_dotenv
 from api.websocket_manager import session_manager
 from quantum_logic.bb84_circuit import build_bb84_circuits
 from quantum_logic.noise_model import build_noise_model
+from quantum_logic.channel_model import apply_channel_loss
 from classical_processing.sifting import sift_keys
 from classical_processing.qber import calculate_qber, is_channel_secure
 from classical_processing.error_correction import correct_errors
+from classical_processing.cascade import cascade_correct
 from classical_processing.privacy_amplification import amplify_privacy
 from qiskit_aer import AerSimulator
 from database.db import SessionLocal
@@ -44,12 +46,15 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
         eve_mode = config.get("eve_mode", "none")   # 'none' | 'weak' | 'strong'
         mode = config.get("mode", "simulator")
         ibm_backend_name = config.get("ibm_backend", "ibm_fez")
+        channel_km = float(config.get("channel_distance_km", 0.0))
+        ec_method = config.get("ec_method", "parity")  # 'parity' | 'cascade'
 
         # Weak Eve intercepts 30% of qubits; strong Eve intercepts 100%
         EVE_RATE = {"none": 0.0, "weak": 0.30, "strong": 1.0}
         eve_intercept = eve_mode != "none"
 
         rng = np.random.default_rng()
+        n_sent = n_qubits  # original qubit count before channel loss
         alice_bits = rng.integers(0, 2, n_qubits).tolist()
         alice_bases = rng.integers(0, 2, n_qubits).tolist()
         bob_bases = rng.integers(0, 2, n_qubits).tolist()
@@ -61,6 +66,23 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
         else:
             eve_intercepts = None
             eve_bases = None
+
+        # Apply fiber-optic channel loss (simulator mode only)
+        eta = 1.0
+        if mode != "ibm_hardware" and channel_km > 0:
+            alice_bits, alice_bases, bob_bases, eve_intercepts, eve_bases, eta = apply_channel_loss(
+                alice_bits, alice_bases, bob_bases, eve_intercepts, eve_bases, channel_km, rng
+            )
+
+        n_qubits = len(alice_bits)  # qubits that survived channel transmission
+
+        if n_qubits == 0:
+            await session_manager.send_event(session_id, {
+                "type": "error",
+                "message": f"All {n_sent} photons were lost in the channel ({channel_km} km). "
+                           "Reduce the distance or increase the number of qubits.",
+            })
+            return
 
         circuits = build_bb84_circuits(alice_bits, alice_bases, bob_bases)
         bob_results = []
@@ -116,14 +138,25 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
         alice_key, bob_key = sift_keys(alice_bits, alice_bases, bob_results, bob_bases)
         qber = calculate_qber(alice_key, bob_key) if alice_key else 0.0
         secure = is_channel_secure(qber)
-        corrected_alice, _ = correct_errors(alice_key, bob_key)
+
+        ec_stats = None
+        if ec_method == "cascade" and alice_key:
+            corrected_alice, corrected_bob, ec_stats = cascade_correct(
+                alice_key, bob_key, qber if qber > 0 else 0.001
+            )
+        else:
+            corrected_alice, _ = correct_errors(alice_key, bob_key)
+
         final_key = amplify_privacy(corrected_alice) if corrected_alice else ""
         final_qber = round(qber, 4)
         elapsed = round(time.perf_counter() - start_time, 3)
 
         await session_manager.send_event(session_id, {
             "type": "result",
-            "n_qubits": n_qubits,
+            "n_qubits_sent": n_sent,
+            "n_qubits_received": n_qubits,
+            "transmission_efficiency": round(eta, 4),
+            "channel_distance_km": channel_km,
             "sifted_key_length": len(alice_key),
             "bits_after_ec": len(corrected_alice),
             "final_key_length": len(final_key) * 4,
@@ -133,19 +166,22 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
             "elapsed_seconds": elapsed,
             "mode": mode,
             "ibm_backend": ibm_backend_name if mode == "ibm_hardware" else None,
+            "ec_method": ec_method,
+            "ec_stats": ec_stats,
         })
 
         db = SessionLocal()
         try:
             db.add(SimulationRun(
-                n_qubits=n_qubits,
+                n_qubits=n_sent,
                 depolarizing_prob=dep_prob,
                 measurement_error_prob=meas_prob,
-                eve_intercept=eve_intercept,  # True for weak or strong
+                eve_intercept=eve_intercept,
                 sifted_key_length=len(alice_key),
                 qber=final_qber,
                 is_secure=secure,
                 final_key=final_key,
+                channel_distance_km=channel_km,
             ))
             db.commit()
             log.info("Saved run to DB (mode=%s, qber=%.4f, sifted=%d)", mode, final_qber, len(alice_key))

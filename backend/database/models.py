@@ -16,3 +16,4 @@ class SimulationRun(Base):
     qber = Column(Float)
     is_secure = Column(Boolean)
     final_key = Column(String)
+    channel_distance_km = Column(Float, default=0.0, nullable=True)

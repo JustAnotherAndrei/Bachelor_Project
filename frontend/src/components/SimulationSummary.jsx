@@ -141,8 +141,14 @@ function FinalKeyDisplay({ finalKey, isSecure }) {
 export default function SimulationSummary({ summary, eveMode = 'none' }) {
   if (!summary) return null
 
-  const { n_qubits, sifted_key_length, bits_after_ec,
-          final_key, qber, is_secure, elapsed_seconds, mode, ibm_backend } = summary
+  const {
+    n_qubits_sent, n_qubits_received, transmission_efficiency, channel_distance_km,
+    sifted_key_length, bits_after_ec,
+    final_key, qber, is_secure, elapsed_seconds, mode, ibm_backend,
+    ec_method, ec_stats,
+  } = summary
+  const hasChannelLoss = channel_distance_km > 0
+  const isCascade = ec_method === 'cascade'
 
   return (
     <div className="bg-gray-900 border border-gray-800 rounded-xl p-5 flex flex-col gap-4">
@@ -161,25 +167,76 @@ export default function SimulationSummary({ summary, eveMode = 'none' }) {
 
       <StatusBanner isSecure={is_secure} qber={qber} eveMode={eveMode} />
 
+      {isCascade && ec_stats && (
+        <div className="bg-blue-950 border border-blue-800 rounded-lg px-4 py-3 flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <p className="text-xs font-semibold text-blue-300 uppercase tracking-widest">
+              CASCADE Reconciliation
+            </p>
+            <span className="text-xs text-blue-500 font-mono">Brassard-Salvail 1994</span>
+          </div>
+          <div className="grid grid-cols-4 gap-3 text-center">
+            <div>
+              <p className="text-xs text-gray-500">Initial errors</p>
+              <p className="text-sm font-mono font-semibold text-orange-300">
+                {ec_stats.initial_errors}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500">Remaining</p>
+              <p className={`text-sm font-mono font-semibold ${
+                ec_stats.remaining_errors === 0 ? 'text-green-300' : 'text-red-300'
+              }`}>
+                {ec_stats.remaining_errors}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500">Parity bits leaked</p>
+              <p className="text-sm font-mono font-semibold text-blue-200">
+                {ec_stats.parity_announcements}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500">Efficiency f</p>
+              <p className="text-sm font-mono font-semibold text-blue-200">
+                {ec_stats.efficiency}
+                <span className="text-xs text-gray-500 ml-1">/ Shannon</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Key distillation pipeline */}
       <div>
         <p className="text-xs text-gray-500 mb-2 flex items-center gap-1">
           <Key size={11} /> Key Distillation Pipeline
         </p>
         <div className="flex items-center gap-1 overflow-x-auto pb-1">
-          <PipelineStep label="Raw qubits" value={n_qubits} subtext="100%" accent="gray" />
+          <PipelineStep label="Sent" value={n_qubits_sent} subtext="qubits" accent="gray" />
+          {hasChannelLoss && (
+            <>
+              <ArrowRight size={14} className="text-gray-600 shrink-0" />
+              <PipelineStep
+                label="Received"
+                value={n_qubits_received}
+                subtext={pct(n_qubits_received, n_qubits_sent)}
+                accent="gray"
+              />
+            </>
+          )}
           <ArrowRight size={14} className="text-gray-600 shrink-0" />
           <PipelineStep
             label="Sifted key"
             value={sifted_key_length}
-            subtext={pct(sifted_key_length, n_qubits)}
+            subtext={pct(sifted_key_length, n_qubits_sent)}
             accent="violet"
           />
           <ArrowRight size={14} className="text-gray-600 shrink-0" />
           <PipelineStep
             label="After EC"
             value={bits_after_ec ?? '—'}
-            subtext={bits_after_ec != null ? pct(bits_after_ec, n_qubits) : ''}
+            subtext={bits_after_ec != null ? pct(bits_after_ec, n_qubits_sent) : ''}
             accent="blue"
           />
           <ArrowRight size={14} className="text-gray-600 shrink-0" />
@@ -193,11 +250,20 @@ export default function SimulationSummary({ summary, eveMode = 'none' }) {
       </div>
 
       {/* Stats row */}
-      <div className="grid grid-cols-3 gap-3 text-center">
+      <div className={`grid gap-3 text-center ${hasChannelLoss ? 'grid-cols-4' : 'grid-cols-3'}`}>
+        {hasChannelLoss && (
+          <div className="bg-gray-800 rounded-lg px-3 py-2">
+            <p className="text-xs text-gray-500">Channel transmission</p>
+            <p className="text-sm font-mono font-semibold text-blue-300">
+              {(transmission_efficiency * 100).toFixed(1)}%
+              <span className="text-xs text-gray-500 ml-1">{channel_distance_km} km</span>
+            </p>
+          </div>
+        )}
         <div className="bg-gray-800 rounded-lg px-3 py-2">
           <p className="text-xs text-gray-500">Sifting efficiency</p>
           <p className="text-sm font-mono font-semibold text-gray-100">
-            {pct(sifted_key_length, n_qubits)}
+            {pct(sifted_key_length, n_qubits_received)}
             <span className="text-xs text-gray-500 ml-1">~50% expected</span>
           </p>
         </div>

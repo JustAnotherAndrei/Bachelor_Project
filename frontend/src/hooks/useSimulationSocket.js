@@ -56,7 +56,10 @@ export default function useSimulationSocket() {
       } else if (msg.type === 'result') {
         setResult(prev => prev ? {
           ...prev,
-          n_qubits: msg.n_qubits,
+          n_qubits_sent: msg.n_qubits_sent,
+          n_qubits_received: msg.n_qubits_received,
+          transmission_efficiency: msg.transmission_efficiency,
+          channel_distance_km: msg.channel_distance_km,
           sifted_key_length: msg.sifted_key_length,
           bits_after_ec: msg.bits_after_ec,
           final_key_length: msg.final_key_length,
@@ -66,9 +69,14 @@ export default function useSimulationSocket() {
           elapsed_seconds: msg.elapsed_seconds,
           mode: msg.mode,
           ibm_backend: msg.ibm_backend,
+          ec_method: msg.ec_method,
+          ec_stats: msg.ec_stats,
         } : null)
         setSummary({
-          n_qubits: msg.n_qubits,
+          n_qubits_sent: msg.n_qubits_sent,
+          n_qubits_received: msg.n_qubits_received,
+          transmission_efficiency: msg.transmission_efficiency,
+          channel_distance_km: msg.channel_distance_km,
           sifted_key_length: msg.sifted_key_length,
           bits_after_ec: msg.bits_after_ec,
           final_key_length: msg.final_key_length,
@@ -78,6 +86,8 @@ export default function useSimulationSocket() {
           elapsed_seconds: msg.elapsed_seconds,
           mode: msg.mode,
           ibm_backend: msg.ibm_backend,
+          ec_method: msg.ec_method,
+          ec_stats: msg.ec_stats,
         })
         setComplete(true)
         setLoading(false)

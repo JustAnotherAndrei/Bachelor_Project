@@ -119,3 +119,17 @@ def clear_history(db: Session = Depends(get_db)):
     deleted = db.query(SimulationRun).delete()
     db.commit()
     return {"deleted": deleted}
+
+
+@router.get("/key-rate-curve")
+def get_key_rate_curve(dep_prob: float = 0.01, meas_prob: float = 0.02):
+    """
+    Return the theoretical secure key rate as a function of fiber distance.
+
+    Uses a simplified BB84 key rate model: R(L) = η(L) × max(0, 1 - 2h(Q_noise))
+    where Q_noise is estimated from the noise parameters.
+    """
+    from quantum_logic.channel_model import key_rate_vs_distance
+    qber_noise = min(dep_prob + meas_prob * 0.5, 0.10)
+    distances = list(range(0, 155, 5))  # 0..150 km in 5 km steps
+    return key_rate_vs_distance(distances, qber_noise)

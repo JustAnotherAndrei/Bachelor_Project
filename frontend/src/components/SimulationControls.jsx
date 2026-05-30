@@ -56,7 +56,7 @@ export default function SimulationControls({ config, onChange, onRun, onCancel, 
         onChange={v => onChange('n_qubits', v)}
       />
 
-      {/* Noise sliders — only for simulator */}
+      {/* Noise + channel sliders — only for simulator */}
       {!isIBM && (
         <>
           <SliderField
@@ -73,6 +73,19 @@ export default function SimulationControls({ config, onChange, onRun, onCancel, 
             display={`${(config.measurement_error_prob * 100).toFixed(1)}%`}
             onChange={v => onChange('measurement_error_prob', v)}
           />
+          <SliderField
+            label="Channel distance"
+            value={config.channel_distance_km}
+            min={0} max={150} step={5}
+            display={config.channel_distance_km === 0 ? 'No loss' : `${config.channel_distance_km} km`}
+            onChange={v => onChange('channel_distance_km', v)}
+          />
+          {config.channel_distance_km > 0 && (
+            <p className="text-xs text-blue-400 bg-blue-950 border border-blue-800 rounded-lg px-3 py-2">
+              η ≈ {(Math.pow(10, -0.2 * config.channel_distance_km / 10) * 100).toFixed(1)}% photon transmission
+              (SMF-28, α = 0.2 dB/km)
+            </p>
+          )}
         </>
       )}
 
@@ -81,6 +94,38 @@ export default function SimulationControls({ config, onChange, onRun, onCancel, 
           Noise is determined by real hardware — sliders not applicable.
         </p>
       )}
+
+      {/* Error correction selector */}
+      <div className="flex flex-col gap-1.5">
+        <span className="text-sm text-gray-300">Error correction</span>
+        <div className="flex rounded-lg overflow-hidden border border-gray-700 text-xs font-medium">
+          <button
+            onClick={() => onChange('ec_method', 'parity')}
+            className={`flex-1 py-2 transition-colors ${
+              config.ec_method === 'parity'
+                ? 'bg-blue-700 text-white'
+                : 'bg-gray-800 text-gray-400 hover:text-gray-200'
+            }`}
+          >
+            Parity-block
+          </button>
+          <button
+            onClick={() => onChange('ec_method', 'cascade')}
+            className={`flex-1 py-2 transition-colors ${
+              config.ec_method === 'cascade'
+                ? 'bg-blue-700 text-white'
+                : 'bg-gray-800 text-gray-400 hover:text-gray-200'
+            }`}
+          >
+            CASCADE
+          </button>
+        </div>
+        <p className="text-xs text-gray-500">
+          {config.ec_method === 'cascade'
+            ? 'Iterative bit-level reconciliation (Brassard-Salvail 1994).'
+            : 'Discards whole 4-bit blocks on parity mismatch.'}
+        </p>
+      </div>
 
       {/* Eve mode selector */}
       <div className="flex flex-col gap-1.5">
