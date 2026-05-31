@@ -121,6 +121,57 @@ def clear_history(db: Session = Depends(get_db)):
     return {"deleted": deleted}
 
 
+@router.post("/ml/train")
+def train_ml_detector(model_type: str = "random_forest", db: Session = Depends(get_db)):
+    """
+    Train the ML eavesdropper detector on all simulation history.
+
+    Args:
+        model_type: 'random_forest' (default) or 'logistic_regression'.
+    """
+    from ml.eavesdrop_detector import train_on_runs
+
+    runs = db.query(SimulationRun).all()
+    state = train_on_runs(runs, model_type=model_type)
+    return {
+        "trained": state.trained,
+        "n_samples": state.n_samples,
+        "n_positive": state.n_positive,
+        "n_negative": state.n_negative,
+        "accuracy": state.accuracy,
+        "precision": state.precision,
+        "recall": state.recall,
+        "f1": state.f1,
+        "feature_importance": state.feature_importance,
+        "model_type": state.model_type,
+        "error": state.error,
+    }
+
+
+@router.get("/ml/status")
+def ml_status(db: Session = Depends(get_db)):
+    """Report current ML detector status and dataset balance."""
+    from ml.eavesdrop_detector import get_state
+
+    total = db.query(SimulationRun).count()
+    eve_runs = db.query(SimulationRun).filter(SimulationRun.eve_intercept == True).count()
+    state = get_state()
+    return {
+        "trained": state.trained,
+        "n_samples": state.n_samples,
+        "n_positive": state.n_positive,
+        "n_negative": state.n_negative,
+        "accuracy": state.accuracy,
+        "f1": state.f1,
+        "feature_importance": state.feature_importance,
+        "model_type": state.model_type,
+        "error": state.error,
+        "history_total": total,
+        "history_eve_present": eve_runs,
+        "history_eve_absent": total - eve_runs,
+    }
+
+
 @router.get("/key-rate-curve")
 def get_key_rate_curve(dep_prob: float = 0.01, meas_prob: float = 0.02):
     """

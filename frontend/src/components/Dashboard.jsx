@@ -10,6 +10,7 @@ import EducationalPanel from './EducationalPanel'
 import KeyRateChart from './KeyRateChart'
 import DecoyStatePanel from './DecoyStatePanel'
 import SmartEvePanel from './SmartEvePanel'
+import MLDetectionPanel from './MLDetectionPanel'
 
 const DEFAULT_CONFIG = {
   n_qubits: 100,
@@ -128,6 +129,10 @@ export default function Dashboard() {
             />
           )}
           <QBERChart history={history} onClear={handleClearHistory} />
+          <MLDetectionPanel
+            mlPrediction={summary?.ml_prediction}
+            refreshSignal={history.length}
+          />
           <KeyRateChart
             depProb={config.depolarizing_prob}
             measProb={config.measurement_error_prob}

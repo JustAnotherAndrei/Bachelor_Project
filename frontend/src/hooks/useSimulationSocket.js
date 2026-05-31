@@ -74,6 +74,7 @@ export default function useSimulationSocket() {
           source_type: msg.source_type,
           decoy_state: msg.decoy_state,
           smart_eve: msg.smart_eve,
+          ml_prediction: msg.ml_prediction,
         } : null)
         setSummary({
           n_qubits_sent: msg.n_qubits_sent,
@@ -94,6 +95,7 @@ export default function useSimulationSocket() {
           source_type: msg.source_type,
           decoy_state: msg.decoy_state,
           smart_eve: msg.smart_eve,
+          ml_prediction: msg.ml_prediction,
         })
         setComplete(true)
         setLoading(false)

@@ -22,6 +22,7 @@ from quantum_logic.decoy_state import (
     decoy_analysis, secure_key_rate,
 )
 from quantum_logic.smart_eve import smart_eve_decide
+from ml.eavesdrop_detector import predict as ml_predict, extract_features_from_dict
 from classical_processing.sifting import sift_keys
 from classical_processing.qber import calculate_qber, is_channel_secure
 from classical_processing.error_correction import correct_errors
@@ -244,6 +245,14 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
             "ec_stats": ec_stats,
             "source_type": source_type,
             "decoy_state": decoy_result,
+            "ml_prediction": ml_predict(extract_features_from_dict({
+                "qber": final_qber,
+                "sifted_key_length": len(alice_key),
+                "depolarizing_prob": dep_prob,
+                "measurement_error_prob": meas_prob,
+                "channel_distance_km": channel_km,
+                "n_qubits": n_sent,
+            })),
             "smart_eve": (
                 {
                     "target_qber": smart_target_qber,
