@@ -16,7 +16,12 @@ from dotenv import load_dotenv
 from api.websocket_manager import session_manager
 from quantum_logic.bb84_circuit import build_bb84_circuits
 from quantum_logic.noise_model import build_noise_model
-from quantum_logic.channel_model import apply_channel_loss
+from quantum_logic.channel_model import apply_channel_loss, channel_transmittance
+from quantum_logic.decoy_state import (
+    simulate_wcp_pulses, aggregate_by_intensity, find_intensity,
+    decoy_analysis, secure_key_rate,
+)
+from quantum_logic.smart_eve import smart_eve_decide
 from classical_processing.sifting import sift_keys
 from classical_processing.qber import calculate_qber, is_channel_secure
 from classical_processing.error_correction import correct_errors
@@ -43,11 +48,17 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
         n_qubits = config.get("n_qubits", 100)
         dep_prob = config.get("depolarizing_prob", 0.01)
         meas_prob = config.get("measurement_error_prob", 0.02)
-        eve_mode = config.get("eve_mode", "none")   # 'none' | 'weak' | 'strong'
+        eve_mode = config.get("eve_mode", "none")   # 'none' | 'weak' | 'strong' | 'smart'
+        smart_target_qber = float(config.get("smart_target_qber", 0.09))
         mode = config.get("mode", "simulator")
         ibm_backend_name = config.get("ibm_backend", "ibm_fez")
         channel_km = float(config.get("channel_distance_km", 0.0))
         ec_method = config.get("ec_method", "parity")  # 'parity' | 'cascade'
+        source_type = config.get("source_type", "ideal")  # 'ideal' | 'wcp'
+        mu_signal = float(config.get("mu_signal", 0.5))
+        mu_decoy = float(config.get("mu_decoy", 0.1))
+        p_signal = float(config.get("p_signal", 0.70))
+        p_decoy = float(config.get("p_decoy", 0.15))
 
         # Weak Eve intercepts 30% of qubits; strong Eve intercepts 100%
         EVE_RATE = {"none": 0.0, "weak": 0.30, "strong": 1.0}
@@ -59,20 +70,47 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
         alice_bases = rng.integers(0, 2, n_qubits).tolist()
         bob_bases = rng.integers(0, 2, n_qubits).tolist()
 
+        smart_eve_state = None
         if eve_intercept:
-            rate = EVE_RATE[eve_mode]
-            eve_intercepts = (rng.random(n_qubits) < rate).tolist()
-            eve_bases = rng.integers(0, 2, n_qubits).tolist()
+            if eve_mode == "smart":
+                smart_eve_state = smart_eve_decide(n_qubits, smart_target_qber, rng)
+                eve_intercepts = list(smart_eve_state.intercepts)
+                eve_bases = rng.integers(0, 2, n_qubits).tolist()
+            else:
+                rate = EVE_RATE.get(eve_mode, 0.0)
+                eve_intercepts = (rng.random(n_qubits) < rate).tolist()
+                eve_bases = rng.integers(0, 2, n_qubits).tolist()
         else:
             eve_intercepts = None
             eve_bases = None
 
-        # Apply fiber-optic channel loss (simulator mode only)
+        # Apply fiber-optic channel loss (simulator mode only).
+        # If WCP (decoy-state) source is selected, channel loss is folded into the
+        # per-photon survival inside simulate_wcp_pulses, so don't double-apply it.
         eta = 1.0
-        if mode != "ibm_hardware" and channel_km > 0:
-            alice_bits, alice_bases, bob_bases, eve_intercepts, eve_bases, eta = apply_channel_loss(
-                alice_bits, alice_bases, bob_bases, eve_intercepts, eve_bases, channel_km, rng
-            )
+        wcp_pulses = None
+        if mode != "ibm_hardware":
+            if source_type == "wcp":
+                eta = channel_transmittance(channel_km)
+                wcp_pulses = simulate_wcp_pulses(
+                    n_qubits, mu_signal, mu_decoy, p_signal, p_decoy, eta, rng,
+                )
+                detected_mask = [p.detected for p in wcp_pulses]
+
+                def _filt(lst):
+                    if lst is None:
+                        return None
+                    return [x for x, d in zip(lst, detected_mask) if d]
+
+                alice_bits = _filt(alice_bits)
+                alice_bases = _filt(alice_bases)
+                bob_bases = _filt(bob_bases)
+                eve_intercepts = _filt(eve_intercepts)
+                eve_bases = _filt(eve_bases)
+            elif channel_km > 0:
+                alice_bits, alice_bases, bob_bases, eve_intercepts, eve_bases, eta = apply_channel_loss(
+                    alice_bits, alice_bases, bob_bases, eve_intercepts, eve_bases, channel_km, rng
+                )
 
         n_qubits = len(alice_bits)  # qubits that survived channel transmission
 
@@ -151,6 +189,42 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
         final_qber = round(qber, 4)
         elapsed = round(time.perf_counter() - start_time, 3)
 
+        # Decoy-state analysis (only if WCP source was used)
+        decoy_result = None
+        if wcp_pulses is not None:
+            detected_orig_idx = [i for i, p in enumerate(wcp_pulses) if p.detected]
+            error_flags = [False] * len(wcp_pulses)
+            for trial_j, orig_i in enumerate(detected_orig_idx):
+                if alice_bases[trial_j] == bob_bases[trial_j]:
+                    if bob_results[trial_j] != alice_bits[trial_j]:
+                        error_flags[orig_i] = True
+
+            per_int = aggregate_by_intensity(wcp_pulses, error_flags)
+            sig_row = find_intensity(per_int, mu_signal) or {"gain": 0.0, "qber": 0.0}
+            dec_row = find_intensity(per_int, mu_decoy) or {"gain": 0.0, "qber": 0.0}
+            vac_row = find_intensity(per_int, 0.0) or {"gain": 0.0}
+            Q_mu, E_mu = sig_row["gain"], sig_row["qber"]
+            Q_nu, E_nu = dec_row["gain"], dec_row["qber"]
+            Q_0 = vac_row["gain"]
+
+            bounds = decoy_analysis(Q_mu, Q_nu, Q_0, E_mu, E_nu, mu_signal, mu_decoy)
+            R_secure = secure_key_rate(
+                Q_mu, E_mu, bounds.get("Q_1", 0.0), bounds.get("e_1", 0.5)
+            )
+            multi_photon = sum(1 for p in wcp_pulses if p.pns_vulnerable)
+
+            decoy_result = {
+                "per_intensity": per_int,
+                "mu_signal": mu_signal,
+                "mu_decoy": mu_decoy,
+                "bounds": bounds,
+                "secure_key_rate": round(R_secure, 6),
+                "pns_vulnerable": multi_photon,
+                "multi_photon_fraction": round(multi_photon / len(wcp_pulses), 4),
+                "n_pulses": len(wcp_pulses),
+                "n_detected": sum(1 for p in wcp_pulses if p.detected),
+            }
+
         await session_manager.send_event(session_id, {
             "type": "result",
             "n_qubits_sent": n_sent,
@@ -168,6 +242,21 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
             "ibm_backend": ibm_backend_name if mode == "ibm_hardware" else None,
             "ec_method": ec_method,
             "ec_stats": ec_stats,
+            "source_type": source_type,
+            "decoy_state": decoy_result,
+            "smart_eve": (
+                {
+                    "target_qber": smart_target_qber,
+                    "total_intercepted": smart_eve_state.total_intercepted,
+                    "interception_rates": smart_eve_state.interception_rates,
+                    "observed_qber_trace": smart_eve_state.observed_qber_trace,
+                    "intercept_fraction": round(
+                        smart_eve_state.total_intercepted / max(len(smart_eve_state.intercepts), 1), 4
+                    ),
+                }
+                if smart_eve_state is not None
+                else None
+            ),
         })
 
         db = SessionLocal()

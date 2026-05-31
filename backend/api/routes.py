@@ -9,7 +9,7 @@ router = APIRouter(prefix="/api/v1", tags=["bb84"])
 
 
 class SimulationRequest(BaseModel):
-    n_qubits: int = Field(default=100, ge=10, le=1000)
+    n_qubits: int = Field(default=100, ge=10, le=10000)
     mode: str = Field(default="simulator", pattern="^(simulator|ibm_hardware)$")
     depolarizing_prob: float = Field(default=0.01, ge=0.0, le=0.5)
     measurement_error_prob: float = Field(default=0.02, ge=0.0, le=0.5)

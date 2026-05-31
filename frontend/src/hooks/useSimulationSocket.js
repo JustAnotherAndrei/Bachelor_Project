@@ -71,6 +71,9 @@ export default function useSimulationSocket() {
           ibm_backend: msg.ibm_backend,
           ec_method: msg.ec_method,
           ec_stats: msg.ec_stats,
+          source_type: msg.source_type,
+          decoy_state: msg.decoy_state,
+          smart_eve: msg.smart_eve,
         } : null)
         setSummary({
           n_qubits_sent: msg.n_qubits_sent,
@@ -88,6 +91,9 @@ export default function useSimulationSocket() {
           ibm_backend: msg.ibm_backend,
           ec_method: msg.ec_method,
           ec_stats: msg.ec_stats,
+          source_type: msg.source_type,
+          decoy_state: msg.decoy_state,
+          smart_eve: msg.smart_eve,
         })
         setComplete(true)
         setLoading(false)

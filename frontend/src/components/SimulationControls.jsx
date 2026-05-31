@@ -51,10 +51,15 @@ export default function SimulationControls({ config, onChange, onRun, onCancel, 
       <SliderField
         label="Qubits"
         value={config.n_qubits}
-        min={10} max={isIBM ? 30 : 500} step={isIBM ? 5 : 10}
+        min={10} max={isIBM ? 30 : 10000} step={isIBM ? 5 : 50}
         display={config.n_qubits}
         onChange={v => onChange('n_qubits', v)}
       />
+      {!isIBM && config.n_qubits > 2000 && (
+        <p className="text-xs text-gray-500">
+          Large runs ({config.n_qubits.toLocaleString()} qubits) may take several seconds and produce dense PhotonGrid output.
+        </p>
+      )}
 
       {/* Noise + channel sliders — only for simulator */}
       {!isIBM && (
@@ -95,6 +100,57 @@ export default function SimulationControls({ config, onChange, onRun, onCancel, 
         </p>
       )}
 
+      {/* Photon source selector — simulator only */}
+      {!isIBM && (
+        <div className="flex flex-col gap-1.5">
+          <span className="text-sm text-gray-300">Photon source</span>
+          <div className="flex rounded-lg overflow-hidden border border-gray-700 text-xs font-medium">
+            <button
+              onClick={() => onChange('source_type', 'ideal')}
+              className={`flex-1 py-2 transition-colors ${
+                config.source_type === 'ideal'
+                  ? 'bg-amber-700 text-white'
+                  : 'bg-gray-800 text-gray-400 hover:text-gray-200'
+              }`}
+            >
+              Ideal single-photon
+            </button>
+            <button
+              onClick={() => onChange('source_type', 'wcp')}
+              className={`flex-1 py-2 transition-colors ${
+                config.source_type === 'wcp'
+                  ? 'bg-amber-700 text-white'
+                  : 'bg-gray-800 text-gray-400 hover:text-gray-200'
+              }`}
+            >
+              WCP + Decoy
+            </button>
+          </div>
+          {config.source_type === 'wcp' && (
+            <>
+              <p className="text-xs text-amber-400 bg-amber-950 border border-amber-800 rounded-lg px-3 py-2">
+                Weak coherent pulses (Poisson) with 3-intensity decoy-state
+                (Lo-Ma-Chen 2005). Defends against PNS attacks.
+              </p>
+              <SliderField
+                label="μ signal"
+                value={config.mu_signal}
+                min={0.1} max={1.0} step={0.05}
+                display={config.mu_signal.toFixed(2)}
+                onChange={v => onChange('mu_signal', v)}
+              />
+              <SliderField
+                label="ν decoy"
+                value={config.mu_decoy}
+                min={0.02} max={0.4} step={0.02}
+                display={config.mu_decoy.toFixed(2)}
+                onChange={v => onChange('mu_decoy', v)}
+              />
+            </>
+          )}
+        </div>
+      )}
+
       {/* Error correction selector */}
       <div className="flex flex-col gap-1.5">
         <span className="text-sm text-gray-300">Error correction</span>
@@ -130,20 +186,19 @@ export default function SimulationControls({ config, onChange, onRun, onCancel, 
       {/* Eve mode selector */}
       <div className="flex flex-col gap-1.5">
         <span className="text-sm text-gray-300">Eve</span>
-        <div className="flex rounded-lg overflow-hidden border border-gray-700 text-xs font-medium">
-          {[  
-            { value: 'none',   label: 'None' },
-            { value: 'weak',   label: 'Weak' },
-            { value: 'strong', label: 'Strong' },
+        <div className="grid grid-cols-4 rounded-lg overflow-hidden border border-gray-700 text-xs font-medium">
+          {[
+            { value: 'none',   label: 'None',   activeBg: 'bg-gray-600' },
+            { value: 'weak',   label: 'Weak',   activeBg: 'bg-orange-600' },
+            { value: 'strong', label: 'Strong', activeBg: 'bg-red-700' },
+            { value: 'smart',  label: 'Smart',  activeBg: 'bg-purple-700' },
           ].map(opt => (
             <button
               key={opt.value}
               onClick={() => onChange('eve_mode', opt.value)}
-              className={`flex-1 py-2 transition-colors ${
+              className={`py-2 transition-colors ${
                 config.eve_mode === opt.value
-                  ? opt.value === 'strong' ? 'bg-red-700 text-white'
-                    : opt.value === 'weak' ? 'bg-orange-600 text-white'
-                    : 'bg-gray-600 text-white'
+                  ? `${opt.activeBg} text-white`
                   : 'bg-gray-800 text-gray-400 hover:text-gray-200'
               }`}
             >
@@ -151,6 +206,21 @@ export default function SimulationControls({ config, onChange, onRun, onCancel, 
             </button>
           ))}
         </div>
+        {config.eve_mode === 'smart' && (
+          <>
+            <p className="text-xs text-purple-300 bg-purple-950 border border-purple-800 rounded-lg px-3 py-2">
+              Adaptive intercept-resend — Eve tracks running QBER and throttles
+              herself to stay below the abort threshold.
+            </p>
+            <SliderField
+              label="Target QBER (Eve's ceiling)"
+              value={config.smart_target_qber}
+              min={0.02} max={0.11} step={0.005}
+              display={`${(config.smart_target_qber * 100).toFixed(1)}%`}
+              onChange={v => onChange('smart_target_qber', v)}
+            />
+          </>
+        )}
       </div>
 
       {config.eve_mode === 'weak' && (

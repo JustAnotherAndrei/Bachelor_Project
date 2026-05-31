@@ -8,6 +8,8 @@ import SimulationSummary from './SimulationSummary'
 import useSimulationSocket from '../hooks/useSimulationSocket'
 import EducationalPanel from './EducationalPanel'
 import KeyRateChart from './KeyRateChart'
+import DecoyStatePanel from './DecoyStatePanel'
+import SmartEvePanel from './SmartEvePanel'
 
 const DEFAULT_CONFIG = {
   n_qubits: 100,
@@ -18,6 +20,12 @@ const DEFAULT_CONFIG = {
   ibm_backend: 'ibm_fez',
   channel_distance_km: 0,
   ec_method: 'cascade',
+  source_type: 'ideal',
+  mu_signal: 0.5,
+  mu_decoy: 0.1,
+  p_signal: 0.7,
+  p_decoy: 0.15,
+  smart_target_qber: 0.09,
 }
 
 export default function Dashboard() {
@@ -108,6 +116,16 @@ export default function Dashboard() {
           <PhotonGrid result={result} loading={loading} progress={progress} />
           {summary && (
             <SimulationSummary summary={summary} eveMode={config.eve_mode} />
+          )}
+          {summary?.decoy_state && (
+            <DecoyStatePanel decoy={summary.decoy_state} />
+          )}
+          {summary?.smart_eve && (
+            <SmartEvePanel
+              smartEve={summary.smart_eve}
+              qberFinal={summary.qber}
+              isSecure={summary.is_secure}
+            />
           )}
           <QBERChart history={history} onClear={handleClearHistory} />
           <KeyRateChart
