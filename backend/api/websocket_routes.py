@@ -14,6 +14,8 @@ from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from dotenv import load_dotenv
 
 from api.websocket_manager import session_manager
+from auth.security import ACCESS_COOKIE, decode_token
+from database.models import User
 from quantum_logic.bb84_circuit import build_bb84_circuits
 from quantum_logic.noise_model import build_noise_model
 from quantum_logic.channel_model import apply_channel_loss, channel_transmittance
@@ -44,6 +46,19 @@ IBM_BACKENDS = ["ibm_fez", "ibm_marrakesh", "ibm_kingston"]
 async def simulate_stream(websocket: WebSocket, session_id: str):
     await session_manager.connect(session_id, websocket)
     try:
+        # Read the user from the access-token cookie that the browser sent
+        # during the WebSocket upgrade. If absent/invalid, the run is treated
+        # as a guest run (user_id stays None on the DB record).
+        ws_user_id = None
+        access_cookie = websocket.cookies.get(ACCESS_COOKIE)
+        if access_cookie:
+            payload = decode_token(access_cookie, expected_type="access")
+            if payload:
+                try:
+                    ws_user_id = int(payload["sub"])
+                except (KeyError, ValueError):
+                    ws_user_id = None
+
         config = await websocket.receive_json()
         start_time = time.perf_counter()
         n_qubits = config.get("n_qubits", 100)
@@ -280,6 +295,7 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
                 is_secure=secure,
                 final_key=final_key,
                 channel_distance_km=channel_km,
+                user_id=ws_user_id,
             ))
             db.commit()
             log.info("Saved run to DB (mode=%s, qber=%.4f, sifted=%d)", mode, final_qber, len(alice_key))

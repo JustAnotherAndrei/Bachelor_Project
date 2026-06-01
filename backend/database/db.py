@@ -23,15 +23,23 @@ def get_db():
         db.close()
 
 
+# Idempotent column additions for SQLite — applied on every startup. SQLite ignores
+# the ADD COLUMN if it already exists (we swallow the OperationalError).
+_MIGRATIONS = [
+    "ALTER TABLE simulation_runs ADD COLUMN channel_distance_km REAL DEFAULT 0.0",
+    "ALTER TABLE simulation_runs ADD COLUMN user_id INTEGER REFERENCES users(id) ON DELETE SET NULL",
+]
+
+
 def init_db():
-    from database.models import SimulationRun  # noqa: F401 — ensures model is registered
+    # noqa: F401 — these imports register the models on Base before create_all
+    from database.models import User, PasswordResetToken, SimulationRun  # noqa: F401
     Base.metadata.create_all(bind=engine)
-    # Migrate: add channel_distance_km column to existing databases
+
     with engine.connect() as conn:
-        try:
-            conn.execute(text(
-                "ALTER TABLE simulation_runs ADD COLUMN channel_distance_km REAL DEFAULT 0.0"
-            ))
-            conn.commit()
-        except Exception:
-            pass  # column already exists
+        for stmt in _MIGRATIONS:
+            try:
+                conn.execute(text(stmt))
+                conn.commit()
+            except Exception:
+                pass  # column already exists / migration already applied

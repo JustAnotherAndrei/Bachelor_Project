@@ -1,9 +1,11 @@
+from typing import Optional
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from database.db import get_db
-from database.models import SimulationRun
+from database.models import SimulationRun, User
+from auth.dependencies import get_current_user_optional
 
 router = APIRouter(prefix="/api/v1", tags=["bb84"])
 
@@ -31,7 +33,11 @@ class SimulationResult(BaseModel):
 
 
 @router.post("/simulate", response_model=SimulationResult)
-async def run_simulation(request: SimulationRequest, db: Session = Depends(get_db)):
+async def run_simulation(
+    request: SimulationRequest,
+    db: Session = Depends(get_db),
+    current_user: Optional[User] = Depends(get_current_user_optional),
+):
     import numpy as np
     from quantum_logic.bb84_circuit import build_bb84_circuits
     from quantum_logic.noise_model import build_noise_model
@@ -75,6 +81,7 @@ async def run_simulation(request: SimulationRequest, db: Session = Depends(get_d
         qber=round(qber, 4),
         is_secure=secure,
         final_key=final_key,
+        user_id=current_user.id if current_user else None,
     ))
     db.commit()
 
@@ -119,6 +126,37 @@ def clear_history(db: Session = Depends(get_db)):
     deleted = db.query(SimulationRun).delete()
     db.commit()
     return {"deleted": deleted}
+
+
+@router.get("/history/mine")
+def get_my_history(
+    limit: int = 50,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user_optional),
+):
+    """Return only the signed-in user's runs (empty list for guests)."""
+    if not current_user:
+        return []
+    runs = (
+        db.query(SimulationRun)
+        .filter(SimulationRun.user_id == current_user.id)
+        .order_by(SimulationRun.id.desc())
+        .limit(limit)
+        .all()
+    )
+    return [
+        {
+            "id": r.id,
+            "created_at": r.created_at.isoformat(),
+            "n_qubits": r.n_qubits,
+            "eve_intercept": r.eve_intercept,
+            "sifted_key_length": r.sifted_key_length,
+            "qber": r.qber,
+            "is_secure": r.is_secure,
+            "channel_distance_km": r.channel_distance_km,
+        }
+        for r in reversed(runs)
+    ]
 
 
 @router.post("/ml/train")

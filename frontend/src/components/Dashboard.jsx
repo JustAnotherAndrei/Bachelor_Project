@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Shield } from 'lucide-react'
+import { Shield, LogIn } from 'lucide-react'
 import StatusBadge from './StatusBadge'
 import SimulationControls from './SimulationControls'
 import QBERChart from './QBERChart'
@@ -11,6 +11,9 @@ import KeyRateChart from './KeyRateChart'
 import DecoyStatePanel from './DecoyStatePanel'
 import SmartEvePanel from './SmartEvePanel'
 import MLDetectionPanel from './MLDetectionPanel'
+import AuthModal from './auth/AuthModal'
+import UserMenu from './auth/UserMenu'
+import { useAuth } from '../contexts/AuthContext'
 
 const DEFAULT_CONFIG = {
   n_qubits: 100,
@@ -33,6 +36,27 @@ export default function Dashboard() {
   const [config, setConfig] = useState(DEFAULT_CONFIG)
   const [history, setHistory] = useState([])
   const { result, summary, loading, complete, progress, statusMessage, run, cancel } = useSimulationSocket()
+  const { user, loading: authLoading } = useAuth()
+
+  const [authOpen, setAuthOpen] = useState(false)
+  const [authView, setAuthView] = useState('login')
+  const [authToken, setAuthToken] = useState('')
+
+  // Handle deep-links: ?token=… opens the reset form; ?auth=google_success
+  // just cleans up the URL after the OAuth callback redirect.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const token = params.get('token')
+    const auth = params.get('auth')
+    if (token) {
+      setAuthToken(token)
+      setAuthView('reset')
+      setAuthOpen(true)
+    }
+    if (token || auth) {
+      window.history.replaceState({}, '', window.location.pathname)
+    }
+  }, [])
 
   useEffect(() => {
     fetch('/api/v1/history')
@@ -69,8 +93,27 @@ export default function Dashboard() {
           <span className="text-xl font-semibold tracking-tight">Sequre</span>
           <span className="text-xs text-gray-500 font-mono">BB84 QKD Platform</span>
         </div>
-        <StatusBadge online />
+        <div className="flex items-center gap-4">
+          <StatusBadge online />
+          {authLoading ? null : user ? (
+            <UserMenu />
+          ) : (
+            <button
+              onClick={() => { setAuthView('login'); setAuthOpen(true) }}
+              className="flex items-center gap-2 text-sm px-3 py-1.5 bg-violet-600 hover:bg-violet-500 text-white rounded-lg transition-colors"
+            >
+              <LogIn size={14} /> Sign in
+            </button>
+          )}
+        </div>
       </header>
+
+      <AuthModal
+        open={authOpen}
+        onClose={() => setAuthOpen(false)}
+        initialView={authView}
+        initialToken={authToken}
+      />
 
       <main className="flex flex-1 gap-6 p-6">
 
