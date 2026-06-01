@@ -54,34 +54,15 @@ export default function useSimulationSocket() {
           eve_intercepts: [...(prev?.eve_intercepts ?? []), msg.eve_intercept ?? false],
         }))
       } else if (msg.type === 'result') {
-        setResult(prev => prev ? {
-          ...prev,
+        const common = {
+          protocol: msg.protocol,
+          protocol_display_name: msg.protocol_display_name,
           n_qubits_sent: msg.n_qubits_sent,
           n_qubits_received: msg.n_qubits_received,
           transmission_efficiency: msg.transmission_efficiency,
           channel_distance_km: msg.channel_distance_km,
           sifted_key_length: msg.sifted_key_length,
-          bits_after_ec: msg.bits_after_ec,
-          final_key_length: msg.final_key_length,
-          qber: msg.qber,
-          is_secure: msg.is_secure,
-          final_key: msg.final_key,
-          elapsed_seconds: msg.elapsed_seconds,
-          mode: msg.mode,
-          ibm_backend: msg.ibm_backend,
-          ec_method: msg.ec_method,
-          ec_stats: msg.ec_stats,
-          source_type: msg.source_type,
-          decoy_state: msg.decoy_state,
-          smart_eve: msg.smart_eve,
-          ml_prediction: msg.ml_prediction,
-        } : null)
-        setSummary({
-          n_qubits_sent: msg.n_qubits_sent,
-          n_qubits_received: msg.n_qubits_received,
-          transmission_efficiency: msg.transmission_efficiency,
-          channel_distance_km: msg.channel_distance_km,
-          sifted_key_length: msg.sifted_key_length,
+          sifting_efficiency: msg.sifting_efficiency,
           bits_after_ec: msg.bits_after_ec,
           final_key_length: msg.final_key_length,
           final_key: msg.final_key,
@@ -96,7 +77,10 @@ export default function useSimulationSocket() {
           decoy_state: msg.decoy_state,
           smart_eve: msg.smart_eve,
           ml_prediction: msg.ml_prediction,
-        })
+          bell_test: msg.bell_test,
+        }
+        setResult(prev => prev ? { ...prev, ...common } : null)
+        setSummary(common)
         setComplete(true)
         setLoading(false)
       } else if (msg.type === 'error') {

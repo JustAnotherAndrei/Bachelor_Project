@@ -24,6 +24,7 @@ from quantum_logic.decoy_state import (
     decoy_analysis, secure_key_rate,
 )
 from quantum_logic.smart_eve import smart_eve_decide
+from quantum_logic.protocols import get_protocol, SUPPORTED_PROTOCOLS
 from ml.eavesdrop_detector import predict as ml_predict, extract_features_from_dict
 from classical_processing.sifting import sift_keys
 from classical_processing.qber import calculate_qber, is_channel_secure
@@ -61,6 +62,9 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
 
         config = await websocket.receive_json()
         start_time = time.perf_counter()
+        protocol_name = config.get("protocol", "bb84")
+        if protocol_name not in SUPPORTED_PROTOCOLS:
+            protocol_name = "bb84"
         n_qubits = config.get("n_qubits", 100)
         dep_prob = config.get("depolarizing_prob", 0.01)
         meas_prob = config.get("measurement_error_prob", 0.02)
@@ -73,6 +77,23 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
         source_type = config.get("source_type", "ideal")  # 'ideal' | 'wcp'
         mu_signal = float(config.get("mu_signal", 0.5))
         mu_decoy = float(config.get("mu_decoy", 0.1))
+
+        # ------------------------------------------------------------------
+        # Dispatch alternative protocols (B92, SARG04, E91) to a dedicated
+        # path. The BB84 path below retains decoy-state, smart-Eve, IBM
+        # hardware, and all advanced features.
+        # ------------------------------------------------------------------
+        if protocol_name != "bb84":
+            await _run_alt_protocol(
+                session_id=session_id,
+                protocol_name=protocol_name,
+                n_qubits=n_qubits,
+                dep_prob=dep_prob, meas_prob=meas_prob,
+                eve_mode=eve_mode,
+                channel_km=channel_km, ec_method=ec_method,
+                start_time=start_time, ws_user_id=ws_user_id,
+            )
+            return
         p_signal = float(config.get("p_signal", 0.70))
         p_decoy = float(config.get("p_decoy", 0.15))
 
@@ -243,6 +264,7 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
 
         await session_manager.send_event(session_id, {
             "type": "result",
+            "protocol": "bb84",
             "n_qubits_sent": n_sent,
             "n_qubits_received": n_qubits,
             "transmission_efficiency": round(eta, 4),
@@ -370,3 +392,184 @@ async def _run_ibm(session_id, circuits, n_qubits, backend_name,
             "message": f"IBM hardware error: {exc}",
         })
         return None
+
+
+# =====================================================================
+# Alternative-protocol path (B92, SARG04, E91)
+# =====================================================================
+
+async def _run_alt_protocol(
+    *,
+    session_id: str,
+    protocol_name: str,
+    n_qubits: int,
+    dep_prob: float, meas_prob: float,
+    eve_mode: str,
+    channel_km: float, ec_method: str,
+    start_time: float, ws_user_id: int | None,
+):
+    """
+    Run a non-BB84 QKD protocol (B92, SARG04, or E91) end-to-end.
+
+    This path intentionally omits the BB84-specific options that don't apply
+    to these protocols (decoy-state, smart-Eve, IBM hardware), keeping the
+    UX simple: configurable noise, channel distance, weak/strong Eve, and
+    the standard EC + PA pipeline.
+    """
+    protocol = get_protocol(protocol_name)
+    rng = np.random.default_rng()
+    EVE_RATE = {"none": 0.0, "weak": 0.30, "strong": 1.0, "smart": 0.30}
+    eve_rate = EVE_RATE.get(eve_mode, 0.0)
+    eve_intercept = eve_mode != "none"
+
+    # --- 1. Prepare state choices for the protocol ---
+    prep = protocol.prepare(rng, n_qubits)
+    n_sent = n_qubits
+
+    # --- 2. Apply optical-fibre channel loss (uniform per pair / per qubit) ---
+    eta = channel_transmittance(channel_km) if channel_km > 0 else 1.0
+    if channel_km > 0:
+        survive_mask = rng.random(n_qubits) < eta
+        # Filter prep arrays in-place where applicable
+        def _filt_attr(name):
+            v = getattr(prep, name, None)
+            if v is not None and isinstance(v, list):
+                setattr(prep, name, [x for x, s in zip(v, survive_mask) if s])
+        for fld in vars(prep):
+            _filt_attr(fld)
+        n_qubits = len(getattr(prep, "alice_bases", []) or
+                       getattr(prep, "alice_bits", []))
+        if n_qubits == 0:
+            await session_manager.send_event(session_id, {
+                "type": "error",
+                "message": f"All {n_sent} photons lost in {channel_km} km. "
+                           "Reduce distance or increase qubit count.",
+            })
+            return
+
+    # --- 3. Eve: per-qubit interception mask (intercept-resend) ---
+    eve_intercepts = (rng.random(n_qubits) < eve_rate).tolist() if eve_intercept else None
+
+    # --- 4. Build circuits and run on the Aer simulator ---
+    circuits = protocol.build_circuits(prep)
+    noise_model = build_noise_model(dep_prob, meas_prob)
+    simulator = AerSimulator(noise_model=noise_model)
+
+    bob_results: list[int] = []
+    alice_meas: list[int] = []  # populated only for E91 (entangled measurements)
+
+    for i, qc in enumerate(circuits):
+        job = simulator.run(qc, shots=1)
+        counts = job.result().get_counts()
+
+        if protocol.USES_ENTANGLEMENT:
+            # Two-qubit result: 'ba' bitstring -> (alice_bit, bob_bit)
+            from quantum_logic.protocols.e91 import parse_two_qubit_result
+            a_bit, b_bit = parse_two_qubit_result(counts)
+            alice_meas.append(a_bit)
+            bob_results.append(b_bit)
+            # Stream a simplified event
+            await session_manager.send_event(session_id, {
+                "type": "qubit",
+                "index": i,
+                "alice_bit": a_bit,
+                "alice_basis": prep.alice_bases[i],
+                "bob_basis": prep.bob_bases[i],
+                "bob_result": b_bit,
+                "basis_match": (prep.alice_bases[i], prep.bob_bases[i]) in {(1, 0), (2, 1)},
+                "eve_intercept": False,  # entanglement-based Eve handled differently
+            })
+        else:
+            result = int(max(counts, key=counts.get))
+            # Single-qubit intercept-resend: Eve guesses a basis; if she picks
+            # a different basis than Alice did, the resent state is randomised.
+            if eve_intercepts and eve_intercepts[i]:
+                eve_basis = int(rng.integers(0, 2))
+                if eve_basis != prep.alice_bases[i]:
+                    result = int(rng.integers(0, 2))
+            bob_results.append(result)
+            await session_manager.send_event(session_id, {
+                "type": "qubit",
+                "index": i,
+                "alice_bit": prep.alice_bits[i],
+                "alice_basis": prep.alice_bases[i],
+                "bob_basis": prep.bob_bases[i],
+                "bob_result": result,
+                "basis_match": prep.alice_bases[i] == prep.bob_bases[i],
+                "eve_intercept": bool(eve_intercepts[i]) if eve_intercepts else False,
+            })
+        await asyncio.sleep(0)
+
+    # --- 5. Protocol-specific sifting ---
+    if protocol.USES_ENTANGLEMENT:
+        prep.alice_bits = alice_meas
+    alice_key, bob_key, sift_meta = protocol.sift(prep, bob_results)
+    qber = calculate_qber(alice_key, bob_key) if alice_key else 0.0
+    secure = is_channel_secure(qber)
+
+    # --- 6. Error correction + privacy amplification ---
+    ec_stats = None
+    if ec_method == "cascade" and alice_key:
+        corrected_alice, _, ec_stats = cascade_correct(alice_key, bob_key, max(qber, 0.001))
+    else:
+        corrected_alice, _ = correct_errors(alice_key, bob_key)
+
+    final_key = amplify_privacy(corrected_alice) if corrected_alice else ""
+    final_qber = round(qber, 4)
+    elapsed = round(time.perf_counter() - start_time, 3)
+
+    # --- 7. Send final result ---
+    await session_manager.send_event(session_id, {
+        "type": "result",
+        "protocol": protocol_name,
+        "protocol_display_name": protocol.DISPLAY_NAME,
+        "n_qubits_sent": n_sent,
+        "n_qubits_received": n_qubits,
+        "transmission_efficiency": round(eta, 4),
+        "channel_distance_km": channel_km,
+        "sifted_key_length": len(alice_key),
+        "sifting_efficiency": round(sift_meta.get("sifting_efficiency", 0.0), 4),
+        "bits_after_ec": len(corrected_alice),
+        "final_key_length": len(final_key) * 4,
+        "qber": final_qber,
+        "is_secure": secure,
+        "final_key": final_key,
+        "elapsed_seconds": elapsed,
+        "mode": "simulator",
+        "ec_method": ec_method,
+        "ec_stats": ec_stats,
+        # Bell test data for E91 (None for B92/SARG04)
+        "bell_test": (
+            {
+                "chsh_S": sift_meta.get("chsh_S"),
+                "quantum_bound": sift_meta.get("quantum_bound"),
+                "bell_violation": sift_meta.get("bell_violation"),
+                "chsh_terms": sift_meta.get("chsh_terms"),
+            }
+            if "chsh_S" in sift_meta else None
+        ),
+    })
+
+    # --- 8. Persist run ---
+    db = SessionLocal()
+    try:
+        db.add(SimulationRun(
+            n_qubits=n_sent,
+            depolarizing_prob=dep_prob,
+            measurement_error_prob=meas_prob,
+            eve_intercept=eve_intercept,
+            sifted_key_length=len(alice_key),
+            qber=final_qber,
+            is_secure=secure,
+            final_key=final_key,
+            channel_distance_km=channel_km,
+            user_id=ws_user_id,
+        ))
+        db.commit()
+        log.info("Saved %s run to DB (qber=%.4f, sifted=%d)",
+                 protocol_name, final_qber, len(alice_key))
+    except Exception as exc:
+        db.rollback()
+        log.error("Failed to save %s run: %s", protocol_name, exc)
+    finally:
+        db.close()

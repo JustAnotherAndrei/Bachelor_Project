@@ -1,0 +1,69 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Motivation}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Proposed Solution}{5}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Contributions and Impact}{7}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Theoretical Background}{10}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Classical vs.\ Quantum Cryptography}{10}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Quantum Mechanics Primer}{11}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Qubits and Quantum States}{11}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Measurement and State Collapse}{11}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}The Hadamard Gate and the Diagonal Basis}{12}{subsubsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.3}The No-Cloning Theorem}{12}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Heisenberg's Uncertainty Principle in QKD}{13}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}The BB84 Protocol}{13}{subsection.2.5}%
+\contentsline {paragraph}{Step 1 --- Qubit preparation (Alice).}{13}{paragraph*.2}%
+\contentsline {paragraph}{Step 2 --- Qubit measurement (Bob).}{14}{paragraph*.4}%
+\contentsline {paragraph}{Step 3 --- Basis sifting.}{14}{paragraph*.5}%
+\contentsline {paragraph}{Step 4 --- Error rate estimation (QBER).}{14}{paragraph*.6}%
+\contentsline {paragraph}{Step 5 --- Error correction.}{14}{paragraph*.7}%
+\contentsline {paragraph}{Step 6 --- Privacy amplification.}{14}{paragraph*.8}%
+\contentsline {subsection}{\numberline {2.6}Quantum Bit Error Rate (QBER)}{15}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Error Correction and Privacy Amplification}{15}{subsection.2.7}%
+\contentsline {subsubsection}{\numberline {2.7.1}Error Correction}{15}{subsubsection.2.7.1}%
+\contentsline {subsubsection}{\numberline {2.7.2}Privacy Amplification}{16}{subsubsection.2.7.2}%
+\contentsline {subsection}{\numberline {2.8}Optical-Fibre Channel Attenuation}{17}{subsection.2.8}%
+\contentsline {subsection}{\numberline {2.9}Decoy-State Method and the Photon-Number-Splitting Attack}{17}{subsection.2.9}%
+\contentsline {subsection}{\numberline {2.10}The CASCADE Information-Reconciliation Algorithm}{19}{subsection.2.10}%
+\contentsline {subsection}{\numberline {2.11}Machine Learning for QKD Security Monitoring}{20}{subsection.2.11}%
+\contentsline {section}{\numberline {3}Existing QKD Simulators}{21}{section.3}%
+\contentsline {subsection}{\numberline {3.1}QKDSim}{21}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}NetSquid}{21}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}QuNetSim / SimulaQron}{21}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Positioning of Sequre}{21}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Technologies Used}{22}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Python and Qiskit}{22}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Qiskit-Aer (Noisy Simulation Backend)}{22}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Qiskit-IBM-Runtime (Real Hardware)}{22}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}FastAPI}{22}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}WebSockets for Real-Time Streaming}{22}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}SQLite for Run Persistence}{22}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}React with Vite}{22}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Tailwind CSS}{22}{subsection.4.8}%
+\contentsline {section}{\numberline {5}Application Architecture}{23}{section.5}%
+\contentsline {subsection}{\numberline {5.1}The C4 Model}{23}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Level 1: System Context}{23}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2}Level 2: Containers}{23}{subsubsection.5.1.2}%
+\contentsline {subsubsection}{\numberline {5.1.3}Level 3: Components}{23}{subsubsection.5.1.3}%
+\contentsline {subsubsection}{\numberline {5.1.4}Level 4: Code}{23}{subsubsection.5.1.4}%
+\contentsline {subsection}{\numberline {5.2}Database Schema}{23}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Implementation and Features}{24}{section.6}%
+\contentsline {subsection}{\numberline {6.1}User Flow Diagram}{24}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Configuration Panel}{24}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}The BB84 Protocol Engine}{24}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Eve Eavesdropping Simulation}{24}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}IBM Quantum Hardware Integration}{24}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6}Real-Time WebSocket Streaming}{24}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7}PhotonGrid Visualization}{24}{subsection.6.7}%
+\contentsline {subsection}{\numberline {6.8}Key Distillation Pipeline}{24}{subsection.6.8}%
+\contentsline {subsection}{\numberline {6.9}QBER Historical Chart}{24}{subsection.6.9}%
+\contentsline {subsection}{\numberline {6.10}Educational Panel}{24}{subsection.6.10}%
+\contentsline {subsection}{\numberline {6.11}Simulation History and Persistence}{24}{subsection.6.11}%
+\contentsline {section}{\numberline {7}Experimental Results}{25}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Methodology}{25}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Simulator vs.\ Real IBM Hardware}{25}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}QBER Distribution under Different Eve Modes}{25}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Impact of Noise Parameters on Key Yield}{25}{subsection.7.4}%
+\contentsline {section}{\numberline {8}Conclusions}{26}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Future Development Possibilities}{26}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}General Achievements and Conclusions}{26}{subsection.8.2}%

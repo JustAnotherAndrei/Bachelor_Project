@@ -1,13 +1,54 @@
 const IBM_BACKENDS = ['ibm_fez', 'ibm_marrakesh', 'ibm_kingston']
 
+const PROTOCOLS = [
+  { value: 'bb84',   label: 'BB84',   blurb: 'Bennett-Brassard 1984. 4 states, 2 bases. Reference protocol.' },
+  { value: 'b92',    label: 'B92',    blurb: 'Bennett 1992. Only 2 non-orthogonal states (|0⟩, |+⟩). Simpler hardware, ~25% sift.' },
+  { value: 'sarg04', label: 'SARG04', blurb: 'Scarani-Acin-Ribordy-Gisin 2004. Same 4 states as BB84, pair announcement. PNS-resistant.' },
+  { value: 'e91',    label: 'E91',    blurb: 'Ekert 1991. Entangled photon pairs + CHSH Bell test. Eavesdropping = Bell violation collapse.' },
+]
+
 export default function SimulationControls({ config, onChange, onRun, onCancel, loading, statusMessage }) {
   const isIBM = config.mode === 'ibm_hardware'
+  const protocol = config.protocol || 'bb84'
+  const isBB84 = protocol === 'bb84'
+  const protocolBlurb = PROTOCOLS.find(p => p.value === protocol)?.blurb
 
   return (
     <div className="flex flex-col gap-5 h-full">
       <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
         Simulation
       </h2>
+
+      {/* Protocol selector */}
+      <div className="flex flex-col gap-1.5">
+        <span className="text-sm text-gray-300">Protocol</span>
+        <div className="grid grid-cols-4 rounded-lg overflow-hidden border border-gray-700 text-xs font-medium">
+          {PROTOCOLS.map(p => (
+            <button
+              key={p.value}
+              onClick={() => onChange('protocol', p.value)}
+              disabled={isIBM && p.value !== 'bb84'}
+              className={`py-2 transition-colors ${
+                protocol === p.value
+                  ? 'bg-emerald-700 text-white'
+                  : 'bg-gray-800 text-gray-400 hover:text-gray-200 disabled:opacity-40 disabled:cursor-not-allowed'
+              }`}
+            >
+              {p.label}
+            </button>
+          ))}
+        </div>
+        {protocolBlurb && (
+          <p className="text-xs text-emerald-300 bg-emerald-950 border border-emerald-800 rounded-lg px-3 py-2">
+            {protocolBlurb}
+          </p>
+        )}
+        {!isBB84 && (
+          <p className="text-xs text-gray-500">
+            Decoy-state, Smart Eve, and IBM hardware are available only for BB84.
+          </p>
+        )}
+      </div>
 
       {/* Mode toggle */}
       <div className="flex rounded-lg overflow-hidden border border-gray-700 text-xs font-medium">
@@ -20,9 +61,10 @@ export default function SimulationControls({ config, onChange, onRun, onCancel, 
           Simulator
         </button>
         <button
-          onClick={() => onChange('mode', 'ibm_hardware')}
+          onClick={() => isBB84 && onChange('mode', 'ibm_hardware')}
+          disabled={!isBB84}
           className={`flex-1 py-2 transition-colors ${
-            isIBM ? 'bg-violet-600 text-white' : 'bg-gray-800 text-gray-400 hover:text-gray-200'
+            isIBM ? 'bg-violet-600 text-white' : 'bg-gray-800 text-gray-400 hover:text-gray-200 disabled:opacity-40 disabled:cursor-not-allowed'
           }`}
         >
           IBM Hardware
@@ -100,8 +142,8 @@ export default function SimulationControls({ config, onChange, onRun, onCancel, 
         </p>
       )}
 
-      {/* Photon source selector — simulator only */}
-      {!isIBM && (
+      {/* Photon source selector — simulator + BB84 only */}
+      {!isIBM && isBB84 && (
         <div className="flex flex-col gap-1.5">
           <span className="text-sm text-gray-300">Photon source</span>
           <div className="flex rounded-lg overflow-hidden border border-gray-700 text-xs font-medium">
@@ -188,23 +230,27 @@ export default function SimulationControls({ config, onChange, onRun, onCancel, 
         <span className="text-sm text-gray-300">Eve</span>
         <div className="grid grid-cols-4 rounded-lg overflow-hidden border border-gray-700 text-xs font-medium">
           {[
-            { value: 'none',   label: 'None',   activeBg: 'bg-gray-600' },
-            { value: 'weak',   label: 'Weak',   activeBg: 'bg-orange-600' },
-            { value: 'strong', label: 'Strong', activeBg: 'bg-red-700' },
-            { value: 'smart',  label: 'Smart',  activeBg: 'bg-purple-700' },
-          ].map(opt => (
-            <button
-              key={opt.value}
-              onClick={() => onChange('eve_mode', opt.value)}
-              className={`py-2 transition-colors ${
-                config.eve_mode === opt.value
-                  ? `${opt.activeBg} text-white`
-                  : 'bg-gray-800 text-gray-400 hover:text-gray-200'
-              }`}
-            >
-              {opt.label}
-            </button>
-          ))}
+            { value: 'none',   label: 'None',   activeBg: 'bg-gray-600',   bb84Only: false },
+            { value: 'weak',   label: 'Weak',   activeBg: 'bg-orange-600', bb84Only: false },
+            { value: 'strong', label: 'Strong', activeBg: 'bg-red-700',    bb84Only: false },
+            { value: 'smart',  label: 'Smart',  activeBg: 'bg-purple-700', bb84Only: true  },
+          ].map(opt => {
+            const disabled = opt.bb84Only && !isBB84
+            return (
+              <button
+                key={opt.value}
+                onClick={() => !disabled && onChange('eve_mode', opt.value)}
+                disabled={disabled}
+                className={`py-2 transition-colors ${
+                  config.eve_mode === opt.value
+                    ? `${opt.activeBg} text-white`
+                    : 'bg-gray-800 text-gray-400 hover:text-gray-200 disabled:opacity-40 disabled:cursor-not-allowed'
+                }`}
+              >
+                {opt.label}
+              </button>
+            )
+          })}
         </div>
         {config.eve_mode === 'smart' && (
           <>

@@ -248,11 +248,65 @@ The simulation operates in one of three modes selectable by the user:
         streamed live to the frontend.
 \end{itemize}
 
-An optional \textbf{Eve eavesdropping simulation} implements the
-intercept-resend attack strategy in two variants: \textit{Weak Eve}, which
-intercepts 30\% of transmitted qubits, and \textit{Strong Eve}, which
-intercepts all qubits and reliably generates a QBER of approximately 25\%,
-well above the 11\% security threshold that triggers key abortion.
+Beyond the core protocol, Sequre implements several layers of physical and
+analytical realism that bring the simulator closer to a research-grade
+testbed:
+
+\begin{itemize}
+  \item \textbf{Optical-fibre channel attenuation.} Each transmitted photon
+        survives the channel with probability
+        $\eta(L) = 10^{-\alpha L/10}$, where $\alpha = 0.2$\,dB/km is the
+        standard single-mode-fibre loss coefficient and $L$ is the
+        configurable transmission distance. A dedicated chart plots the
+        asymptotic secure key rate $R \sim \eta(L)(1 - 2h(Q))$ across
+        $0$--$200$\,km, illustrating the well-known rate--distance limits
+        of point-to-point QKD without trusted nodes.
+
+  \item \textbf{Decoy-state BB84 with weak coherent pulses.} The user can
+        switch from an idealised single-photon source to a
+        \emph{weak-coherent-pulse} (WCP) source emitting two intensity
+        classes (signal $\mu_s$ and decoy $\mu_d$), with Poissonian
+        photon-number statistics. Per-intensity gains and error rates are
+        tracked online, and the GLLP two-decoy bounds are evaluated to
+        estimate the single-photon yield $Y_1$ and error rate $e_1$ ---
+        the quantities required for security against the
+        photon-number-splitting (PNS) attack.
+
+  \item \textbf{Full CASCADE error correction.} The original parity-block
+        scheme was replaced with the multi-pass CASCADE algorithm with
+        back-correction, exposing both the corrected key and the
+        information leakage $\ell$ that is later consumed by privacy
+        amplification.
+
+  \item \textbf{Machine-learning eavesdropper detection.} A Random Forest
+        classifier trained on six contextual features per run
+        (QBER, sifting efficiency, depolarising noise, measurement-error
+        rate, channel distance, protocol length) produces an estimated
+        probability that an eavesdropper was present. The classifier is
+        retrainable on demand from the SQLite simulation history and
+        provides a security signal that operates orthogonally to the QBER
+        threshold.
+
+  \item \textbf{User accounts and per-user attribution of runs.} A full
+        authentication layer (email/password with bcrypt, JWT-based
+        sessions in HttpOnly cookies, CSRF double-submit protection,
+        password reset, and Google OAuth 2.0 sign-in) allows simulation
+        runs to be attributed to authenticated users while keeping
+        anonymous access fully functional.
+\end{itemize}
+
+An optional \textbf{Eve eavesdropping simulation} implements three distinct
+attack strategies of progressively increasing sophistication:
+\textit{Weak Eve}, which intercepts 30\% of transmitted qubits;
+\textit{Strong Eve}, which intercepts all qubits and reliably generates a
+QBER of approximately 25\%, well above the 11\% security threshold; and
+\textit{Smart Eve}, an adaptive intercept-resend adversary that uses a
+proportional feedback loop on the running QBER to tune its interception
+probability towards a user-configurable target (e.g.\ 9\%, just below the
+abort threshold), thereby evading a naive QBER-only security check. The
+Smart Eve mode motivates the machine-learning detector described above and
+provides a concrete adversarial baseline against which the classifier is
+evaluated.
 
 The user interface, built with \textbf{React} (Vite) and \textbf{Tailwind CSS},
 receives per-qubit events from the backend over a persistent WebSocket
@@ -292,25 +346,65 @@ The primary contributions of this work are the following:
         is absent from existing QKD educational tools, which typically present
         only aggregate results after a simulation completes.
 
-  \item \textbf{Integrated eavesdropping simulation with security decision
-        logic.} The intercept-resend Eve model, combined with QBER-based
-        abort thresholds, demonstrates the practical security guarantees of
-        BB84 in a visually and quantitatively transparent way. Users can
-        observe directly how Weak and Strong Eve affect the QBER and
-        whether the security check is triggered.
+  \item \textbf{A spectrum of eavesdropping models, from passive to adaptive.}
+        Beyond the textbook intercept-resend Eve, Sequre implements a
+        \emph{Smart Eve} adversary that uses a proportional feedback loop on
+        the running QBER to evade the standard abort threshold while still
+        extracting partial information. Combined with the QBER-based
+        security check, this stack of three Eve modes (Weak, Strong, Smart)
+        demonstrates concretely both the security guarantees and the
+        \emph{limitations} of a threshold-only check against an intelligent
+        adversary.
+
+  \item \textbf{A realistic optical-fibre channel model with rate--distance
+        curves.} A configurable attenuation coefficient
+        ($\alpha = 0.2$\,dB/km by default) is applied per qubit, and the
+        asymptotic secure key rate is plotted as a function of channel
+        length, bringing the simulator in line with standard QKD
+        benchmarking methodology.
+
+  \item \textbf{Decoy-state BB84 with weak-coherent-pulse modelling.} Two
+        intensity classes (signal and decoy) are emitted with Poissonian
+        photon-number statistics, and the GLLP two-decoy bounds are
+        evaluated online to recover the single-photon yield and error rate
+        --- the security-critical quantities under the PNS attack.
+
+  \item \textbf{Full CASCADE error correction with information-leakage
+        accounting.} The multi-pass binary-search reconciliation with
+        back-correction replaces the lossy parity-block scheme and exposes
+        the leakage $\ell$ that feeds into privacy amplification, closing
+        the loop on a rigorous post-processing pipeline.
+
+  \item \textbf{Supervised eavesdropper detection via machine learning.}
+        A Random Forest classifier trained on six contextual features per
+        run produces a probability of eavesdropper presence that is
+        complementary to (and orthogonal in failure mode to) the QBER
+        threshold, providing a defence against precisely the adaptive
+        adversaries that the QBER check cannot catch on its own.
+
+  \item \textbf{Multi-user platform with authenticated session management.}
+        A full authentication layer (email/password with bcrypt, JWT
+        access/refresh tokens in HttpOnly cookies, CSRF double-submit
+        protection, password reset, Google OAuth 2.0) allows simulations to
+        be attributed to authenticated users, paving the way for the
+        upcoming gamified and multi-player modes while preserving anonymous
+        guest access.
 
   \item \textbf{A configurable research testbed for QKD experimentation.}
         The platform exposes noise parameters (depolarising probability,
-        measurement error rate, interception fraction) as user-controlled
-        inputs, making it suitable not only for classroom demonstration but
-        also as an exploratory tool for studying the protocol's behaviour
-        under varied hardware and adversarial conditions.
+        measurement error rate, interception fraction, channel distance,
+        source type, decoy intensities, error-correction algorithm) as
+        user-controlled inputs, making it suitable not only for classroom
+        demonstration but also as an exploratory tool for studying the
+        protocol's behaviour under varied hardware and adversarial
+        conditions.
 
   \item \textbf{Persistent simulation history with REST API access.}
         Automated SQLite persistence of every simulation run, queryable via
         REST endpoints, enables longitudinal analysis and reproducible
         comparison of results across hardware modes, noise levels, and Eve
-        configurations.
+        configurations, while also serving as the training corpus for the
+        ML classifier.
 
 \end{enumerate}
 
@@ -319,10 +413,15 @@ research-oriented testbed with a long-term ambition: to probe the practical
 limits of quantum key distribution under realistic hardware imperfections,
 advanced attack models, and extended protocol variants. The architecture is
 deliberately modular --- the quantum logic, classical post-processing, and
-presentation layers are cleanly separated --- so that future extensions such as
-decoy-state BB84, the CASCADE error-correction algorithm, or alternative QKD
-protocols (E91, B92) can be incorporated without restructuring the existing
-codebase.
+presentation layers are cleanly separated --- and this modularity has already
+enabled the integration of decoy-state BB84, CASCADE error correction, an
+optical-fibre attenuation model, an adaptive (Smart) Eve, and an ML-based
+detection layer into the same code base without restructuring. Further
+extensions identified for the present cycle and discussed in
+Section~\ref{sec:conclusions} include alternative QKD protocols (E91, B92,
+SARG04), an explicit photon-number-splitting attack, finite-key security
+bounds, and a single-player gamified mode in which the user plays the role
+of Eve and is scored against the ML detector.
 
 % =================== 2. THEORETICAL BACKGROUND ===============================
 \newpage
@@ -670,6 +769,216 @@ whose seed is shared publicly --- SHA-256 truncation is a common and accepted
 choice for prototype implementations, and provides 128 bits of output security
 in the absence of attacks on the hash function itself.
 
+\subsection{Optical-Fibre Channel Attenuation}
+\label{sec:channel-loss}
+
+The discussion so far has treated the quantum channel as a passive conduit
+that may add gate-level noise but transmits every qubit. In any physical
+implementation of QKD, however, the dominant cause of bit loss is not noise
+but \emph{photon attenuation} along the channel. For optical fibre links,
+the survival probability of a photon transmitted over a distance $L$
+(in km) follows the Beer--Lambert law:
+\begin{equation}
+  \eta(L) = 10^{-\alpha L / 10},
+  \label{eq:fibre-attenuation}
+\end{equation}
+where $\alpha$ is the fibre's loss coefficient. The de-facto industry value
+for telecom-grade single-mode fibre at the $1550$\,nm wavelength is
+$\alpha \approx 0.2$\,dB/km~\cite{ITU-T-G652}. This implies, for instance,
+that only $\eta(50) \approx 10\%$ of photons survive a $50$-km link and
+$\eta(100) \approx 1\%$ survive $100$\,km. Free-space links incur instead
+\emph{beam-divergence} loss, modelled as $\eta \propto 1/L^2$ but with
+substantially smaller coefficients per unit distance over short ranges.
+
+The practical consequence for QKD is that the \emph{secure key rate} ---
+the number of secret-key bits produced per channel use --- decays
+exponentially with distance. In the asymptotic (large-$N$) regime, the
+secret-key rate for BB84 with one-way classical communication is given by
+the GLLP--Shor--Preskill formula~\cite{shorPreskill2000,gllp2004}:
+\begin{equation}
+  R(L) \;\geq\; \eta(L) \,\bigl[1 \;-\; H_2(e_b) \;-\; f(e_b)\,H_2(e_b)\bigr],
+  \label{eq:gllp-rate}
+\end{equation}
+where $e_b$ is the bit-error rate, $H_2$ is the binary entropy
+$H_2(x) = -x\log_2 x - (1-x)\log_2(1-x)$, and $f(e_b) \geq 1$ is the
+efficiency factor of the error-correction algorithm relative to the
+Shannon limit. The term $1 - H_2(e_b)$ accounts for the information Eve
+could have gained from the quantum channel; the term $f(e_b) H_2(e_b)$
+discounts the bits revealed during classical reconciliation.
+
+Equation~\eqref{eq:gllp-rate} sets the well-known
+\emph{rate--distance trade-off} of BB84: there exists a maximum distance
+$L^*$ beyond which the right-hand side becomes negative and no positive
+key rate can be obtained. For $\alpha = 0.2$\,dB/km, $e_b = 1\%$, and
+CASCADE-typical $f \approx 1.16$, $L^* \approx 150$--$200$\,km. Surpassing
+this limit requires either trusted intermediate nodes, twin-field
+protocols~\cite{lucamarini2018}, or quantum repeaters --- a key
+observation that motivates the Sequre rate-vs-distance visualisation in
+Section~\ref{sec:implementation}.
+
+\subsection{Decoy-State Method and the Photon-Number-Splitting Attack}
+\label{sec:decoy-state}
+
+The BB84 protocol as originally formulated assumes Alice transmits a
+\emph{single-photon source} (SPS), so that any attempt by Eve to extract
+information necessarily perturbs the qubit. In practice, true single-photon
+sources are demanding to engineer; instead, the overwhelming majority of
+deployed QKD systems use attenuated lasers --- so-called
+\emph{weak coherent pulses} (WCP). A WCP with mean photon number $\mu$
+emits, per pulse, $n$ photons with probability:
+\begin{equation}
+  P(n \mid \mu) \;=\; e^{-\mu}\,\frac{\mu^n}{n!}.
+  \label{eq:poisson}
+\end{equation}
+For $\mu < 1$, the dominant contributions are $n = 0$ (vacuum) and $n = 1$
+(single photon), but a non-negligible fraction of pulses contains $n \geq 2$
+photons. These multi-photon pulses expose the protocol to a
+\textbf{photon-number-splitting} (PNS) attack: Eve installs a quantum
+non-demolition photon-number measurement at the output of Alice, blocks all
+$n = 1$ pulses, and for every $n \geq 2$ pulse keeps one photon in a
+quantum memory while forwarding the rest to Bob unaltered. After Alice and
+Bob publicly announce their bases, Eve measures her stored photons in the
+correct basis, obtaining the bit value with no QBER penalty whatsoever.
+
+The PNS attack is fatal to naive WCP-BB84 over high-loss channels, because
+in the limit $\eta(L) \to 0$ the legitimate single-photon signal can be
+completely suppressed in favour of intercepted multi-photon contributions
+without raising the QBER above the security threshold. The
+\textbf{decoy-state method}~\cite{lo2005decoy,wang2005decoy} elegantly
+defeats this attack by having Alice randomly switch among several intensity
+classes:
+\begin{itemize}
+  \item a \emph{signal} intensity $\mu_s$ used for key generation;
+  \item one or more \emph{decoy} intensities $\mu_d, \nu, \ldots$ used only
+        for monitoring.
+\end{itemize}
+Because Eve does not know in advance the intensity of any individual
+pulse, she cannot distinguish signal multi-photon pulses from decoy
+multi-photon pulses. The per-intensity gains
+$Q_\mu = \sum_n P(n \mid \mu) Y_n$ and error rates $E_\mu$ provide a
+system of linear inequalities that bound the \emph{single-photon yield}
+$Y_1$ and \emph{single-photon error rate} $e_1$ in a verifiable way. In
+the two-decoy GLLP analysis, the lower bound on $Y_1$ is:
+\begin{equation}
+  Y_1^{L} \;\geq\;
+    \frac{\mu}{\mu\nu - \nu^2}\!\left(
+      Q_\nu e^{\nu} - Q_\mu e^{\mu}\,\frac{\nu^2}{\mu^2}
+      - \frac{\mu^2 - \nu^2}{\mu^2}\,Y_0
+    \right),
+  \label{eq:y1-bound}
+\end{equation}
+where $\mu$ and $\nu$ are the signal and decoy means and $Y_0$ is the
+background (dark-count) rate. The secure key rate is then:
+\begin{equation}
+  R \;\geq\; q\,\bigl[
+    -Q_\mu f(E_\mu) H_2(E_\mu)
+    + Q_1^{L}\bigl(1 - H_2(e_1^{U})\bigr)
+  \bigr],
+  \label{eq:decoy-rate}
+\end{equation}
+with $Q_1^L = \mu e^{-\mu} Y_1^L$. The Sequre decoy-state panel renders
+each of these quantities live, so the student can watch the
+single-photon contribution to the key being recovered from the otherwise
+aggregate WCP statistics.
+
+\subsection{The CASCADE Information-Reconciliation Algorithm}
+\label{sec:cascade}
+
+The block-parity reconciliation described in Section~\ref{sec:ec-pa} is a
+useful pedagogical baseline but is highly suboptimal: it discards entire
+blocks on any disagreement, leaking only $\log_2(B)$ bits less than the
+optimum per corrected error but losing $B$ bits of key in the process.
+The CASCADE algorithm~\cite{brassard1994}, introduced by Brassard and
+Salvail in 1993, remains the de-facto reference for QKD error correction
+to this day because it isolates and corrects individual erroneous bits
+rather than discarding their surrounding blocks.
+
+CASCADE proceeds in $k$ \emph{passes}, each pass parameterised by a
+block size $B_i$. The first block size is chosen as a function of the
+estimated QBER $Q$:
+\begin{equation}
+  B_1 \;\approx\; \left\lceil \frac{0.73}{Q} \right\rceil,
+  \qquad B_{i+1} = 2\,B_i.
+  \label{eq:cascade-blocksize}
+\end{equation}
+Within a pass, the key is permuted by a fresh random permutation $\pi_i$
+and partitioned into consecutive blocks of size $B_i$. Alice announces
+the parity of each block over the public channel; for every block whose
+parity differs from Bob's, the parties perform a binary search ---
+recursively bisecting the block and comparing parities of the halves ---
+until a single erroneous bit is located and flipped.
+
+The crucial element of CASCADE is its \textbf{back-correction} mechanism:
+flipping a bit in pass $i$ changes the parities of every block in passes
+$1, \ldots, i-1$ that contained that bit. A flipped bit in a previously
+``correct'' block must have masked a second error. CASCADE therefore
+revisits all earlier blocks whose parity has now changed and continues
+binary-searching for the remaining errors. This cross-pass propagation
+allows the algorithm to converge with high probability after only four to
+six passes, leaking
+\begin{equation}
+  \ell \;\approx\; N \cdot f(Q) \cdot H_2(Q)
+  \label{eq:cascade-leakage}
+\end{equation}
+bits over the public channel, with $f(Q) \approx 1.05$--$1.22$ for
+typical QKD QBER values --- close to the Shannon lower bound of
+$f = 1$~\cite{martinez2015cascade}. The leakage $\ell$ is precisely the
+quantity subtracted during privacy amplification to obtain the final
+secret-key length.
+
+In Sequre, CASCADE is implemented in
+\texttt{backend/classical\_processing/cascade.py} and replaces the
+block-parity scheme. The legacy scheme remains available behind a UI
+selector for didactic comparison: a side-by-side view shows how many
+bits are wasted by block discarding versus how many leak through CASCADE
+parities at the same input QBER.
+
+\subsection{Machine Learning for QKD Security Monitoring}
+\label{sec:ml-detection}
+
+A QBER-threshold check is a powerful but coarse instrument. It catches
+any adversary that exceeds the abort threshold but is, by construction,
+blind to attacks calibrated to stay below it --- attacks that Sequre's
+Smart Eve mode produces by design. A complementary, statistics-driven
+detector is therefore desirable.
+
+The detection of subtle adversarial behaviour from an experiment's
+contextual signature (QBER, sifting efficiency, noise parameters,
+distance, sample size) is a textbook \emph{binary classification}
+problem: given a feature vector $\mathbf{x} \in \mathbb{R}^d$, predict
+the label $y \in \{0, 1\}$ (\emph{Eve absent}, \emph{Eve present}). Among
+classical classifiers, the \textbf{Random Forest}~\cite{breiman2001} is
+particularly well-suited to this setting: it is a non-linear ensemble of
+decision trees that handles feature interactions natively, is robust to
+the heterogeneous, non-Gaussian distributions characteristic of QKD
+features, exposes interpretable feature importances, and trains in
+seconds on the dataset sizes ($10^2$--$10^3$ runs) typical of an
+educational platform.
+
+Concretely, the model computes
+\begin{equation}
+  \hat{P}(y = 1 \mid \mathbf{x}) \;=\;
+  \frac{1}{T} \sum_{t=1}^{T} \hat{P}_t(y = 1 \mid \mathbf{x}),
+  \label{eq:rf-prob}
+\end{equation}
+where each $\hat{P}_t$ is the leaf-frequency estimate of the $t$-th tree
+trained on a bootstrap sample of the historical runs. The thesis uses
+$T = 100$ trees with the scikit-learn default depth limits. Labels are
+derived automatically from the configured \texttt{eve\_mode} of each
+historical run: anything other than \texttt{eve\_mode == 'none'} is
+treated as a positive instance.
+
+The literature has begun to explore deeper models for this task
+recently~\cite{xu2024dlqkd,zhao2025rlqkd}. Deep recurrent networks
+(LSTM) can in principle ingest the entire per-qubit error history rather
+than aggregate features, and have been shown to reach $>90\%$ accuracy
+against adaptive attackers in CV-QKD~\cite{xu2024dlqkd}. The choice of a
+Random Forest in Sequre is a deliberate trade-off: it provides
+near-state-of-the-art accuracy on aggregate-feature classification with
+a fraction of the data, the training, and the interpretability cost of a
+deep model, while leaving the LSTM extension as an explicit future
+direction (see Section~\ref{sec:conclusions}).
+
 % =================== 3. EXISTING QKD SIMULATORS ==============================
 \newpage
 \section{Existing QKD Simulators}
@@ -814,6 +1123,55 @@ in the absence of attacks on the hash function itself.
     \textit{Secret-Key Reconciliation by Public Discussion},
     Advances in Cryptology --- EUROCRYPT 1993, LNCS 765,
     pp.~410--423, Springer, 1994.
+
+  \bibitem{ITU-T-G652}
+    International Telecommunication Union,
+    \textit{Characteristics of a Single-Mode Optical Fibre and Cable
+    (ITU-T Recommendation G.652)}, 2016.
+
+  \bibitem{gllp2004}
+    D.~Gottesman, H.-K. Lo, N.~L\"utkenhaus, and J.~Preskill,
+    \textit{Security of Quantum Key Distribution with Imperfect Devices},
+    Quantum Information and Computation, 4(5), pp.~325--360, 2004.
+
+  \bibitem{lucamarini2018}
+    M.~Lucamarini, Z.~L. Yuan, J.~F. Dynes, and A.~J. Shields,
+    \textit{Overcoming the Rate--Distance Limit of Quantum Key Distribution
+    without Quantum Repeaters},
+    Nature, 557(7705), pp.~400--403, 2018.
+
+  \bibitem{lo2005decoy}
+    H.-K. Lo, X.~Ma, and K.~Chen,
+    \textit{Decoy State Quantum Key Distribution},
+    Physical Review Letters, 94, 230504, 2005.
+
+  \bibitem{wang2005decoy}
+    X.-B. Wang,
+    \textit{Beating the Photon-Number-Splitting Attack in Practical Quantum
+    Cryptography},
+    Physical Review Letters, 94, 230503, 2005.
+
+  \bibitem{martinez2015cascade}
+    J.~Mart\'{i}nez-Mateo, C.~Pacher, M.~Peev, A.~Ciurana, and V.~Mart\'{i}n,
+    \textit{Demystifying the Information Reconciliation Protocol Cascade},
+    Quantum Information and Computation, 15(5\&6), pp.~453--477, 2015.
+
+  \bibitem{breiman2001}
+    L.~Breiman,
+    \textit{Random Forests},
+    Machine Learning, 45(1), pp.~5--32, 2001.
+
+  \bibitem{xu2024dlqkd}
+    Y.~Xu et al.,
+    \textit{Deep-Learning-Based Continuous Attacks on Continuous-Variable
+    Quantum Key Distribution Protocols},
+    arXiv:2408.12571, 2024.
+
+  \bibitem{zhao2025rlqkd}
+    S.~Zhao et al.,
+    \textit{Deep Reinforcement Learning and Variational Autoencoders for
+    Enhanced Quantum Key Distribution Security},
+    Results in Engineering, 2025.
 
 \end{thebibliography}
 

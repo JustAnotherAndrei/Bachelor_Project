@@ -11,11 +11,13 @@ import KeyRateChart from './KeyRateChart'
 import DecoyStatePanel from './DecoyStatePanel'
 import SmartEvePanel from './SmartEvePanel'
 import MLDetectionPanel from './MLDetectionPanel'
+import BellTestPanel from './BellTestPanel'
 import AuthModal from './auth/AuthModal'
 import UserMenu from './auth/UserMenu'
 import { useAuth } from '../contexts/AuthContext'
 
 const DEFAULT_CONFIG = {
+  protocol: 'bb84',
   n_qubits: 100,
   depolarizing_prob: 0.01,
   measurement_error_prob: 0.02,
@@ -91,7 +93,7 @@ export default function Dashboard() {
         <div className="flex items-center gap-3">
           <Shield className="text-violet-400" size={28} />
           <span className="text-xl font-semibold tracking-tight">Sequre</span>
-          <span className="text-xs text-gray-500 font-mono">BB84 QKD Platform</span>
+          <span className="text-xs text-gray-500 font-mono">An interactive QKD Platform</span>
         </div>
         <div className="flex items-center gap-4">
           <StatusBadge online />
@@ -170,6 +172,9 @@ export default function Dashboard() {
               qberFinal={summary.qber}
               isSecure={summary.is_secure}
             />
+          )}
+          {summary?.bell_test && (
+            <BellTestPanel bell={summary.bell_test} />
           )}
           <QBERChart history={history} onClear={handleClearHistory} />
           <MLDetectionPanel
