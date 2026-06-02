@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.6.1)  1 JUN 2026 19:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.6.1)  2 JUN 2026 22:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -800,6 +800,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [8]
+Overfull \hbox (9.07663pt too wide) in paragraph at lines 431--440
+\T1/lmr/m/n/12 (-20) anal-y-sis mod-ule com-putes the Ho-effd-ing sta-tis-ti-ca
+l cor-rec-tion $\OML/lmm/m/it/12 ^^N[] \OT1/lmr/m/n/12 (-20) = []$
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -807,7 +812,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[9]
+[9{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.e
+nc}]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -831,19 +837,26 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[12{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.
-enc}]
+[12]
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 625.
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[13]
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 668.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 625.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 668.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 626.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 669.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 626.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 669.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -852,22 +865,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[13] (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1
+[14] (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1
 .sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 642.
+nput line 685.
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 643.
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[14]
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 686.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -900,11 +905,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [18]
-Overfull \hbox (1.3637pt too wide) in paragraph at lines 929--935
-[]\T1/lmr/m/n/12 (-20) In Se-qure, CAS-CADE is im-ple-mented in \T1/lmtt/m/n/12
- backend/classical_processing/cascade.py
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -913,6 +913,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [19]
+Overfull \hbox (1.3637pt too wide) in paragraph at lines 972--978
+[]\T1/lmr/m/n/12 (-20) In Se-qure, CAS-CADE is im-ple-mented in \T1/lmtt/m/n/12
+ backend/classical_processing/cascade.py
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -930,6 +935,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [21]
 
+LaTeX Warning: Citation `hochreiter1997' on page 22 undefined on input line 103
+7.
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -938,6 +947,78 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [22]
 
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1149.
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -945,6 +1026,66 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [23]
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1150.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1150.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1151.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1151.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1155.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -968,10 +1109,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[26] (documentatie.lof)
-\tf@lof=\write5
-\openout5 = `documentatie.lof'.
-
+[26]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -989,6 +1127,49 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [28]
 
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[29]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[30]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[31] (documentatie.lof)
+\tf@lof=\write5
+\openout5 = `documentatie.lof'.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[32]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[33]
+
 Package caption Warning: Unused \captionsetup[figure] on input line 56.
 See the caption package documentation for explanation.
 
@@ -999,23 +1180,32 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[29] (documentatie.aux)
+[34] (documentatie.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
 
+LaTeX Warning: There were undefined references.
+
+
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package rerunfilecheck Info: File `documentatie.out' has not changed.
-(rerunfilecheck)             Checksum: 7CA01ABBE69408774A36FC1761DF9E2D;11647.
+
+Package rerunfilecheck Warning: File `documentatie.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `documentatie.out':
+(rerunfilecheck)             Before: 10AE75D59C270D5F70B0D4BA7F70786F;12739
+(rerunfilecheck)             After:  72670C70F027D0A783303AA2FEECD395;12978.
  ) 
 Here is how much of TeX's memory you used:
- 19623 strings out of 467870
- 311498 string characters out of 5417872
- 1082748 words of memory out of 5000000
- 47809 multiletter control sequences out of 15000+600000
- 708224 words of font info for 205 fonts, out of 8000000 for 9000
+ 19696 strings out of 467870
+ 312413 string characters out of 5417872
+ 1083590 words of memory out of 5000000
+ 47831 multiletter control sequences out of 15000+600000
+ 709331 words of font info for 216 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  73i,13n,79p,1203b,2063s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.p
@@ -1038,9 +1228,9 @@ tt12.pfb><C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/l
 mtti10.pfb><C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
 sfonts/symbols/msam10.pfb><C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/
 type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on documentatie.pdf (30 pages, 507400 bytes).
+Output written on documentatie.pdf (35 pages, 541441 bytes).
 PDF statistics:
- 707 PDF objects out of 1000 (max. 8388607)
- 171 named destinations out of 1000 (max. 500000)
- 45553 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 783 PDF objects out of 1000 (max. 8388607)
+ 200 named destinations out of 1000 (max. 500000)
+ 45593 words of extra memory for PDF output out of 51595 (max. 10000000)
 
