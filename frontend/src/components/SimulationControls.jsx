@@ -228,14 +228,16 @@ export default function SimulationControls({ config, onChange, onRun, onCancel, 
       {/* Eve mode selector */}
       <div className="flex flex-col gap-1.5">
         <span className="text-sm text-gray-300">Eve</span>
-        <div className="grid grid-cols-4 rounded-lg overflow-hidden border border-gray-700 text-xs font-medium">
+        <div className="grid grid-cols-5 rounded-lg overflow-hidden border border-gray-700 text-xs font-medium">
           {[
-            { value: 'none',   label: 'None',   activeBg: 'bg-gray-600',   bb84Only: false },
-            { value: 'weak',   label: 'Weak',   activeBg: 'bg-orange-600', bb84Only: false },
-            { value: 'strong', label: 'Strong', activeBg: 'bg-red-700',    bb84Only: false },
-            { value: 'smart',  label: 'Smart',  activeBg: 'bg-purple-700', bb84Only: true  },
+            { value: 'none',   label: 'None',   activeBg: 'bg-gray-600',   bb84Only: false, wcpOnly: false },
+            { value: 'weak',   label: 'Weak',   activeBg: 'bg-orange-600', bb84Only: false, wcpOnly: false },
+            { value: 'strong', label: 'Strong', activeBg: 'bg-red-700',    bb84Only: false, wcpOnly: false },
+            { value: 'smart',  label: 'Smart',  activeBg: 'bg-purple-700', bb84Only: true,  wcpOnly: false },
+            { value: 'pns',    label: 'PNS',    activeBg: 'bg-pink-700',   bb84Only: true,  wcpOnly: true  },
           ].map(opt => {
-            const disabled = opt.bb84Only && !isBB84
+            const disabled = (opt.bb84Only && !isBB84) ||
+                             (opt.wcpOnly && config.source_type !== 'wcp')
             return (
               <button
                 key={opt.value}
@@ -277,6 +279,12 @@ export default function SimulationControls({ config, onChange, onRun, onCancel, 
       {config.eve_mode === 'strong' && (
         <p className="text-xs text-red-400 bg-red-950 border border-red-800 rounded-lg px-3 py-2">
           Eve intercepts 100% of qubits — expect QBER ~25%, channel compromised.
+        </p>
+      )}
+      {config.eve_mode === 'pns' && (
+        <p className="text-xs text-pink-300 bg-pink-950 border border-pink-800 rounded-lg px-3 py-2">
+          Eve blocks single-photon pulses and splits multi-photon ones — QBER stays low,
+          but decoy-state analysis exposes Y₁ ≈ 0 and kills the secure key rate.
         </p>
       )}
 

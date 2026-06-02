@@ -21,11 +21,13 @@ from quantum_logic.noise_model import build_noise_model
 from quantum_logic.channel_model import apply_channel_loss, channel_transmittance
 from quantum_logic.decoy_state import (
     simulate_wcp_pulses, aggregate_by_intensity, find_intensity,
-    decoy_analysis, secure_key_rate,
+    decoy_analysis, secure_key_rate, apply_pns_attack,
 )
 from quantum_logic.smart_eve import smart_eve_decide
+from quantum_logic.finite_key_analysis import finite_key_analysis
 from quantum_logic.protocols import get_protocol, SUPPORTED_PROTOCOLS
 from ml.eavesdrop_detector import predict as ml_predict, extract_features_from_dict
+from ml import lstm_detector
 from classical_processing.sifting import sift_keys
 from classical_processing.qber import calculate_qber, is_channel_secure
 from classical_processing.error_correction import correct_errors
@@ -97,9 +99,13 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
         p_signal = float(config.get("p_signal", 0.70))
         p_decoy = float(config.get("p_decoy", 0.15))
 
-        # Weak Eve intercepts 30% of qubits; strong Eve intercepts 100%
-        EVE_RATE = {"none": 0.0, "weak": 0.30, "strong": 1.0}
+        # Weak Eve intercepts 30% of qubits; strong Eve intercepts 100%.
+        # PNS Eve does NOT do intercept-resend (no QBER added) — handled
+        # separately inside the WCP source block.
+        EVE_RATE = {"none": 0.0, "weak": 0.30, "strong": 1.0, "pns": 0.0}
         eve_intercept = eve_mode != "none"
+        pns_attack_active = (eve_mode == "pns")
+        pns_summary = None
 
         rng = np.random.default_rng()
         n_sent = n_qubits  # original qubit count before channel loss
@@ -132,6 +138,11 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
                 wcp_pulses = simulate_wcp_pulses(
                     n_qubits, mu_signal, mu_decoy, p_signal, p_decoy, eta, rng,
                 )
+                # If PNS Eve is active, override the detection pattern: she
+                # blocks single-photon pulses and splits multi-photon ones,
+                # forwarding the remainder through a lossless channel.
+                if pns_attack_active:
+                    pns_summary = apply_pns_attack(wcp_pulses)
                 detected_mask = [p.detected for p in wcp_pulses]
 
                 def _filt(lst):
@@ -282,6 +293,9 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
             "ec_stats": ec_stats,
             "source_type": source_type,
             "decoy_state": decoy_result,
+            "lstm_prediction": lstm_detector.predict(
+                alice_bits, alice_bases, bob_bases, bob_results,
+            ),
             "ml_prediction": ml_predict(extract_features_from_dict({
                 "qber": final_qber,
                 "sifted_key_length": len(alice_key),
@@ -290,6 +304,8 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
                 "channel_distance_km": channel_km,
                 "n_qubits": n_sent,
             })),
+            "pns_attack": pns_summary,
+            "finite_key": finite_key_analysis(len(alice_key), final_qber),
             "smart_eve": (
                 {
                     "target_qber": smart_target_qber,
@@ -466,9 +482,15 @@ async def _run_alt_protocol(
             # Two-qubit result: 'ba' bitstring -> (alice_bit, bob_bit)
             from quantum_logic.protocols.e91 import parse_two_qubit_result
             a_bit, b_bit = parse_two_qubit_result(counts)
+            # When Eve intercepts one photon of the entangled pair she
+            # collapses the Bell state; Alice and Bob are left with
+            # independent random outcomes, destroying the CHSH correlations.
+            eve_did_intercept = bool(eve_intercepts[i]) if eve_intercepts else False
+            if eve_did_intercept:
+                a_bit = int(rng.integers(0, 2))
+                b_bit = int(rng.integers(0, 2))
             alice_meas.append(a_bit)
             bob_results.append(b_bit)
-            # Stream a simplified event
             await session_manager.send_event(session_id, {
                 "type": "qubit",
                 "index": i,
@@ -477,7 +499,7 @@ async def _run_alt_protocol(
                 "bob_basis": prep.bob_bases[i],
                 "bob_result": b_bit,
                 "basis_match": (prep.alice_bases[i], prep.bob_bases[i]) in {(1, 0), (2, 1)},
-                "eve_intercept": False,  # entanglement-based Eve handled differently
+                "eve_intercept": eve_did_intercept,
             })
         else:
             result = int(max(counts, key=counts.get))
@@ -538,6 +560,14 @@ async def _run_alt_protocol(
         "mode": "simulator",
         "ec_method": ec_method,
         "ec_stats": ec_stats,
+        "finite_key": finite_key_analysis(len(alice_key), final_qber),
+        # LSTM was trained on BB84-style {alice,bob}_basis ∈ {0,1}; B92/SARG04
+        # share that schema (E91 uses angle indices 0/1/2 — skipped here).
+        "lstm_prediction": (
+            lstm_detector.predict(
+                prep.alice_bits, prep.alice_bases, prep.bob_bases, bob_results,
+            ) if not protocol.USES_ENTANGLEMENT else None
+        ),
         # Bell test data for E91 (None for B92/SARG04)
         "bell_test": (
             {

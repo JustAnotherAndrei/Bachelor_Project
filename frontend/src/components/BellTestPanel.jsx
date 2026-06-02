@@ -23,7 +23,7 @@ export default function BellTestPanel({ bell }) {
 
       <p className="text-xs text-gray-400 mb-3 leading-relaxed">
         The CHSH correlator S quantifies entanglement. Local hidden-variable
-        theories cannot exceed |S| = 2 — any larger value certifies genuine
+        theories cannot exceed |S| = 2. Any larger value certifies genuine
         quantum entanglement (Tsirelson bound 2√2 ≈ 2.828).
       </p>
 

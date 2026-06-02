@@ -95,6 +95,56 @@ def simulate_wcp_pulses(
     return pulses
 
 
+def apply_pns_attack(pulses: list[PulseResult]) -> dict:
+    """
+    Apply a Photon-Number-Splitting (PNS) attack to a list of WCP pulses.
+
+    Eve performs photon-number measurement on every pulse without disturbing
+    the polarisation (a quantum non-demolition measurement is theoretically
+    allowed). She then:
+
+      * blocks single-photon pulses (n = 1) entirely — she cannot extract
+        information without disturbing them (no-cloning theorem);
+      * splits multi-photon pulses (n ≥ 2) — keeps one photon in a quantum
+        memory until Alice announces the basis, and forwards the remaining
+        n − 1 photons to Bob through a lossless replacement channel.
+
+    Vacuum pulses (n = 0) are unaffected. Eve obtains perfect information on
+    every multi-photon pulse without introducing any QBER. The defence is the
+    decoy-state method: this attack drastically suppresses the decoy-intensity
+    gain Q_ν relative to Q_μ, and the Lo-Ma-Chen bounds expose it as a Y_1
+    estimate near zero, killing the secure key rate.
+
+    The pulse list is mutated in place. Returns a JSON-friendly summary dict.
+    """
+    n_blocked_single = 0
+    n_split_multi = 0
+    n_vacuum = 0
+    n_pulses = len(pulses)
+
+    for p in pulses:
+        if p.n_emitted == 0:
+            n_vacuum += 1
+            continue
+        if p.n_emitted == 1:
+            p.detected = False
+            p.n_survived = 0
+            n_blocked_single += 1
+        else:
+            p.n_survived = p.n_emitted - 1
+            p.detected = True
+            n_split_multi += 1
+
+    return {
+        "n_pulses": n_pulses,
+        "n_blocked_single": n_blocked_single,
+        "n_split_multi": n_split_multi,
+        "n_vacuum": n_vacuum,
+        "info_leaked_fraction": round(n_split_multi / max(n_pulses, 1), 4),
+        "block_rate": round(n_blocked_single / max(n_pulses, 1), 4),
+    }
+
+
 def aggregate_by_intensity(
     pulses: list[PulseResult],
     error_flags: list[bool],

@@ -19,6 +19,14 @@ from database.db import init_db
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     init_db()
+    # Train (or load cached) the LSTM eavesdropping detector. The synthetic
+    # training run is ~10 s on CPU and the weights persist on disk, so this
+    # is cheap on subsequent startups.
+    try:
+        from ml.lstm_detector import ensure_trained
+        ensure_trained()
+    except Exception as exc:  # pragma: no cover — best-effort startup
+        logging.getLogger(__name__).warning("LSTM detector unavailable: %s", exc)
     yield
 
 

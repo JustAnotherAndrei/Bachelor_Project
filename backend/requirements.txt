@@ -10,6 +10,7 @@ sqlalchemy>=2.0.0
 python-dotenv>=1.0.0
 scikit-learn>=1.3.0
 joblib>=1.3.0
+torch>=2.0.0  # LSTM eavesdropper detector (CPU build sufficient)
 bcrypt>=4.0.0
 python-jose[cryptography]>=3.3.0
 authlib>=1.3.0

@@ -11,7 +11,10 @@ import KeyRateChart from './KeyRateChart'
 import DecoyStatePanel from './DecoyStatePanel'
 import SmartEvePanel from './SmartEvePanel'
 import MLDetectionPanel from './MLDetectionPanel'
+import LstmDetectionPanel from './LstmDetectionPanel'
 import BellTestPanel from './BellTestPanel'
+import PnsAttackPanel from './PnsAttackPanel'
+import FiniteKeyPanel from './FiniteKeyPanel'
 import AuthModal from './auth/AuthModal'
 import UserMenu from './auth/UserMenu'
 import { useAuth } from '../contexts/AuthContext'
@@ -166,6 +169,12 @@ export default function Dashboard() {
           {summary?.decoy_state && (
             <DecoyStatePanel decoy={summary.decoy_state} />
           )}
+          {summary?.pns_attack && (
+            <PnsAttackPanel pns={summary.pns_attack} decoy={summary.decoy_state} />
+          )}
+          {summary?.finite_key && (
+            <FiniteKeyPanel fk={summary.finite_key} />
+          )}
           {summary?.smart_eve && (
             <SmartEvePanel
               smartEve={summary.smart_eve}
@@ -181,6 +190,9 @@ export default function Dashboard() {
             mlPrediction={summary?.ml_prediction}
             refreshSignal={history.length}
           />
+          {summary?.lstm_prediction && (
+            <LstmDetectionPanel lstm={summary.lstm_prediction} />
+          )}
           <KeyRateChart
             depProb={config.depolarizing_prob}
             measProb={config.measurement_error_prob}
