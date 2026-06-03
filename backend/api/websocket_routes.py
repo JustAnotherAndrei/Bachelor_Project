@@ -38,6 +38,16 @@ from database.db import SessionLocal
 from database.models import SimulationRun
 
 load_dotenv()
+
+
+def _coerce_seed(raw) -> int | None:
+    """Accept loose JSON shapes ("", null, "42", 42) and return int | None."""
+    if raw is None or raw == "" or raw is False:
+        return None
+    try:
+        return int(raw)
+    except (TypeError, ValueError):
+        return None
 log = logging.getLogger(__name__)
 
 ws_router = APIRouter(tags=["websocket"])
@@ -77,6 +87,11 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
         channel_km = float(config.get("channel_distance_km", 0.0))
         ec_method = config.get("ec_method", "parity")  # 'parity' | 'cascade'
         source_type = config.get("source_type", "ideal")  # 'ideal' | 'wcp'
+        # Detector imperfections (η_det, dark counts). 1.0 / 0.0 = ideal detector.
+        eta_det = float(config.get("detector_efficiency", 1.0))
+        dark_count_rate = float(config.get("dark_count_rate", 0.0))
+        # Optional reproducibility seed — coerce loose JSON shapes to int|None.
+        seed = _coerce_seed(config.get("seed"))
         mu_signal = float(config.get("mu_signal", 0.5))
         mu_decoy = float(config.get("mu_decoy", 0.1))
 
@@ -85,6 +100,11 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
         # path. The BB84 path below retains decoy-state, smart-Eve, IBM
         # hardware, and all advanced features.
         # ------------------------------------------------------------------
+        # Read WCP source params here too so we can forward them to the
+        # alt-protocol path (B92/SARG04). E91 ignores them.
+        p_signal = float(config.get("p_signal", 0.70))
+        p_decoy = float(config.get("p_decoy", 0.15))
+
         if protocol_name != "bb84":
             await _run_alt_protocol(
                 session_id=session_id,
@@ -94,10 +114,12 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
                 eve_mode=eve_mode,
                 channel_km=channel_km, ec_method=ec_method,
                 start_time=start_time, ws_user_id=ws_user_id,
+                eta_det=eta_det, dark_count_rate=dark_count_rate, seed=seed,
+                source_type=source_type,
+                mu_signal=mu_signal, mu_decoy=mu_decoy,
+                p_signal=p_signal, p_decoy=p_decoy,
             )
             return
-        p_signal = float(config.get("p_signal", 0.70))
-        p_decoy = float(config.get("p_decoy", 0.15))
 
         # Weak Eve intercepts 30% of qubits; strong Eve intercepts 100%.
         # PNS Eve does NOT do intercept-resend (no QBER added) — handled
@@ -107,7 +129,7 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
         pns_attack_active = (eve_mode == "pns")
         pns_summary = None
 
-        rng = np.random.default_rng()
+        rng = np.random.default_rng(seed)
         n_sent = n_qubits  # original qubit count before channel loss
         alice_bits = rng.integers(0, 2, n_qubits).tolist()
         alice_bases = rng.integers(0, 2, n_qubits).tolist()
@@ -205,6 +227,16 @@ async def simulate_stream(websocket: WebSocket, session_id: str):
                 result = int(max(counts, key=counts.get))
 
                 if eve_intercepts and eve_intercepts[i] and eve_bases[i] != alice_bases[i]:
+                    result = int(rng.integers(0, 2))
+
+                # Detector imperfections: dark count overrides the click with a
+                # spurious random bit; finite η_det randomises lost photons (we
+                # keep the array dense rather than discarding so sifting stays
+                # parallel — the missed click manifests as extra QBER, which is
+                # the textbook outcome).
+                if dark_count_rate > 0 and rng.random() < dark_count_rate:
+                    result = int(rng.integers(0, 2))
+                elif eta_det < 1.0 and rng.random() > eta_det:
                     result = int(rng.integers(0, 2))
 
                 bob_results.append(result)
@@ -423,45 +455,77 @@ async def _run_alt_protocol(
     eve_mode: str,
     channel_km: float, ec_method: str,
     start_time: float, ws_user_id: int | None,
+    eta_det: float = 1.0, dark_count_rate: float = 0.0,
+    seed: int | None = None,
+    source_type: str = "ideal",
+    mu_signal: float = 0.5, mu_decoy: float = 0.1,
+    p_signal: float = 0.7, p_decoy: float = 0.15,
 ):
     """
     Run a non-BB84 QKD protocol (B92, SARG04, or E91) end-to-end.
 
-    This path intentionally omits the BB84-specific options that don't apply
-    to these protocols (decoy-state, smart-Eve, IBM hardware), keeping the
-    UX simple: configurable noise, channel distance, weak/strong Eve, and
-    the standard EC + PA pipeline.
+    Supports the same source model as the BB84 path (ideal single-photon or
+    WCP + 3-intensity decoy state) plus PNS attacks. E91 forces ideal source
+    because the protocol is entanglement-based — weak coherent pulses don't
+    apply.
     """
     protocol = get_protocol(protocol_name)
-    rng = np.random.default_rng()
-    EVE_RATE = {"none": 0.0, "weak": 0.30, "strong": 1.0, "smart": 0.30}
+    rng = np.random.default_rng(seed)
+
+    # E91 is entanglement-based — WCP / decoy / PNS don't apply physically.
+    if protocol.USES_ENTANGLEMENT and source_type == "wcp":
+        source_type = "ideal"
+
+    # PNS does not do intercept-resend (its threat is silent multi-photon
+    # splitting). The existing "smart" branch is BB84-only, so we drop it
+    # here and treat it as a weak attacker for the alt-protocol path.
+    EVE_RATE = {"none": 0.0, "weak": 0.30, "strong": 1.0, "smart": 0.30, "pns": 0.0}
     eve_rate = EVE_RATE.get(eve_mode, 0.0)
     eve_intercept = eve_mode != "none"
+    pns_attack_active = (eve_mode == "pns") and (source_type == "wcp")
+    pns_summary = None
 
     # --- 1. Prepare state choices for the protocol ---
     prep = protocol.prepare(rng, n_qubits)
     n_sent = n_qubits
 
-    # --- 2. Apply optical-fibre channel loss (uniform per pair / per qubit) ---
-    eta = channel_transmittance(channel_km) if channel_km > 0 else 1.0
-    if channel_km > 0:
-        survive_mask = rng.random(n_qubits) < eta
-        # Filter prep arrays in-place where applicable
-        def _filt_attr(name):
-            v = getattr(prep, name, None)
-            if v is not None and isinstance(v, list):
-                setattr(prep, name, [x for x, s in zip(v, survive_mask) if s])
+    def _filter_prep(mask):
+        """Apply a boolean mask to every list-typed field of `prep`."""
         for fld in vars(prep):
-            _filt_attr(fld)
+            v = getattr(prep, fld, None)
+            if v is not None and isinstance(v, list):
+                setattr(prep, fld, [x for x, keep in zip(v, mask) if keep])
+
+    # --- 2. Source / channel: either WCP (decoy + optional PNS) or ideal+loss ---
+    eta = 1.0
+    wcp_pulses = None
+    if source_type == "wcp":
+        # WCP folds channel transmittance into per-pulse survival, so don't
+        # double-apply the channel loss step.
+        eta = channel_transmittance(channel_km) if channel_km > 0 else 1.0
+        wcp_pulses = simulate_wcp_pulses(
+            n_qubits, mu_signal, mu_decoy, p_signal, p_decoy, eta, rng,
+        )
+        if pns_attack_active:
+            pns_summary = apply_pns_attack(wcp_pulses)
+        detected_mask = [p.detected for p in wcp_pulses]
+        _filter_prep(detected_mask)
         n_qubits = len(getattr(prep, "alice_bases", []) or
                        getattr(prep, "alice_bits", []))
-        if n_qubits == 0:
-            await session_manager.send_event(session_id, {
-                "type": "error",
-                "message": f"All {n_sent} photons lost in {channel_km} km. "
-                           "Reduce distance or increase qubit count.",
-            })
-            return
+    elif channel_km > 0:
+        eta = channel_transmittance(channel_km)
+        survive_mask = (rng.random(n_qubits) < eta).tolist()
+        _filter_prep(survive_mask)
+        n_qubits = len(getattr(prep, "alice_bases", []) or
+                       getattr(prep, "alice_bits", []))
+
+    if n_qubits == 0:
+        await session_manager.send_event(session_id, {
+            "type": "error",
+            "message": f"All {n_sent} photons lost in {channel_km} km. "
+                       "Reduce distance, increase qubit count, or raise μ.",
+        })
+        return
 
     # --- 3. Eve: per-qubit interception mask (intercept-resend) ---
     eve_intercepts = (rng.random(n_qubits) < eve_rate).tolist() if eve_intercept else None
@@ -489,6 +553,12 @@ async def _run_alt_protocol(
             if eve_did_intercept:
                 a_bit = int(rng.integers(0, 2))
                 b_bit = int(rng.integers(0, 2))
+            # Detector imperfections affect Bob's side (Alice's measurement is
+            # treated as a trusted source-side outcome here).
+            if dark_count_rate > 0 and rng.random() < dark_count_rate:
+                b_bit = int(rng.integers(0, 2))
+            elif eta_det < 1.0 and rng.random() > eta_det:
+                b_bit = int(rng.integers(0, 2))
             alice_meas.append(a_bit)
             bob_results.append(b_bit)
             await session_manager.send_event(session_id, {
@@ -509,6 +579,11 @@ async def _run_alt_protocol(
                 eve_basis = int(rng.integers(0, 2))
                 if eve_basis != prep.alice_bases[i]:
                     result = int(rng.integers(0, 2))
+            # Detector imperfections (same model as the BB84 path).
+            if dark_count_rate > 0 and rng.random() < dark_count_rate:
+                result = int(rng.integers(0, 2))
+            elif eta_det < 1.0 and rng.random() > eta_det:
+                result = int(rng.integers(0, 2))
             bob_results.append(result)
             await session_manager.send_event(session_id, {
                 "type": "qubit",
@@ -540,6 +615,49 @@ async def _run_alt_protocol(
     final_qber = round(qber, 4)
     elapsed = round(time.perf_counter() - start_time, 3)
 
+    # --- 6a. Decoy-state analysis (mirrors the BB84 path) ---
+    # We use basis-match-bit-mismatch as the error proxy. For B92/SARG04 the
+    # full sifting predicate is stricter, but the gain signature (Y_1 collapse
+    # under PNS) doesn't depend on the exact per-error counting, so it's a
+    # defensible approximation for the decoy bounds.
+    decoy_result = None
+    if wcp_pulses is not None and not protocol.USES_ENTANGLEMENT:
+        detected_orig_idx = [i for i, p in enumerate(wcp_pulses) if p.detected]
+        error_flags = [False] * len(wcp_pulses)
+        a_bases = getattr(prep, "alice_bases", None) or []
+        b_bases = getattr(prep, "bob_bases", None) or []
+        a_bits = getattr(prep, "alice_bits", None) or []
+        for trial_j, orig_i in enumerate(detected_orig_idx):
+            if (trial_j < len(a_bases) and trial_j < len(b_bases)
+                    and a_bases[trial_j] == b_bases[trial_j]
+                    and trial_j < len(a_bits)
+                    and bob_results[trial_j] != a_bits[trial_j]):
+                error_flags[orig_i] = True
+
+        per_int = aggregate_by_intensity(wcp_pulses, error_flags)
+        sig_row = find_intensity(per_int, mu_signal) or {"gain": 0.0, "qber": 0.0}
+        dec_row = find_intensity(per_int, mu_decoy) or {"gain": 0.0, "qber": 0.0}
+        vac_row = find_intensity(per_int, 0.0) or {"gain": 0.0}
+        Q_mu, E_mu = sig_row["gain"], sig_row["qber"]
+        Q_nu, E_nu = dec_row["gain"], dec_row["qber"]
+        Q_0 = vac_row["gain"]
+        bounds = decoy_analysis(Q_mu, Q_nu, Q_0, E_mu, E_nu, mu_signal, mu_decoy)
+        R_secure = secure_key_rate(
+            Q_mu, E_mu, bounds.get("Q_1", 0.0), bounds.get("e_1", 0.5)
+        )
+        multi_photon = sum(1 for p in wcp_pulses if p.pns_vulnerable)
+        decoy_result = {
+            "per_intensity": per_int,
+            "mu_signal": mu_signal,
+            "mu_decoy": mu_decoy,
+            "bounds": bounds,
+            "secure_key_rate": round(R_secure, 6),
+            "pns_vulnerable": multi_photon,
+            "multi_photon_fraction": round(multi_photon / len(wcp_pulses), 4),
+            "n_pulses": len(wcp_pulses),
+            "n_detected": sum(1 for p in wcp_pulses if p.detected),
+        }
+
     # --- 7. Send final result ---
     await session_manager.send_event(session_id, {
         "type": "result",
@@ -560,6 +678,9 @@ async def _run_alt_protocol(
         "mode": "simulator",
         "ec_method": ec_method,
         "ec_stats": ec_stats,
+        "source_type": source_type,
+        "decoy_state": decoy_result,
+        "pns_attack": pns_summary,
         "finite_key": finite_key_analysis(len(alice_key), final_qber),
         # LSTM was trained on BB84-style {alice,bob}_basis ∈ {0,1}; B92/SARG04
         # share that schema (E91 uses angle indices 0/1/2 — skipped here).

@@ -38,6 +38,9 @@ const DEFAULT_CONFIG = {
   p_signal: 0.7,
   p_decoy: 0.15,
   smart_target_qber: 0.09,
+  detector_efficiency: 1.0,
+  dark_count_rate: 0.0,
+  seed: '',
 }
 
 export default function Dashboard() {
@@ -83,6 +86,11 @@ export default function Dashboard() {
 
   function handleChange(key, value) {
     setConfig(prev => ({ ...prev, [key]: value }))
+  }
+
+  function handleApplyPreset(partial) {
+    // Atomic merge — one re-render, no slider tweening between fields.
+    setConfig(prev => ({ ...prev, ...partial }))
   }
 
   function handleClearHistory() {
@@ -139,6 +147,7 @@ export default function Dashboard() {
           <SimulationControls
             config={config}
             onChange={handleChange}
+            onApplyPreset={handleApplyPreset}
             onRun={() => run(config)}
             onCancel={cancel}
             loading={loading}

@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 const IBM_BACKENDS = ['ibm_fez', 'ibm_marrakesh', 'ibm_kingston']
 
 const PROTOCOLS = [
@@ -7,17 +9,165 @@ const PROTOCOLS = [
   { value: 'e91',    label: 'E91',    blurb: 'Ekert 1991. Entangled photon pairs + CHSH Bell test. Eavesdropping = Bell violation collapse.' },
 ]
 
-export default function SimulationControls({ config, onChange, onRun, onCancel, loading, statusMessage }) {
+// Canonical demo scenarios — each preset is a config patch that gets merged
+// into the live config in one atomic update. Useful for thesis defenses where
+// you want to switch to a known interesting setting in one click.
+const PRESETS = [
+  {
+    id: 'lab',
+    label: 'Lab bench',
+    blurb: 'Clean short-link, no Eve. Reference run for calibration.',
+    config: {
+      protocol: 'bb84', mode: 'simulator',
+      n_qubits: 500,
+      depolarizing_prob: 0.01, measurement_error_prob: 0.015,
+      channel_distance_km: 0,
+      source_type: 'ideal', ec_method: 'cascade',
+      eve_mode: 'none',
+    },
+  },
+  {
+    id: 'metro',
+    label: 'Metro link',
+    blurb: '50 km fiber with WCP + decoy. Realistic city-scale deployment.',
+    config: {
+      protocol: 'bb84', mode: 'simulator',
+      n_qubits: 2000,
+      depolarizing_prob: 0.015, measurement_error_prob: 0.02,
+      channel_distance_km: 50,
+      source_type: 'wcp',
+      mu_signal: 0.5, mu_decoy: 0.1, p_signal: 0.7, p_decoy: 0.15,
+      ec_method: 'cascade', eve_mode: 'none',
+    },
+  },
+  {
+    id: 'satellite',
+    label: 'Satellite uplink',
+    blurb: '130 km link under PNS threat — decoy bounds must catch the attack.',
+    config: {
+      protocol: 'bb84', mode: 'simulator',
+      n_qubits: 5000,
+      depolarizing_prob: 0.01, measurement_error_prob: 0.02,
+      channel_distance_km: 130,
+      source_type: 'wcp',
+      mu_signal: 0.5, mu_decoy: 0.1, p_signal: 0.7, p_decoy: 0.15,
+      ec_method: 'cascade', eve_mode: 'pns',
+    },
+  },
+  {
+    id: 'adversarial',
+    label: 'Adversarial',
+    blurb: 'Strong intercept-resend. QBER should jump well above the 11 % threshold.',
+    config: {
+      protocol: 'bb84', mode: 'simulator',
+      n_qubits: 400,
+      depolarizing_prob: 0.01, measurement_error_prob: 0.02,
+      channel_distance_km: 0,
+      source_type: 'ideal', ec_method: 'cascade',
+      eve_mode: 'strong',
+    },
+  },
+  {
+    id: 'b92_lab',
+    label: 'B92 lab',
+    blurb: 'B92 protocol, clean short link, no Eve. Watch sifting efficiency settle near 25 % — half of BB84\'s rate, the price of the simpler 2-state set.',
+    config: {
+      protocol: 'b92', mode: 'simulator',
+      n_qubits: 600,
+      depolarizing_prob: 0.01, measurement_error_prob: 0.015,
+      channel_distance_km: 0,
+      source_type: 'ideal', ec_method: 'cascade',
+      eve_mode: 'none',
+    },
+  },
+  {
+    id: 'sarg04_pns',
+    label: 'SARG04 vs PNS',
+    blurb: 'SARG04 with WCP + decoy state, under active PNS attack. The decoy bound Y₁ should collapse — exactly the signature decoy-state analysis is designed to expose.',
+    config: {
+      protocol: 'sarg04', mode: 'simulator',
+      n_qubits: 3000,
+      depolarizing_prob: 0.01, measurement_error_prob: 0.02,
+      channel_distance_km: 50,
+      source_type: 'wcp',
+      mu_signal: 0.5, mu_decoy: 0.1, p_signal: 0.7, p_decoy: 0.15,
+      ec_method: 'cascade',
+      eve_mode: 'pns',
+    },
+  },
+  {
+    id: 'e91_bell',
+    label: 'E91 Bell test',
+    blurb: 'E91 entanglement-based protocol on a clean lab link. CHSH parameter S should approach the Tsirelson bound 2√2 ≈ 2.83 — the canonical Bell violation.',
+    config: {
+      protocol: 'e91', mode: 'simulator',
+      n_qubits: 1000,
+      depolarizing_prob: 0.005, measurement_error_prob: 0.015,
+      channel_distance_km: 0,
+      source_type: 'ideal', ec_method: 'cascade',
+      eve_mode: 'none',
+    },
+  },
+]
+
+export default function SimulationControls({ config, onChange, onApplyPreset, onRun, onCancel, loading, statusMessage }) {
   const isIBM = config.mode === 'ibm_hardware'
   const protocol = config.protocol || 'bb84'
   const isBB84 = protocol === 'bb84'
   const protocolBlurb = PROTOCOLS.find(p => p.value === protocol)?.blurb
+  // Last preset the user applied — auto-clears as soon as any preset-managed
+  // field diverges from the preset's value. Tweaking fields the preset
+  // doesn't touch (e.g. seed) leaves the highlight intact.
+  const [activePresetId, setActivePresetId] = useState(null)
+
+  useEffect(() => {
+    if (activePresetId == null) return
+    const preset = PRESETS.find(p => p.id === activePresetId)
+    if (!preset) return
+    const diverged = Object.entries(preset.config).some(([k, v]) => {
+      const current = config[k]
+      if (typeof v === 'number') return Math.abs((current ?? 0) - v) > 1e-9
+      return current !== v
+    })
+    if (diverged) setActivePresetId(null)
+  }, [config, activePresetId])
 
   return (
     <div className="flex flex-col gap-5 h-full">
       <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
         Simulation
       </h2>
+
+      {/* Preset scenarios — show only the presets matching the currently
+          selected protocol. BB84 → 4 scenarios; B92/SARG04/E91 → 1 each. */}
+      {onApplyPreset && (() => {
+        const relevantPresets = PRESETS.filter(p => p.config.protocol === protocol)
+        if (relevantPresets.length === 0) return null
+        const cols = relevantPresets.length >= 2 ? 'grid-cols-2' : 'grid-cols-1'
+        return (
+          <div className="flex flex-col gap-1.5">
+            <span className="text-sm text-gray-300">
+              {relevantPresets.length === 1 ? 'Preset scenario' : 'Preset scenarios'}
+            </span>
+            <div className={`grid ${cols} gap-1.5`}>
+              {relevantPresets.map(p => (
+                <PresetButton
+                  key={p.id} preset={p}
+                  active={activePresetId === p.id}
+                  onClick={() => {
+                    if (activePresetId === p.id) setActivePresetId(null)
+                    else { onApplyPreset(p.config); setActivePresetId(p.id) }
+                  }}
+                  disabled={loading}
+                />
+              ))}
+            </div>
+            <p className="text-[11px] text-gray-500 leading-snug mt-1">
+              Hover for description. Tweak any slider after applying.
+            </p>
+          </div>
+        )
+      })()}
 
       {/* Protocol selector */}
       <div className="flex flex-col gap-1.5">
@@ -119,6 +269,20 @@ export default function SimulationControls({ config, onChange, onRun, onCancel, 
             min={0} max={0.2} step={0.005}
             display={`${(config.measurement_error_prob * 100).toFixed(1)}%`}
             onChange={v => onChange('measurement_error_prob', v)}
+          />
+          <SliderField
+            label="Detector efficiency η_det"
+            value={config.detector_efficiency ?? 1.0}
+            min={0.5} max={1.0} step={0.01}
+            display={`${((config.detector_efficiency ?? 1.0) * 100).toFixed(0)}%`}
+            onChange={v => onChange('detector_efficiency', v)}
+          />
+          <SliderField
+            label="Dark-count rate"
+            value={config.dark_count_rate ?? 0.0}
+            min={0} max={0.02} step={0.0005}
+            display={`${((config.dark_count_rate ?? 0.0) * 100).toFixed(2)}%`}
+            onChange={v => onChange('dark_count_rate', v)}
           />
           <SliderField
             label="Channel distance"
@@ -288,6 +452,29 @@ export default function SimulationControls({ config, onChange, onRun, onCancel, 
         </p>
       )}
 
+      {/* Reproducibility seed */}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-sm text-gray-300">
+          Seed <span className="text-xs text-gray-500">(optional, integer)</span>
+        </label>
+        <input
+          type="text"
+          inputMode="numeric"
+          placeholder="leave empty for random"
+          value={config.seed ?? ''}
+          onChange={e => {
+            const v = e.target.value
+            // Allow empty, an optional leading minus, then digits.
+            if (v === '' || /^-?\d*$/.test(v)) onChange('seed', v)
+          }}
+          disabled={loading}
+          className="bg-gray-800 border border-gray-700 text-gray-100 text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-violet-500 disabled:opacity-50"
+        />
+        <p className="text-[11px] text-gray-500">
+          Fix the seed to make a run bit-for-bit reproducible (useful for thesis screenshots).
+        </p>
+      </div>
+
       {/* IBM status messages */}
       {statusMessage && (
         <p className="text-xs text-violet-300 bg-violet-950 border border-violet-800 rounded-lg px-3 py-2 flex items-center gap-2">
@@ -321,6 +508,24 @@ export default function SimulationControls({ config, onChange, onRun, onCancel, 
     </div>
   )
 }
+
+function PresetButton({ preset, active, onClick, disabled }) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      title={preset.blurb}
+      className={`text-xs px-2 py-2 border rounded-md transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
+        active
+          ? 'bg-violet-600 border-violet-500 text-white'
+          : 'bg-gray-800 hover:bg-violet-900/40 border-gray-700 hover:border-violet-700 text-gray-200'
+      }`}
+    >
+      {preset.label}
+    </button>
+  )
+}
+
 
 function SliderField({ label, value, min, max, step, display, onChange }) {
   return (
