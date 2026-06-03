@@ -33,7 +33,10 @@ _MIGRATIONS = [
 
 def init_db():
     # noqa: F401 — these imports register the models on Base before create_all
-    from database.models import User, PasswordResetToken, SimulationRun  # noqa: F401
+    from database.models import (  # noqa: F401
+        User, PasswordResetToken, SimulationRun,
+        MissionAttempt, UserProgress,
+    )
     Base.metadata.create_all(bind=engine)
 
     with engine.connect() as conn:

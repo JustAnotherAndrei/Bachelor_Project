@@ -12,6 +12,7 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(name)s — %(me
 
 from api.routes import router
 from api.websocket_routes import ws_router
+from api.challenge_routes import router as challenge_router
 from auth.routes import router as auth_router
 from database.db import init_db
 
@@ -58,6 +59,7 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(router)
 app.include_router(ws_router)
+app.include_router(challenge_router)
 
 
 @app.get("/health")

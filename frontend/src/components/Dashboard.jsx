@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { Shield, LogIn } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Shield, LogIn, Trophy } from 'lucide-react'
 import StatusBadge from './StatusBadge'
 import SimulationControls from './SimulationControls'
 import QBERChart from './QBERChart'
@@ -7,6 +8,8 @@ import PhotonGrid from './PhotonGrid'
 import SimulationSummary from './SimulationSummary'
 import useSimulationSocket from '../hooks/useSimulationSocket'
 import EducationalPanel from './EducationalPanel'
+import FunFactPanel from './FunFactPanel'
+import SessionMeta from './SessionMeta'
 import KeyRateChart from './KeyRateChart'
 import DecoyStatePanel from './DecoyStatePanel'
 import SmartEvePanel from './SmartEvePanel'
@@ -93,12 +96,22 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
 
       <header className="border-b border-gray-800 px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Shield className="text-violet-400" size={28} />
-          <span className="text-xl font-semibold tracking-tight">Sequre</span>
-          <span className="text-xs text-gray-500 font-mono">An interactive QKD Platform</span>
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-3">
+            <Shield className="text-violet-400" size={28} />
+            <span className="text-xl font-semibold tracking-tight">Sequre</span>
+            <span className="text-xs text-gray-500 font-mono">An interactive QKD Platform</span>
+          </div>
+          <SessionMeta />
         </div>
         <div className="flex items-center gap-4">
+          <Link
+            to="/challenge"
+            className="flex items-center gap-2 text-sm px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors"
+            title="15 procedurally-generated QKD missions"
+          >
+            <Trophy size={14} /> Challenge Mode
+          </Link>
           <StatusBadge online />
           {authLoading ? null : user ? (
             <UserMenu />
@@ -198,6 +211,7 @@ export default function Dashboard() {
             measProb={config.measurement_error_prob}
             currentDistance={config.channel_distance_km}
           />
+          <FunFactPanel />
           <EducationalPanel />
         </section>
 
