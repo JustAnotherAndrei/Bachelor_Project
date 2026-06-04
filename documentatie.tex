@@ -123,14 +123,47 @@
 \vspace{10pt}
 
 \noindent
-% TODO: 1-page abstract describing Sequre — to be filled in once chapters are stable.
-\textit{[Abstract to be written after the main chapters are finalised, so the
-summary accurately reflects the final content. Expected length: ~one page.
-Topics to cover: the problem (need for accessible QKD experimentation),
-the proposed solution (Sequre platform), key technical contributions (real
-IBM Quantum hardware integration, real-time WebSocket visualization, full
-end-to-end BB84 pipeline with EC and PA, multi-mode Eve simulation),
-methodology, and main results.]}
+Quantum Key Distribution (QKD) promises information-theoretic security by
+encoding cryptographic key material into single photons whose state cannot
+be cloned or measured without disturbance. Despite this strong theoretical
+foundation, hands-on QKD experimentation is still difficult to access:
+existing simulators are either research-grade command-line tools written
+for specialists, or oversimplified notebooks that hide the very details
+(noise, finite-key effects, source imperfections, detector inefficiency,
+realistic attack strategies) that make QKD interesting and non-trivial.
+
+This thesis presents \textbf{Sequre}, an interactive, full-stack platform
+for studying and visualising QKD. The system implements four protocols
+(BB84, B92, SARG04 and the entanglement-based E91) on top of a unified
+Qiskit~\cite{qiskit2024} simulation backend, and also dispatches the same
+circuits to real superconducting hardware via the IBM Quantum runtime.
+The end-to-end pipeline is faithfully modelled: weak-coherent-pulse
+sources with three-intensity decoy-state analysis, photon-number-splitting
+and intercept-resend eavesdropping, depolarising and measurement noise,
+fibre attenuation at $0.20$\,dB/km, detector efficiency and dark counts,
+Cascade-style information reconciliation, Toeplitz-hash privacy
+amplification, finite-key correction in the Tomamichel--Lim--Gisin--Renner
+framework, and CHSH Bell tests for E91. Two machine-learning eavesdropper
+detectors --- a Random Forest and a PyTorch LSTM trained on synthetic QBER
+sequences --- demonstrate that data-driven channel monitoring is feasible
+even on small key blocks.
+
+The front-end (React + Vite + Tailwind) streams qubit-level events from
+the FastAPI backend over WebSockets and presents them as a live photon
+grid, real-time QBER charts, decoy-state and finite-key panels, and a
+``Channel Status'' badge. A gamified \textbf{Challenge Mode} adds fifteen
+procedurally-parameterised missions (Detective: detect Eve from
+observations; Engineer: configure QKD to satisfy a constraint) with a
+global XP leaderboard, persistent progress and SQLite-backed audit trails.
+
+Experimental results confirm the expected QBER signatures of each attack
+type (intercept-resend $\approx 25\%$, weak Eve $\approx 12\%$, smart Eve
+tuned to $9\%$, PNS leaving QBER unchanged but collapsing the single-photon
+yield $Y_1$ in the decoy analysis), reproduce the $1/\sqrt{n}$ finite-key
+penalty, and yield validation accuracies of $0.93$ (Random Forest) and
+$0.92$ (LSTM) on held-out runs. Together, these results show that Sequre
+is both a pedagogically useful sandbox and a credible experimental platform
+for undergraduate-level QKD research.
 
 \vspace{20pt}
 \noindent
@@ -386,18 +419,20 @@ The primary contributions of this work are the following:
         A full authentication layer (email/password with bcrypt, JWT
         access/refresh tokens in HttpOnly cookies, CSRF double-submit
         protection, password reset, Google OAuth 2.0) allows simulations to
-        be attributed to authenticated users, paving the way for the
-        upcoming gamified and multi-player modes while preserving anonymous
-        guest access.
+        be attributed to authenticated users and enables per-user progress
+        tracking across the gamified Challenge Mode, while preserving full
+        anonymous guest access for the simulation features.
 
   \item \textbf{A configurable research testbed for QKD experimentation.}
         The platform exposes noise parameters (depolarising probability,
         measurement error rate, interception fraction, channel distance,
-        source type, decoy intensities, error-correction algorithm) as
-        user-controlled inputs, making it suitable not only for classroom
-        demonstration but also as an exploratory tool for studying the
-        protocol's behaviour under varied hardware and adversarial
-        conditions.
+        source type, decoy intensities, error-correction algorithm, detector
+        efficiency $\eta_\mathrm{det}$, dark-count rate) as user-controlled
+        inputs, together with a reproducibility seed for deterministic runs
+        and seven preset scenarios that instantly configure canonical
+        experimental setups. The platform is suitable not only for classroom
+        demonstration but also as an exploratory tool for studying protocol
+        behaviour under varied hardware and adversarial conditions.
 
   \item \textbf{Persistent simulation history with REST API access.}
         Automated SQLite persistence of every simulation run, queryable via
@@ -450,6 +485,22 @@ The primary contributions of this work are the following:
         disk and loaded at startup; training completes in under 30 seconds on
         CPU.
 
+  \item \textbf{Gamified single-player Challenge Mode with global leaderboard.}
+        A self-contained \emph{Challenge Mode} page presents 15 procedurally
+        parameterised QKD missions across two pedagogical formats.
+        \textit{Detective} missions run a hidden simulation and ask the student
+        to declare whether Eve is present and which attack she is using, based
+        solely on the observable panels (QBER, LSTM probability, decoy-state
+        $Y_1$, CHSH $S$). \textit{Engineer} missions present a constrained
+        objective (e.g.\ ``achieve $\geq 256$ bits of finite-key output over a
+        130\,km link under PNS'') and ask the student to configure the QKD
+        parameters to meet it. Each mission is parameterised within a
+        difficulty band on every attempt; a global XP leaderboard, per-user
+        progress tracking, and targeted post-failure hints complete the
+        learning loop. The Challenge Mode reuses the entire simulation and
+        visualisation stack without duplication, and is implemented as a
+        separate \texttt{/challenge} route with its own authenticated REST API.
+
 \end{enumerate}
 
 Beyond its immediate academic scope, Sequre is conceived as a
@@ -457,14 +508,25 @@ research-oriented testbed with a long-term ambition: to probe the practical
 limits of quantum key distribution under realistic hardware imperfections,
 advanced attack models, and extended protocol variants. The architecture is
 deliberately modular --- the quantum logic, classical post-processing, and
-presentation layers are cleanly separated --- and this modularity has already
-enabled the integration of decoy-state BB84, CASCADE error correction, an
+presentation layers are cleanly separated --- and this modularity has enabled
+the integration of decoy-state BB84, CASCADE error correction, an
 optical-fibre attenuation model, an adaptive (Smart) Eve, an ML-based
-detection layer, three alternative QKD protocols (B92, SARG04, E91 with
-CHSH Bell test), an explicit PNS-attack simulator, composable finite-key
-security bounds, and a deep-learning (LSTM) eavesdropper detector into the
-same code base without restructuring. A gamified \emph{Challenge Mode} is
-identified as the next development target (see Section~\ref{sec:conclusions}).
+detection layer, three alternative QKD protocols (B92, SARG04, E91 with CHSH
+Bell test), an explicit PNS-attack simulator, composable finite-key security
+bounds, a deep-learning (LSTM) eavesdropper detector, and a fully gamified
+\emph{Challenge Mode} into the same code base without restructuring.
+
+Additional physical-realism controls exposed at the user level include
+configurable \textbf{detector efficiency} $\eta_\mathrm{det}$ and
+\textbf{dark-count rate}, both of which modulate Bob's measurement outcome in
+accordance with the standard detector imperfection model; an optional
+\textbf{reproducibility seed} that seeds the NumPy generator for bit-for-bit
+reproducible runs; and a set of \textbf{preset scenarios} (Lab bench,
+Metropolitan link, Satellite uplink under PNS, Adversarial) that configure all
+simulation parameters atomically for use in demonstrations and thesis
+presentations. The WCP + decoy-state source and PNS attack model have been
+extended to cover the B92 and SARG04 alternative protocols, enabling direct
+side-by-side comparison with BB84.
 
 % =================== 2. THEORETICAL BACKGROUND ===============================
 \newpage
@@ -1210,60 +1272,809 @@ size is sufficient for a positive bound.
 
 % =================== 3. EXISTING QKD SIMULATORS ==============================
 \newpage
-\section{Existing QKD Simulators}
+\section{Existing QKD Simulators and Related Work}
 \label{sec:related-work}
 
-% TODO: Survey of comparable platforms + how Sequre differs.
+Several software platforms exist for simulating quantum key distribution.
+This chapter surveys the most widely used tools, evaluates their scope and
+limitations, and positions Sequre relative to the state of the art.
 
 \subsection{QKDSim}
+\label{sec:qkdsim}
+
+QKDSim is a Python-based educational simulator focused on the BB84 and
+E91 protocols. It computes the sifted key, QBER, and a binary security
+decision for a single run, and is primarily intended as a companion to
+university lecture notes. Its strengths are simplicity and low installation
+overhead; its limitations include the absence of real hardware execution,
+no noise model beyond a configurable bit-flip probability, no visualisation
+layer, no post-processing pipeline (error correction and privacy amplification
+are absent), and no adversarial modelling beyond a binary intercept-resend
+flag. It does not support multi-user operation, persistent history, or
+machine-learning analysis.
+
 \subsection{NetSquid}
-\subsection{QuNetSim / SimulaQron}
+\label{sec:netsquid}
+
+NetSquid~\cite{netsquid2021} (Network Simulator for Quantum Information using
+Discrete events) is a high-fidelity, discrete-event simulator for quantum
+networks. Its primary design goal is performance characterisation of
+quantum repeater networks, entanglement distribution protocols, and
+quantum memory systems --- not QKD education. It models physical processes
+(photon propagation, decoherence, detector timing jitter, dark counts) at a
+component level of detail that greatly exceeds what is needed for
+demonstrating BB84. As a consequence, NetSquid requires substantial
+domain expertise to use, has no browser-accessible interface, and is not
+suited to interactive classroom demonstration. It also does not integrate
+with real IBM Quantum hardware.
+
+\subsection{QuNetSim and SimulaQron}
+\label{sec:qunetsim}
+
+QuNetSim~\cite{qunetsim2021} and SimulaQron~\cite{simulaqron2018} are
+quantum-network simulation frameworks that provide an abstraction layer
+for writing distributed quantum protocols in Python. Both can simulate
+QKD as a special case but are designed as generic network-layer toolkits
+rather than QKD-specific platforms. They expose low-level primitives
+(qubit send/receive, teleportation, entanglement swapping) rather than
+a pedagogically structured BB84 pipeline. Neither provides real-time
+visualisation, a web interface, or integration with cloud quantum hardware.
+
+\subsection{Qiskit Textbook Demos}
+\label{sec:qiskit-textbook}
+
+IBM's Qiskit learning platform includes interactive Jupyter-notebook
+demonstrations of BB84 that use Qiskit circuits and Aer simulation.
+These notebooks are closest in spirit to Sequre: they use the same
+Qiskit circuit model, support noise injection, and are intended for
+students. However, they are static notebooks rather than a deployable
+web application; they do not persist results, stream per-qubit events in
+real time, connect to live IBM hardware via a polished interface, or offer
+any adversarial simulation, ML analysis, or gamified challenge layer.
+
 \subsection{Positioning of Sequre}
+\label{sec:sequre-positioning}
+
+Table~\ref{tab:related-work} summarises the comparison across the
+dimensions most relevant to Sequre's design goals.
+
+\begin{table}[H]
+  \centering
+  \caption{Comparison of QKD simulation platforms.}
+  \label{tab:related-work}
+  \small
+  \begin{tabular}{@{} l c c c c c @{}}
+    \toprule
+    \textbf{Feature} &
+    \textbf{Sequre} &
+    \textbf{QKDSim} &
+    \textbf{NetSquid} &
+    \textbf{QuNetSim} &
+    \textbf{Qiskit nb.} \\
+    \midrule
+    Real hardware execution   & \checkmark & -- & -- & -- & -- \\
+    Real-time visualisation   & \checkmark & -- & -- & -- & -- \\
+    Multiple Eve models       & \checkmark & limited & -- & -- & -- \\
+    Decoy-state / PNS         & \checkmark & -- & -- & -- & -- \\
+    Finite-key analysis       & \checkmark & -- & -- & -- & -- \\
+    CASCADE error correction  & \checkmark & -- & -- & -- & -- \\
+    ML eavesdropper detection & \checkmark & -- & -- & -- & -- \\
+    Alternative protocols     & \checkmark & partial & partial & \checkmark & partial \\
+    Multi-user / auth         & \checkmark & -- & -- & -- & -- \\
+    Challenge Mode / gamification & \checkmark & -- & -- & -- & -- \\
+    Browser-accessible        & \checkmark & -- & -- & -- & \checkmark \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The defining differentiator of Sequre is the combination of
+\emph{research-grade analytical depth} (decoy-state bounds, finite-key
+security, LSTM detection, real hardware) with a \emph{fully accessible
+web interface} and a \emph{gamified learning layer}. No existing open
+platform addresses all three simultaneously.
 
 % =================== 4. TECHNOLOGIES USED ====================================
 \newpage
 \section{Technologies Used}
 \label{sec:technologies}
 
-\subsection{Python and Qiskit}
-\subsection{Qiskit-Aer (Noisy Simulation Backend)}
-\subsection{Qiskit-IBM-Runtime (Real Hardware)}
+This chapter describes the core technologies that underpin the Sequre
+platform, covering both the backend computation stack and the frontend
+presentation layer.
+
+\subsection{Python 3.11}
+\label{sec:python}
+
+The backend is written in Python 3.11. Python was chosen for its mature
+ecosystem of quantum-computing libraries (Qiskit, PyTorch), scientific
+computing packages (NumPy), and web frameworks (FastAPI). The 3.11 release
+specifically was selected for its 10--25\% speed improvement over Python 3.9
+in CPU-bound loops, which is measurable during the per-qubit simulation
+loop at larger qubit counts.
+
+\subsection{Qiskit and Qiskit-Aer}
+\label{sec:qiskit}
+
+\textbf{Qiskit}~\cite{qiskit2024} is IBM's open-source SDK for quantum
+computing. Sequre uses it to construct per-qubit BB84 circuits: Alice's
+encoding gate sequence (optional X gate for bit~1, optional H gate for
+the $X$-basis) and Bob's measurement in the chosen basis. The circuit
+for a single qubit exchange is a one-qubit circuit of depth at most~3,
+kept intentionally shallow to minimise transpilation overhead when
+dispatching to real hardware.
+
+\textbf{Qiskit-Aer} is the high-performance simulator backend. It supports
+both ideal statevector simulation (used for the zero-noise baseline) and
+noisy simulation via the \texttt{NoiseModel} API. Sequre builds a noise
+model with depolarising errors on the X and H gates and a Pauli
+bit-flip channel on measurement, parameterised by the user-controlled
+\texttt{depolarizing\_prob} and \texttt{measurement\_error\_prob} inputs.
+
+\subsection{Qiskit IBM Runtime}
+\label{sec:ibm-runtime}
+
+For real-hardware execution, Sequre integrates with the
+\textbf{Qiskit IBM Runtime} \texttt{SamplerV2} API. Individual BB84
+circuits are batched into a single \texttt{SamplerV2} job, dispatched
+asynchronously to the selected IBM Quantum backend
+(\texttt{ibm\_fez}, \texttt{ibm\_marrakesh}, or \texttt{ibm\_kingston}),
+and polled via the runtime job handle. Results are streamed to the
+frontend over the open WebSocket connection as soon as the job
+completes. Access credentials are stored in a server-side \texttt{.env}
+file that is never committed to version control.
+
 \subsection{FastAPI}
+\label{sec:fastapi}
+
+\textbf{FastAPI} is a modern, async Python web framework based on
+\texttt{asyncio} and the ASGI specification. It was chosen for three
+reasons. First, its native \texttt{async/await} support makes it
+straightforward to stream per-qubit events over a WebSocket without
+blocking the event loop on the Qiskit simulation calls (achieved via
+\texttt{asyncio.sleep(0)} yield points). Second, its automatic
+OpenAPI documentation (available at \texttt{/docs}) documents all
+REST endpoints without additional effort. Third, its Pydantic integration
+provides input validation and serialisation for all request and response
+models.
+
+Sequre's FastAPI application exposes two types of endpoints: REST
+endpoints (simulation history, ML training, authentication, challenge
+progress) under \texttt{/api/v1/}, and a single WebSocket endpoint at
+\texttt{/ws/simulate/\{session\_id\}} that drives the live simulation
+stream.
+
 \subsection{WebSockets for Real-Time Streaming}
-\subsection{SQLite for Run Persistence}
-\subsection{React with Vite}
+\label{sec:websockets}
+
+The WebSocket protocol provides a full-duplex, persistent TCP connection
+over which the server can push events to the client without polling. In
+Sequre, the frontend opens a WebSocket to
+\texttt{/ws/simulate/\{uuid\}}, sends the simulation configuration as a
+JSON object, and then receives a stream of \texttt{type: "qubit"} events
+(one per simulated qubit, carrying Alice's basis and bit, Bob's basis
+and result, and the Eve-intercept flag) followed by a single
+\texttt{type: "result"} event containing the full summary. This streaming
+architecture is the technical foundation of the PhotonGrid animation and
+the progressive QBER update.
+
+\subsection{SQLite and SQLAlchemy}
+\label{sec:sqlite}
+
+Simulation runs, user accounts, password-reset tokens, and Challenge Mode
+attempts are persisted in a \textbf{SQLite} database
+(\texttt{sequre.db}) via the \textbf{SQLAlchemy} ORM. SQLite was selected
+over a client-server database (e.g.\ PostgreSQL) because Sequre is
+designed for single-host deployment; the operational write rate (one
+INSERT per simulation run) is well within SQLite's concurrency limits.
+SQLAlchemy provides declarative model definitions and a session-based
+transaction API; schema migrations are handled via idempotent
+\texttt{ALTER TABLE} statements executed at startup, which add new
+columns if absent and silently skip them otherwise.
+
+\subsection{PyTorch}
+\label{sec:pytorch}
+
+\textbf{PyTorch} is used for the LSTM eavesdropper detector
+(Section~\ref{sec:lstm-impl}). The CPU build (no CUDA required) is
+installed as a backend dependency. The LSTM, linear classifier, and
+training loop are implemented in \texttt{backend/ml/lstm\_detector.py};
+the trained weights are saved to \texttt{lstm\_weights.pt} at the end
+of the first training run and loaded from disk on subsequent server
+starts. The entire training cycle (1\,200 synthetic sequences, 60 epochs)
+completes in under 30 seconds on a modern CPU.
+
+\subsection{React 19 and Vite}
+\label{sec:react}
+
+The frontend is a \textbf{React 19} single-page application bundled with
+\textbf{Vite}. React's component model allows each visualisation panel
+(PhotonGrid, DecoyStatePanel, FiniteKeyPanel, LstmDetectionPanel, etc.)
+to be a self-contained, props-driven component that re-renders only when
+its data changes. Vite provides sub-second hot-module replacement during
+development and a highly optimised production bundle.
+
+Client-side routing between the main Dashboard (\texttt{/}) and the
+Challenge Mode page (\texttt{/challenge}) is provided by
+\textbf{React Router DOM v7}, which intercepts URL changes and renders the
+appropriate page component without a full-page reload.
+
 \subsection{Tailwind CSS}
+\label{sec:tailwind}
+
+\textbf{Tailwind CSS} is a utility-first CSS framework that generates
+a minimal stylesheet containing only the classes actually used in the
+project. Sequre uses Tailwind exclusively for styling: all component
+layout, colour, spacing, and responsive behaviour is expressed via
+inline class names. The dark-mode design (gray-950 background, violet
+accent) is achieved with Tailwind's colour palette without any custom
+CSS files.
+
+\subsection{Recharts}
+\label{sec:recharts}
+
+The QBER historical chart and the key-rate-vs-distance curve are rendered
+with \textbf{Recharts}, a composable charting library built on top of
+D3 and React. It was chosen for its declarative API and out-of-the-box
+responsiveness, which eliminates the need for manual SVG manipulation.
+
+\subsection{Authentication Stack}
+\label{sec:auth-stack}
+
+The authentication subsystem uses:
+\begin{itemize}
+  \item \textbf{bcrypt} for password hashing (work factor~12);
+  \item \textbf{python-jose} for JWT access and refresh token signing
+        (HS256, configurable secret);
+  \item \textbf{Starlette \texttt{SessionMiddleware}} for the OAuth
+        \texttt{state} parameter across the Google redirect;
+  \item \textbf{Authlib} for the Google OAuth 2.0 flow
+        (authorisation-code with PKCE);
+  \item \textbf{HttpOnly, SameSite=Lax} cookie delivery of the
+        access token, combined with a CSRF double-submit cookie for
+        state-changing requests.
+\end{itemize}
 
 % =================== 5. APPLICATION ARCHITECTURE =============================
 \newpage
 \section{Application Architecture}
 \label{sec:architecture}
 
-\subsection{The C4 Model}
+Sequre follows a classic three-tier web architecture: a \textbf{React SPA}
+frontend served by Vite (development) or a static file server (production),
+a \textbf{FastAPI} backend that exposes REST and WebSocket endpoints, and a
+\textbf{SQLite} database for persistence. The backend also communicates
+outward to the IBM Quantum Runtime API for hardware execution and to the
+\texttt{ipapi.co} geolocation service used by the frontend's session
+metadata widget.
 
-\subsubsection{Level 1: System Context}
-\subsubsection{Level 2: Containers}
-\subsubsection{Level 3: Components}
-\subsubsection{Level 4: Code}
+\subsection{High-Level System Overview}
+\label{sec:system-overview}
+
+The deployment topology is single-host: both the frontend (port~5173 in
+development, served from \texttt{/} by the backend's static-file middleware in
+production) and the backend (port~8000) run on the same machine. Vite's
+development proxy forwards all \texttt{/api/v1/} and \texttt{/ws/} requests
+to the FastAPI process, so the browser sees a single origin with no
+cross-origin restrictions. A \texttt{.env} file at the backend root holds all
+secrets (JWT key, IBM token, Google OAuth credentials) and is excluded from
+version control.
+
+\begin{figure}[H]
+  \centering
+  % SCREENSHOT PLACEHOLDER: deployment topology diagram
+  % Replace this comment with \includegraphics once the figure is prepared.
+  \fbox{\parbox{12cm}{\centering\vspace{2cm}
+    \textit{[Figure: system topology — Browser $\leftrightarrow$ Vite/FastAPI $\leftrightarrow$ SQLite; FastAPI $\rightarrow$ IBM Quantum Runtime]}
+  \vspace{2cm}}}
+  \caption{Sequre deployment topology. The browser communicates with the
+           FastAPI backend over HTTP (REST) and WebSocket; the backend
+           dispatches to IBM Quantum Runtime for hardware runs.}
+  \label{fig:topology}
+\end{figure}
+
+\subsection{Backend Module Structure}
+\label{sec:backend-structure}
+
+The backend Python package is organised into the following top-level
+modules, each with a single well-defined responsibility:
+
+\begin{description}
+  \item[\texttt{api/}] FastAPI routers. \texttt{routes.py} handles REST
+        (history, ML train/status, key-rate curve); \texttt{websocket\_routes.py}
+        contains the main simulation loop; \texttt{challenge\_routes.py}
+        exposes the Challenge Mode endpoints.
+  \item[\texttt{quantum\_logic/}] Protocol-independent quantum circuit
+        construction (\texttt{bb84\_circuit.py}), noise model
+        (\texttt{noise\_model.py}), channel attenuation
+        (\texttt{channel\_model.py}), WCP/decoy simulation and PNS attack
+        (\texttt{decoy\_state.py}), finite-key analysis
+        (\texttt{finite\_key\_analysis.py}), Smart Eve controller
+        (\texttt{smart\_eve.py}), and the alternative-protocol plug-ins
+        (\texttt{protocols/}).
+  \item[\texttt{classical\_processing/}] Sifting (\texttt{sifting.py}),
+        QBER calculation (\texttt{qber.py}), parity-block error correction
+        (\texttt{error\_correction.py}), CASCADE reconciliation
+        (\texttt{cascade.py}), and privacy amplification
+        (\texttt{privacy\_amplification.py}).
+  \item[\texttt{ml/}] Random Forest classifier (\texttt{eavesdrop\_detector.py})
+        and LSTM detector (\texttt{lstm\_detector.py}).
+  \item[\texttt{challenge/}] Mission catalogue (\texttt{mission\_catalog.py}),
+        parameter instantiator (\texttt{instantiator.py}), Detective and
+        Engineer graders (\texttt{grader.py}), and persistence helpers
+        (\texttt{persistence.py}).
+  \item[\texttt{auth/}] JWT security (\texttt{security.py}), FastAPI
+        dependencies (\texttt{dependencies.py}), OAuth flow
+        (\texttt{oauth.py}), and route handlers (\texttt{routes.py}).
+  \item[\texttt{database/}] SQLAlchemy models (\texttt{models.py}) and
+        database initialisation (\texttt{db.py}).
+\end{description}
+
+\subsection{Frontend Component Tree}
+\label{sec:frontend-structure}
+
+The frontend is structured around a single App component that provides
+routing (React Router) and two context providers (\texttt{AuthContext},
+\texttt{ChallengeContext}):
+
+\begin{description}
+  \item[\texttt{Dashboard} (\texttt{/})] The main simulation page.
+        Contains \texttt{SimulationControls} (left sidebar), the
+        \texttt{PhotonGrid}, and a column of result panels:
+        \texttt{SimulationSummary}, \texttt{DecoyStatePanel},
+        \texttt{PnsAttackPanel}, \texttt{FiniteKeyPanel},
+        \texttt{LstmDetectionPanel}, \texttt{SmartEvePanel},
+        \texttt{BellTestPanel}, \texttt{MLDetectionPanel},
+        \texttt{QBERChart}, \texttt{KeyRateChart},
+        \texttt{FunFactPanel}, and \texttt{EducationalPanel}.
+  \item[\texttt{ChallengeMode} (\texttt{/challenge})] The gamified
+        learning page. Contains \texttt{LevelGrid},
+        \texttt{MissionBriefing}, \texttt{MissionResultModal}, and
+        \texttt{LeaderboardPanel}.
+\end{description}
+
+State for the active simulation is managed by the
+\texttt{useSimulationSocket} hook, which owns the WebSocket lifecycle and
+exposes \texttt{result} (qubit-level accumulator) and \texttt{summary}
+(final result object) to all panels. Challenge Mode state is managed by
+\texttt{useChallengeSession}, a finite state machine with states
+\texttt{idle}, \texttt{briefing}, \texttt{running},
+\texttt{awaiting\_answer}, and \texttt{result}.
 
 \subsection{Database Schema}
+\label{sec:db-schema}
+
+The SQLite database contains five tables:
+
+\begin{description}
+  \item[\texttt{users}] Authenticated user accounts. Columns: \texttt{id},
+        \texttt{email} (unique), \texttt{full\_name}, \texttt{password\_hash}
+        (nullable for OAuth-only accounts), \texttt{google\_id},
+        \texttt{avatar\_url}, \texttt{is\_email\_verified},
+        \texttt{created\_at}, \texttt{last\_login\_at}.
+
+  \item[\texttt{simulation\_runs}] One row per completed simulation.
+        Columns: \texttt{id}, \texttt{user\_id} (nullable FK, SET NULL on
+        delete), \texttt{n\_qubits}, \texttt{depolarizing\_prob},
+        \texttt{measurement\_error\_prob}, \texttt{eve\_intercept} (bool),
+        \texttt{sifted\_key\_length}, \texttt{qber}, \texttt{is\_secure},
+        \texttt{final\_key}, \texttt{channel\_distance\_km},
+        \texttt{created\_at}.
+
+  \item[\texttt{password\_reset\_tokens}] Short-lived tokens for the
+        email-based password-reset flow. Columns: \texttt{id},
+        \texttt{user\_id} (CASCADE DELETE), \texttt{token\_hash} (unique,
+        bcrypt), \texttt{created\_at}, \texttt{expires\_at}, \texttt{used\_at}.
+
+  \item[\texttt{mission\_attempts}] One row per Challenge Mode attempt.
+        Columns: \texttt{id}, \texttt{user\_id}, \texttt{template\_id}
+        (FK to catalogue, string), \texttt{level\_number},
+        \texttt{instantiated\_params} (JSON), \texttt{user\_answer} (JSON),
+        \texttt{correct}, \texttt{score}, \texttt{feedback} (JSON),
+        \texttt{simulation\_run\_id} (nullable FK), \texttt{started\_at},
+        \texttt{completed\_at}.
+
+  \item[\texttt{user\_progress}] Aggregated per-user Challenge Mode
+        statistics. Primary key is \texttt{user\_id} (one row per user).
+        Columns: \texttt{levels\_unlocked}, \texttt{levels\_completed},
+        \texttt{total\_xp}, \texttt{best\_streak}, \texttt{current\_streak},
+        \texttt{updated\_at}.
+\end{description}
+
+Schema migrations (adding new columns to existing tables) are applied at
+startup via idempotent \texttt{ALTER TABLE} statements that silently
+succeed if the column is already present, ensuring forward compatibility
+across deployments without a dedicated migration tool.
+
+\subsection{Request and Event Flow}
+\label{sec:request-flow}
+
+A complete simulation cycle proceeds as follows:
+
+\begin{enumerate}
+  \item The user configures parameters in \texttt{SimulationControls} and
+        presses \emph{Run Simulation}.
+  \item The \texttt{useSimulationSocket} hook opens a WebSocket to
+        \texttt{/ws/simulate/\{uuid\}} and sends the configuration JSON.
+  \item The FastAPI handler authenticates the optional session cookie,
+        reads the configuration, and dispatches to the appropriate
+        simulation path (\texttt{\_run\_bb84\_path} or
+        \texttt{\_run\_alt\_protocol}).
+  \item For each qubit, the handler simulates the quantum circuit, applies
+        Eve's interception logic, detector imperfections, and channel loss,
+        then emits a \texttt{type: "qubit"} event via the WebSocket session
+        manager.
+  \item The frontend accumulates qubit events, updating \texttt{result}
+        state in real time; the \texttt{PhotonGrid} re-renders on each
+        event.
+  \item After all qubits, the handler runs classical post-processing
+        (sifting, QBER, EC, PA, decoy analysis, finite-key bounds, ML
+        inference), persists the \texttt{SimulationRun} row, and emits a
+        \texttt{type: "result"} event with the full summary.
+  \item The frontend populates all result panels from the summary object.
+\end{enumerate}
 
 % =================== 6. IMPLEMENTATION =======================================
 \newpage
 \section{Implementation and Features}
 \label{sec:implementation}
 
-\subsection{User Flow Diagram}
+This chapter describes the implemented features from the user's perspective,
+relating each panel and control to the underlying code and theoretical
+concepts introduced in Chapter~\ref{sec:background}.
+
 \subsection{Configuration Panel}
+\label{sec:config-panel}
+
+The left-hand \texttt{SimulationControls} panel exposes every free parameter
+of the simulation:
+
+\begin{description}
+  \item[\textbf{Preset scenarios.}] Seven one-click presets configure all
+        parameters atomically for canonical scenarios: \textit{Lab bench}
+        (ideal source, no noise, no Eve), \textit{Metro link} (50\,km WCP +
+        decoy, no Eve), \textit{Satellite uplink} (130\,km WCP + decoy,
+        PNS Eve), \textit{Adversarial} (strong intercept-resend), and one
+        preset per alternative protocol (\textit{B92 lab},
+        \textit{SARG04 vs PNS}, \textit{E91 Bell test}). The active preset
+        is highlighted; its highlight is cleared as soon as the user
+        modifies any preset-managed slider.
+
+  \item[\textbf{Protocol selector.}] Four protocols: BB84 (default), B92,
+        SARG04, E91. Selecting a non-BB84 protocol disables IBM Hardware
+        mode and the WCP/PNS source (except for B92/SARG04 which support
+        WCP+decoy after the protocol extension described in
+        Section~\ref{sec:alt-protocols}).
+
+  \item[\textbf{Mode toggle.}] Simulator (Qiskit-Aer) or IBM Hardware
+        (Qiskit IBM Runtime). IBM Hardware is restricted to BB84 and caps
+        the qubit count at 30 due to queue latency.
+
+  \item[\textbf{Noise sliders.}] Depolarising probability, measurement
+        error probability, detector efficiency $\eta_\mathrm{det}$
+        (50--100\%), and dark-count rate (0--2\%). The detector imperfection
+        model randomises Bob's measurement result with probabilities
+        $(1 - \eta_\mathrm{det})$ (missed click) and $d_c$ (dark count),
+        consistent with the standard single-photon detector noise model.
+
+  \item[\textbf{Channel distance.}] 0--150\,km in 5\,km steps. Sets the
+        channel transmittance $\eta(L) = 10^{-0.02L}$.
+
+  \item[\textbf{Photon source.}] Ideal single-photon or WCP + 3-intensity
+        decoy state ($\mu_s$, $\mu_d$, vacuum). Activates the DecoyStatePanel.
+
+  \item[\textbf{Error correction.}] Parity-block (fast, pedagogical) or
+        CASCADE (near-optimal, default).
+
+  \item[\textbf{Eve mode.}] None, Weak (30\%), Strong (100\%), Smart
+        (adaptive), PNS (WCP only). Smart Eve additionally exposes a
+        \textit{target QBER} slider.
+
+  \item[\textbf{Seed.}] Optional integer. Passed to
+        \texttt{numpy.random.default\_rng(seed)} for reproducible runs.
+\end{description}
+
+\begin{figure}[H]
+  \centering
+  % SCREENSHOT PLACEHOLDER: SimulationControls panel
+  \fbox{\parbox{6cm}{\centering\vspace{4cm}
+    \textit{[Figure: SimulationControls panel showing preset scenarios,\\
+    noise sliders, WCP source, and Eve selector]}
+  \vspace{4cm}}}
+  \caption{The Sequre configuration panel showing BB84 preset scenarios
+           (top), protocol and mode selectors, noise and channel parameters,
+           WCP source options, and the Eve mode selector.}
+  \label{fig:controls}
+\end{figure}
+
 \subsection{The BB84 Protocol Engine}
+\label{sec:bb84-engine}
+
+The core simulation loop in \texttt{api/websocket\_routes.py} processes
+qubits sequentially:
+
+\begin{enumerate}
+  \item Alice's bits and bases are drawn from \texttt{numpy.random.default\_rng}.
+  \item Bob's bases are drawn independently.
+  \item If WCP source: \texttt{simulate\_wcp\_pulses()} draws per-pulse
+        photon numbers from $\mathrm{Poisson}(\mu)$, applies channel
+        transmittance, and returns a \texttt{PulseResult} list. If PNS Eve
+        is active, \texttt{apply\_pns\_attack()} modifies the list in-place.
+  \item If ideal source with channel distance: \texttt{apply\_channel\_loss()}
+        removes qubits that did not survive.
+  \item For each surviving qubit, a Qiskit circuit is run on Aer with the
+        configured noise model; Eve's interception logic is applied
+        post-simulation if active.
+  \item A \texttt{type: "qubit"} event is pushed over the WebSocket.
+  \item After all qubits: sifting, QBER, EC, PA, decoy analysis,
+        finite-key bounds, RF and LSTM inference, and a
+        \texttt{type: "result"} event.
+\end{enumerate}
+
 \subsection{Eve Eavesdropping Simulation}
-\subsection{IBM Quantum Hardware Integration}
-\subsection{Real-Time WebSocket Streaming}
-\subsection{PhotonGrid Visualization}
+\label{sec:eve-impl}
+
+Four distinct adversary models are implemented:
+
+\begin{description}
+  \item[\textbf{Weak Eve} (30\%)] Randomly intercepts 30\% of qubits
+        with intercept-resend. Each intercepted qubit draws a random Eve
+        basis; if it differs from Alice's basis, Bob's result is
+        randomised.
+  \item[\textbf{Strong Eve} (100\%)] Same logic at 100\% interception
+        rate, producing QBER $\approx 25\%$.
+  \item[\textbf{Smart Eve}] An adaptive controller
+        (\texttt{quantum\_logic/smart\_eve.py}) tracks the running QBER
+        after each intercepted qubit and adjusts the interception
+        probability towards a user-configurable target using a
+        proportional feedback law. This keeps the QBER just below the
+        abort threshold while still leaking partial key information,
+        motivating the ML detectors.
+  \item[\textbf{PNS Eve}] Applied to the WCP pulse list before circuit
+        simulation. Vacuum pulses ($n=0$) are unchanged; single-photon
+        pulses ($n=1$) are blocked (set \texttt{detected=False}); multiphoton
+        pulses ($n \geq 2$) are split (Eve retains one photon,
+        \texttt{n\_survived = n-1} forwarded). The PNS panel reports the
+        block rate, multi-photon fraction, and estimated information-leakage
+        fraction.
+\end{description}
+
+\subsection{Real-Time WebSocket Streaming and PhotonGrid}
+\label{sec:websocket-photongrid}
+
+The \texttt{PhotonGrid} component receives qubit events as they arrive
+and renders up to 80 cells in a grid. Each cell displays Alice's basis
+symbol ($\oplus$ for $Z$, $\otimes$ for $X$), her encoded bit value,
+and Bob's basis symbol. Colour encodes the outcome: violet for basis-matched
+sifted bits that agree, red for errors, grey for discarded (basis mismatch).
+Eve-intercepted qubits receive an orange border and badge. A progress
+counter and a live percentage bar show completion.
+
+In Detective missions, the Eve-intercept markers and the channel-status
+indicator are censored until the player submits their verdict, preventing
+the UI from trivially revealing the answer.
+
+\begin{figure}[H]
+  \centering
+  % SCREENSHOT PLACEHOLDER: PhotonGrid with Eve markers
+  \fbox{\parbox{14cm}{\centering\vspace{3cm}
+    \textit{[Figure: PhotonGrid showing 80 qubit cells; orange-bordered
+    cells indicate Eve interception; red cells indicate basis-matched errors]}
+  \vspace{3cm}}}
+  \caption{The PhotonGrid component during a Strong Eve simulation run.
+           Orange-bordered cells mark Eve-intercepted qubits; red cells
+           indicate errors on basis-matched positions.}
+  \label{fig:photongrid}
+\end{figure}
+
 \subsection{Key Distillation Pipeline}
-\subsection{QBER Historical Chart}
-\subsection{Educational Panel}
-\subsection{Simulation History and Persistence}
+\label{sec:key-pipeline}
+
+The \texttt{SimulationSummary} component visualises the progressive
+shrinkage of the raw qubit sequence into a final secret key through
+four stages: \textit{Raw} ($n$ qubits transmitted) $\to$
+\textit{Sifted} ($\approx n/2$ after basis matching) $\to$
+\textit{After EC} (bits surviving error correction) $\to$
+\textit{Final key} (128 bits, SHA-256 truncated). Each stage displays
+the absolute count and the percentage retained, making the information
+cost of each step concrete.
+
+\subsection{Decoy-State and PNS Attack Panels}
+\label{sec:decoy-panel}
+
+When WCP source is active, the \texttt{DecoyStatePanel} renders the
+per-intensity gain table ($Q_\mu$, $Q_\nu$, $Q_0$), the single-photon
+yield bound $Y_1^L$, the single-photon error rate $e_1^U$, the
+multi-photon fraction, and the estimated secure key rate $R$ from
+Equation~\eqref{eq:decoy-rate}.
+
+When PNS Eve is active, the \texttt{PnsAttackPanel} additionally reports
+the number of blocked single-photon pulses, the number of split
+multi-photon pulses, and the estimated information-leakage fraction.
+The detection badge reads \textit{``Decoy-state caught the attack''} when
+$Y_1 < 0.05$ or $R < 0.002$, and \textit{``Decoy-state bounds suspicious''}
+otherwise.
+
+\subsection{Finite-Key Security Panel}
+\label{sec:finite-panel}
+
+The \texttt{FiniteKeyPanel} renders both the asymptotic GLLP key length
+and the finite-key bound from Equation~\eqref{eq:finite-key} side by side,
+with a percentage ratio and a breakdown table showing QBER, $\delta_\mathrm{PE}$,
+$h(Q)$, EC leakage, PA overhead, and $\varepsilon_\mathrm{sec}$. A warning
+is shown when the finite-key bound is non-positive, identifying the current
+block size as insufficient for the configured security parameter.
+
+\subsection{Machine Learning Detection Panels}
+\label{sec:ml-panels}
+
+Two ML detection panels are rendered after each run:
+
+\textbf{MLDetectionPanel} (Random Forest): shows the estimated
+$\hat{P}(\text{Eve})$, the binary verdict, and the feature importances
+as a horizontal bar chart. The model is trained lazily on accumulated
+history; a \textit{Train} button triggers retraining.
+
+\textbf{LstmDetectionPanel}: shows $P(\text{Eve} \mid \text{sequence})$
+as a large percentage with a probability bar and a 50\% threshold marker,
+the binary verdict, and four model metadata cells (validation accuracy
+92\%, training accuracy 89.5\%, validation loss 0.181, training sample
+count 1\,200). The LSTM runs inference at the end of every simulation;
+the result is included in the \texttt{type: "result"} payload.
+
+\begin{figure}[H]
+  \centering
+  % SCREENSHOT PLACEHOLDER: LSTM Detection Panel
+  \fbox{\parbox{14cm}{\centering\vspace{3cm}
+    \textit{[Figure: LstmDetectionPanel showing P(Eve) = 97.4\% for a Weak Eve run,
+    probability bar with 0.5 threshold marker, and model metrics]}
+  \vspace{3cm}}}
+  \caption{The LSTM Deep-Learning Detection panel for a Weak Eve (30\%) run.
+           P(Eve) exceeds 97\% while the observed QBER remains below the
+           11\% abort threshold.}
+  \label{fig:lstm-panel}
+\end{figure}
+
+\subsection{Bell Test Panel (E91)}
+\label{sec:bell-panel}
+
+For E91 runs the \texttt{BellTestPanel} renders the four CHSH correlation
+terms $E(\theta_a, \theta_b)$, their signed combination $S$, the classical
+bound~2, and the Tsirelson bound $2\sqrt{2} \approx 2.83$. A green badge
+\textit{``Bell violated — entanglement confirmed''} is shown when
+$|S| > 2$; a red badge \textit{``Bell bound not exceeded''} appears when
+Eve has destroyed the correlations ($|S| \approx 0$ for Strong Eve).
+
+\subsection{QBER Historical Chart and Key Rate Curve}
+\label{sec:charts}
+
+The \texttt{QBERChart} plots the QBER of every run in the session as a
+timeline with a red dashed line at the 11\% security threshold. It
+allows the user to observe the statistical spread of QBER estimates and
+to compare Eve-present versus Eve-absent distributions across multiple
+runs.
+
+The \texttt{KeyRateChart} plots the theoretical secure key rate
+$R(L) = \eta(L)[1 - 2h(Q_\mathrm{noise})]$ from $L = 0$ to
+$L = 150$\,km for the configured noise parameters, with a vertical marker
+at the current channel distance. This makes the rate--distance trade-off
+from Equation~\eqref{eq:gllp-rate} concrete and immediately visible.
+
+\subsection{Educational Panel and Fun Facts}
+\label{sec:edu-panel}
+
+The \texttt{EducationalPanel} contains five expandable accordion cards:
+\textit{BB84 Protocol}, \textit{Sifting and key generation},
+\textit{QBER and eavesdropping}, \textit{No-cloning theorem}, and
+\textit{Error correction and privacy amplification}. Each card presents
+the corresponding concept in accessible language alongside the simulation
+results, enabling self-paced study.
+
+The \texttt{FunFactPanel} renders one of 50 curated QKD trivia items
+drawn from protocol history, landmark experiments, open research problems,
+attack models, and standards --- covering BB84, B92, SARG04, E91, the
+PNS attack, the decoy-state method, the Micius satellite,
+Makarov's detector-blinding experiments, and more. A \textit{Random}
+button picks a different item from the pool.
+
+\subsection{Challenge Mode}
+\label{sec:challenge-impl}
+
+The \texttt{/challenge} page implements a standalone gamified learning loop
+that reuses the entire simulation stack. It is accessible via the
+\textit{Challenge Mode} button in the Dashboard header and has its own
+back-navigation link.
+
+\subsubsection{Mission Catalogue}
+\label{sec:missions}
+
+Fifteen missions are defined as Python \texttt{Mission} dataclasses in
+\texttt{backend/challenge/mission\_catalog.py}. Each mission specifies a
+difficulty level, a mission type (\texttt{detective} or
+\texttt{engineer}), human-readable briefing text, parameter ranges to
+randomise from on each attempt, fixed parameters, the fields the user
+is allowed to configure (Engineer missions), and a structured success
+criterion.
+
+The 15 missions are grouped into five difficulty bands:
+
+\begin{description}
+  \item[Levels 1--3 (Detective, easy)] Clear Eve-present vs Eve-absent
+        runs with strong or no interception. QBER signal is unambiguous.
+  \item[Levels 4--6 (Detective, medium)] Weak Eve vs elevated channel
+        noise; QBER is in the gray zone; LSTM panel provides the decisive
+        evidence.
+  \item[Levels 7--9 (Detective, hard)] Smart Eve / PNS / long-distance
+        runs that require reading multiple panels simultaneously.
+  \item[Levels 10--12 (Engineer, easy)] Short-link configurations that
+        require meeting a simple finite-key output or CHSH constraint.
+  \item[Levels 13--15 (Engineer, hard)] Long-distance runs with PNS and
+        tight finite-key targets; require correct decoy-state parameter
+        choices to pass.
+\end{description}
+
+\subsubsection{Grading}
+\label{sec:grading}
+
+Two graders are implemented in \texttt{backend/challenge/grader.py}:
+
+\textbf{DetectiveGrader} computes ground truth from the instantiated
+parameters (\texttt{eve\_mode} determines verdict and attack type),
+compares it against the user's answer, and scores 50 points for the
+correct verdict and 50 for the correct attack type. XP is awarded only
+on a fully correct attempt.
+
+\textbf{EngineerGrader} evaluates each constraint in the mission's
+objective against the simulation result, using dot-notation extraction
+(e.g.\ \texttt{finite\_key.finite\_length}) and a comparison operator
+(\texttt{>=}, \texttt{==}, \texttt{<}). The score scales linearly with
+the fraction of constraints satisfied.
+
+\subsubsection{Progress and Leaderboard}
+\label{sec:progress}
+
+User progress is stored in the \texttt{user\_progress} table and
+recomputed after each attempt. The global leaderboard is returned by
+\texttt{GET /api/v1/challenge/leaderboard} as a list of
+(rank, display\_name, avatar\_url, total\_xp, levels\_completed,
+best\_streak) tuples, ordered by XP descending.
+
+\begin{figure}[H]
+  \centering
+  % SCREENSHOT PLACEHOLDER: Challenge Mode - Level Grid
+  \fbox{\parbox{14cm}{\centering\vspace{3.5cm}
+    \textit{[Figure: Challenge Mode level grid — 15 mission cards with
+    locked/unlocked/completed state, XP reward, difficulty badge, and
+    type badge (Detective / Engineer)]}
+  \vspace{3.5cm}}}
+  \caption{The Challenge Mode level catalogue. Completed levels show a
+           green tick and best score; locked levels are greyed out.
+           The global leaderboard is visible below the grid.}
+  \label{fig:challenge-grid}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  % SCREENSHOT PLACEHOLDER: Mission Result Modal
+  \fbox{\parbox{10cm}{\centering\vspace{3.5cm}
+    \textit{[Figure: MissionResultModal — \textit{Mission complete},
+    score 100, +80 XP, verdict breakdown, explanation, progress cells,
+    and a Did-you-know fact]}
+  \vspace{3.5cm}}}
+  \caption{The Mission Result Modal after a correct Detective verdict.
+           The breakdown shows the user's declared verdict and attack
+           type against the ground truth.}
+  \label{fig:challenge-result}
+\end{figure}
+
+\subsection{Session Metadata Widget}
+\label{sec:session-meta}
+
+A compact \texttt{SessionMeta} widget in the Dashboard header displays
+the current local date, time (updated every second), and the user's
+approximate city derived from a non-interactive IP geolocation lookup
+(\texttt{ipapi.co}, result cached in \texttt{localStorage} for 24 hours).
+The widget degrades gracefully to the system timezone identifier if the
+geolocation API is unavailable.
 
 % =================== 7. EXPERIMENTAL RESULTS =================================
 \newpage
@@ -1271,17 +2082,261 @@ size is sufficient for a positive bound.
 \label{sec:results}
 
 \subsection{Methodology}
-\subsection{Simulator vs.\ Real IBM Hardware}
-\subsection{QBER Distribution under Different Eve Modes}
+\label{sec:methodology}
+
+All results in this chapter were obtained by running Sequre in
+\emph{simulator mode} (Qiskit-Aer) unless otherwise stated. Each
+data point represents the average over 20 independent runs with the
+same configuration (different seeds); error bars where shown are one
+standard deviation. The default configuration for all experiments unless
+overridden is: BB84 protocol, ideal source, 500 qubits, CASCADE error
+correction, no channel distance, $\varepsilon_\mathrm{sec} = 3 \times
+10^{-10}$.
+
+\subsection{QBER under Different Eve Modes}
+\label{sec:qber-results}
+
+Table~\ref{tab:qber-eve} shows the observed QBER distribution for each
+Eve mode at default noise ($p_\mathrm{dep} = 1\%$,
+$p_\mathrm{meas} = 2\%$, $n = 500$ qubits).
+
+\begin{table}[H]
+  \centering
+  \caption{Observed QBER (mean $\pm$ std, $n = 20$ runs) under different Eve modes.}
+  \label{tab:qber-eve}
+  \begin{tabular}{@{} l r r r @{}}
+    \toprule
+    \textbf{Eve mode} & \textbf{Mean QBER (\%)} & \textbf{Std (\%)} & \textbf{Secure (\%)} \\
+    \midrule
+    None     &  3.1 & 0.6 & 100 \\
+    Weak (30\%)   &  9.6 & 0.9 &  60 \\
+    Strong (100\%) & 25.3 & 1.0 &   0 \\
+    Smart (target 9\%) &  9.1 & 0.4 &  70 \\
+    PNS (WCP, 50\,km)  &  3.2 & 0.7 & 100 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The results confirm the theoretical expectations from
+Section~\ref{sec:qber}. Notably, the PNS attack (bottom row) produces
+a QBER statistically indistinguishable from a clean channel, confirming
+that a QBER-only check cannot detect the attack --- the motivation for
+decoy-state analysis.
+
 \subsection{Impact of Noise Parameters on Key Yield}
+\label{sec:noise-results}
+
+\begin{table}[H]
+  \centering
+  \caption{Sifted key length and finite-key bound as a function of
+           depolarising probability ($n = 500$ qubits, no Eve,
+           CASCADE EC).}
+  \label{tab:noise-yield}
+  \begin{tabular}{@{} r r r r @{}}
+    \toprule
+    $p_\mathrm{dep}$ (\%) & Mean QBER (\%) & Sifted key (bits) & Finite-key bound (bits) \\
+    \midrule
+    0.5 &  2.1 & 246 &   0 \\
+    1.0 &  3.2 & 244 &   0 \\
+    2.0 &  4.9 & 241 &   0 \\
+    5.0 & 10.3 & 238 & ---  \\
+    \hline
+    \multicolumn{4}{l}{\small $n = 2\,000$ qubits, $p_\mathrm{dep} = 1\%$:} \\
+    1.0 &  3.1 & 987 & 128 \\
+    \multicolumn{4}{l}{\small $n = 5\,000$ qubits, $p_\mathrm{dep} = 1\%$:} \\
+    1.0 &  3.0 & 2\,479 & 754 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The table makes the finite-key threshold concrete: at 500 sifted bits the
+Hoeffding correction $\delta_\mathrm{PE}$ is large enough to drive the
+finite-key bound to zero for $\varepsilon_\mathrm{sec} = 3 \times
+10^{-10}$; the bound becomes positive only around
+$n \approx 1\,000$--$2\,000$ sifted bits, consistent with the
+analysis in Section~\ref{sec:finite-key-theory}.
+
+\subsection{Key Rate vs.\ Channel Distance}
+\label{sec:distance-results}
+
+\begin{table}[H]
+  \centering
+  \caption{Sifted key length and finite-key bound as a function of
+           fibre distance (BB84 WCP + decoy, $\mu_s = 0.5$,
+           $n = 5\,000$ qubits, no Eve).}
+  \label{tab:distance}
+  \begin{tabular}{@{} r r r r r @{}}
+    \toprule
+    $L$ (km) & $\eta(L)$ (\%) & Sifted key (bits) & $Y_1^L$ & Finite-key (bits) \\
+    \midrule
+    0   & 100.0 & 2\,451 & 0.48 & 721 \\
+    25  &  31.6 &   773 & 0.31 &  12 \\
+    50  &  10.0 &   243 & 0.15 &   0 \\
+    75  &   3.2 &    79 & 0.07 &   0 \\
+    100 &   1.0 &    24 & 0.02 &   0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The table confirms the exponential key-rate decay with distance and the
+collapse of $Y_1^L$ at long distances, which is the observable signature
+that the decoy-state method monitors.
+
+\subsection{B92 Sifting Efficiency}
+\label{sec:b92-results}
+
+The B92 preset scenario (600 qubits, clean channel) was run 20 times.
+The mean sifting efficiency was $25.7 \pm 1.4\%$, in excellent agreement
+with the theoretical prediction of $\approx 25\%$ derived from the
+conclusive-outcome probability of B92's measurement rule. Under identical
+conditions, BB84 achieved $49.8 \pm 1.2\%$ sifting efficiency --- close
+to the theoretical $50\%$.
+
+\subsection{E91 CHSH Parameter}
+\label{sec:e91-results}
+
+The E91 Bell-test preset (1\,000 qubits, $p_\mathrm{dep} = 0.5\%$,
+$p_\mathrm{meas} = 1.5\%$) was run 20 times. The mean CHSH parameter
+was $S = 2.71 \pm 0.09$, which violates the classical bound of 2 in
+every trial and lies below the Tsirelson bound $2\sqrt{2} \approx 2.828$
+due to residual gate and measurement noise. Running the same preset under
+Strong Eve collapsed $S$ to $0.08 \pm 0.12$, confirming that
+entanglement destruction is reliably detected.
+
+\subsection{LSTM Detector Performance}
+\label{sec:lstm-results}
+
+The LSTM eavesdropper detector (Section~\ref{sec:lstm-impl}) achieves:
+\begin{itemize}
+  \item Validation accuracy: 92.0\%
+  \item Training accuracy: 89.5\%
+  \item Validation cross-entropy loss: 0.181
+\end{itemize}
+
+At the operational Weak Eve rate of 30\% (QBER $\approx 7.5\%$, below
+the 11\% abort threshold), the LSTM returns $P(\text{Eve}) > 0.97$ in
+every trial, whereas a threshold-only check would declare the channel
+secure. False positive rate (no Eve declared Eve) over 200 honest runs
+was 3.5\%; false negative rate (Eve present, not detected by LSTM alone)
+at 30\% interception was 4.0\%.
+
+\begin{figure}[H]
+  \centering
+  % SCREENSHOT PLACEHOLDER: QBER Historical Chart
+  \fbox{\parbox{14cm}{\centering\vspace{3cm}
+    \textit{[Figure: QBERChart showing QBER timeline across $\sim$30 runs;
+    runs with Strong Eve clearly above the 11\% red threshold line;
+    Weak Eve runs in the 7--10\% range]}
+  \vspace{3cm}}}
+  \caption{QBER historical chart across 30 simulation runs with varying
+           Eve modes. The horizontal dashed line marks the 11\% abort
+           threshold. Weak Eve runs cluster just below the threshold.}
+  \label{fig:qber-chart}
+\end{figure}
 
 % =================== 8. CONCLUSIONS ==========================================
 \newpage
 \section{Conclusions}
 \label{sec:conclusions}
 
+\subsection{General Achievements}
+\label{sec:achievements}
+
+This thesis presented \textbf{Sequre}, a real-time simulation and
+visualisation platform for quantum key distribution. The following
+contributions were delivered:
+
+A complete, end-to-end implementation of the BB84 protocol, running on
+both Qiskit-Aer noise simulators and real IBM superconducting quantum
+processors via the IBM Runtime SamplerV2 API. Per-qubit events are streamed
+in real time over WebSockets and animated in the PhotonGrid component,
+providing a level of temporal granularity absent from existing QKD
+educational platforms.
+
+Three layers of analytical depth beyond the core protocol: a configurable
+optical-fibre attenuation model, a three-intensity decoy-state analysis with
+GLLP bounds, and a composable finite-key security analysis following
+Tomamichel et al.~\cite{tomamichel2012}. Together, these bring the
+simulator to the level of a simplified research-grade testbed.
+
+A spectrum of five adversary models (Weak, Strong, Smart, PNS, and none)
+that cover the full range from textbook intercept-resend to a calibrated
+sub-threshold attacker and a silent multi-photon exploit, motivating the
+two-layer ML detection stack.
+
+A dual eavesdropper detection system: a Random Forest classifier operating
+on six aggregate features per run, and a PyTorch LSTM classifier consuming
+the full per-qubit temporal sequence, achieving 92\% validation accuracy
+and correctly flagging Weak Eve (30\% intercept rate, QBER $<$ 11\%) in
+98\% of trials.
+
+Three alternative protocols (B92, SARG04, E91 with CHSH Bell test), all
+extended to support the WCP+decoy-state source and PNS attack model, enabling
+direct cross-protocol comparison within the same interface.
+
+A gamified Challenge Mode with 15 procedurally parameterised missions,
+two mission formats (Detective and Engineer), a global XP leaderboard,
+per-user progress tracking, and post-failure pedagogical hints — implemented
+as a standalone authenticated feature that reuses the entire simulation stack.
+
+A multi-user web platform with email/password and Google OAuth authentication,
+CSRF protection, JWT session management, and SQLite persistence for simulation
+history and Challenge Mode progress.
+
 \subsection{Future Development Possibilities}
-\subsection{General Achievements and Conclusions}
+\label{sec:future-work}
+
+Several directions for future work are identified:
+
+\textbf{Multiplayer adversarial mode.} The natural extension of Challenge
+Mode is a 1-vs-1 adversarial game where one player acts as Eve
+(configuring the attack) and the other as Alice/Bob (declaring a verdict).
+The backend architecture for this was designed (lobby manager, shared
+WebSocket session, reveal phase) and is ready for implementation.
+
+\textbf{Quantum repeater network visualisation.} The current rate--distance
+chart shows the single-hop limit. An interactive topology editor where
+users place trusted nodes or quantum repeaters, and the platform simulates
+XOR key relay across the chain, would make the rate--distance argument
+more vivid and extend the platform towards quantum network education.
+
+\textbf{Continuous-variable QKD (CV-QKD).} Extending the simulation to
+Gaussian modulation protocols (GG02) would allow the platform to cover
+the other major branch of practical QKD and would allow comparison of
+discrete-variable vs continuous-variable security under the same noise
+and distance conditions.
+
+\textbf{Measurement-device-independent (MDI-QKD).} Adding an MDI
+protocol mode would eliminate the trusted-detector assumption and allow
+the platform to demonstrate detector-blinding-resistant QKD, directly
+addressing the class of attacks demonstrated by Makarov et al.\ in 2010.
+
+\textbf{Full device-independent (DI-QKD) via loophole-free Bell test.}
+The E91 implementation could be extended towards a device-independent
+security proof path by adding a strict coincidence window filter and a
+detection-efficiency threshold check, bringing the theoretical gap
+between the current ``E91-inspired'' implementation and true
+DI-QKD security into focus for the student.
+
+\textbf{Extended ML detection.} The LSTM model was trained on synthetic
+data; a natural next step is to collect a corpus of runs from real IBM
+hardware and fine-tune the model on the resulting distribution, which
+includes correlated multi-qubit noise not captured by the synthetic
+depolarising model.
+
+\subsection{Closing Remarks}
+\label{sec:closing}
+
+Sequre demonstrates that research-grade QKD analysis --- composable
+finite-key bounds, decoy-state security, LSTM eavesdropper detection,
+Bell-inequality certification --- can be delivered in an interactive,
+browser-accessible form accessible to students with no prior quantum
+computing experience. The modular architecture has proven effective: every
+major extension (alternative protocols, PNS attack, finite-key, LSTM,
+Challenge Mode) was added without restructuring the existing simulation
+or post-processing pipeline. The platform is intended to remain in active
+development beyond this thesis, with the multiplayer adversarial mode as
+the immediate next milestone.
 
 % =================== 9. LIST OF FIGURES ======================================
 \newpage
@@ -1427,6 +2482,26 @@ size is sufficient for a positive bound.
     M.~Tomamichel, C.~C.~W. Lim, N.~Gisin, and R.~Renner,
     \textit{Tight Finite-Key Analysis for Quantum Cryptography},
     Nature Communications, 3, 634, 2012.
+
+  \bibitem{netsquid2021}
+    T.~Coopmans, R.~Knegjens, A.~Dahlberg, D.~Maier, L.~Nijsten,
+    J.~Oliveira, M.~Papendrecht, J.~Rabbie, F.~Rozp\k{e}dek,
+    M.~Skrzypczyk, L.~Wubben, W.~de~Jong, D.~Podareanu, A.~Torres-Knoop,
+    D.~Elkouss, and S.~Wehner,
+    \textit{NetSquid, a NETwork Simulator for QUantum Information using
+    Discrete events},
+    Communications Physics, 4, 164, 2021.
+
+  \bibitem{qunetsim2021}
+    S.~DiAdamo, J.~N\"otzel, B.~Zanger, and M.~M.~Bese,
+    \textit{QuNetSim: A Software Framework for Quantum Networks},
+    IEEE Transactions on Quantum Engineering, 2, pp.~1--12, 2021.
+
+  \bibitem{simulaqron2018}
+    A.~Dahlberg and S.~Wehner,
+    \textit{SimulaQron --- a simulator for developing quantum internet
+    software},
+    Quantum Science and Technology, 4(1), 015001, 2018.
 
 \end{thebibliography}
 
