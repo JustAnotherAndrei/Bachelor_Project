@@ -91,7 +91,7 @@
     {\large \textbf{``ALEXANDRU IOAN CUZA'' UNIVERSITY OF IA\c{S}I}} \\[4pt]
     {\large \textbf{FACULTY OF COMPUTER SCIENCE}} \\[40pt]
 
-    \includegraphics[width=4cm]{figures/fii-logo.png} \\[30pt]
+    \includegraphics[width=4cm]{figures/fii_logo.jpg} \\[30pt]
 
     {\Large BACHELOR'S THESIS} \\[10pt]
     {\LARGE \textbf{Sequre: A Real-Time Simulation and \\[4pt]
@@ -1775,11 +1775,7 @@ of the simulation:
 
 \begin{figure}[H]
   \centering
-  % SCREENSHOT PLACEHOLDER: SimulationControls panel
-  \fbox{\parbox{6cm}{\centering\vspace{4cm}
-    \textit{[Figure: SimulationControls panel showing preset scenarios,\\
-    noise sliders, WCP source, and Eve selector]}
-  \vspace{4cm}}}
+  \includegraphics[width=8cm]{figures/controls.jpg}
   \caption{The Sequre configuration panel showing BB84 preset scenarios
            (top), protocol and mode selectors, noise and channel parameters,
            WCP source options, and the Eve mode selector.}
@@ -1855,11 +1851,7 @@ the UI from trivially revealing the answer.
 
 \begin{figure}[H]
   \centering
-  % SCREENSHOT PLACEHOLDER: PhotonGrid with Eve markers
-  \fbox{\parbox{14cm}{\centering\vspace{3cm}
-    \textit{[Figure: PhotonGrid showing 80 qubit cells; orange-bordered
-    cells indicate Eve interception; red cells indicate basis-matched errors]}
-  \vspace{3cm}}}
+  \includegraphics[width=15cm]{figures/photongrid_strong_eve.jpg}
   \caption{The PhotonGrid component during a Strong Eve simulation run.
            Orange-bordered cells mark Eve-intercepted qubits; red cells
            indicate errors on basis-matched positions.}
@@ -1923,11 +1915,7 @@ the result is included in the \texttt{type: "result"} payload.
 
 \begin{figure}[H]
   \centering
-  % SCREENSHOT PLACEHOLDER: LSTM Detection Panel
-  \fbox{\parbox{14cm}{\centering\vspace{3cm}
-    \textit{[Figure: LstmDetectionPanel showing P(Eve) = 97.4\% for a Weak Eve run,
-    probability bar with 0.5 threshold marker, and model metrics]}
-  \vspace{3cm}}}
+  \includegraphics[width=15cm]{figures/lstm_panel.jpg}
   \caption{The LSTM Deep-Learning Detection panel for a Weak Eve (30\%) run.
            P(Eve) exceeds 97\% while the observed QBER remains below the
            11\% abort threshold.}
@@ -2040,12 +2028,7 @@ best\_streak) tuples, ordered by XP descending.
 
 \begin{figure}[H]
   \centering
-  % SCREENSHOT PLACEHOLDER: Challenge Mode - Level Grid
-  \fbox{\parbox{14cm}{\centering\vspace{3.5cm}
-    \textit{[Figure: Challenge Mode level grid — 15 mission cards with
-    locked/unlocked/completed state, XP reward, difficulty badge, and
-    type badge (Detective / Engineer)]}
-  \vspace{3.5cm}}}
+  \includegraphics[width=14cm]{figures/challenge_grid.jpg}
   \caption{The Challenge Mode level catalogue. Completed levels show a
            green tick and best score; locked levels are greyed out.
            The global leaderboard is visible below the grid.}
@@ -2054,12 +2037,7 @@ best\_streak) tuples, ordered by XP descending.
 
 \begin{figure}[H]
   \centering
-  % SCREENSHOT PLACEHOLDER: Mission Result Modal
-  \fbox{\parbox{10cm}{\centering\vspace{3.5cm}
-    \textit{[Figure: MissionResultModal — \textit{Mission complete},
-    score 100, +80 XP, verdict breakdown, explanation, progress cells,
-    and a Did-you-know fact]}
-  \vspace{3.5cm}}}
+  \includegraphics[width=10cm]{figures/challenge_result.jpg}
   \caption{The Mission Result Modal after a correct Detective verdict.
            The breakdown shows the user's declared verdict and attack
            type against the ground truth.}
@@ -2222,12 +2200,7 @@ at 30\% interception was 4.0\%.
 
 \begin{figure}[H]
   \centering
-  % SCREENSHOT PLACEHOLDER: QBER Historical Chart
-  \fbox{\parbox{14cm}{\centering\vspace{3cm}
-    \textit{[Figure: QBERChart showing QBER timeline across $\sim$30 runs;
-    runs with Strong Eve clearly above the 11\% red threshold line;
-    Weak Eve runs in the 7--10\% range]}
-  \vspace{3cm}}}
+  \includegraphics[width=15cm]{figures/qber_chart.jpg}
   \caption{QBER historical chart across 30 simulation runs with varying
            Eve modes. The horizontal dashed line marks the 11\% abort
            threshold. Weak Eve runs cluster just below the threshold.}
