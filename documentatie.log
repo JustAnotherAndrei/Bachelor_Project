@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.6.1)  8 JUN 2026 00:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.6.1)  14 JUN 2026 23:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -425,27 +425,352 @@ Package caption Info: Standard document class detected.
 \c@caption@flags=\count311
 \c@continuedfloat=\count312
 Package caption Info: float package is loaded.
-) (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.st
-y
-\lst@mode=\count313
-\lst@gtempboxa=\box62
-\lst@token=\toks34
-\lst@length=\count314
-\lst@currlwidth=\dimen199
-\lst@column=\count315
-\lst@pos=\count316
-\lst@lostspace=\dimen256
-\lst@width=\dimen257
-\lst@newlines=\count317
-\lst@lineno=\count318
-\lst@maxwidth=\dimen258
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/pgf/frontendlayer\tikz
+.sty
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty
+
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfrcs.s
+ty
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfuti
+l-common.tex
+\pgfutil@everybye=\toks34
+\pgfutil@tempdima=\dimen199
+\pgfutil@tempdimb=\dimen256
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfuti
+l-latex.def
+\pgfutil@abb=\box62
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfrcs
+.code.tex
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf\pgf.revision.tex
+)
+Package: pgfrcs 2025-08-29 v3.1.11a (3.1.11a)
+))
+Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
+
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgfcore
+.sty
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/pgf/systemlayer\pgfsys
+.sty
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfs
+ys.code.tex
+Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
+
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkey
+s.code.tex
+\pgfkeys@pathtoks=\toks35
+\pgfkeys@temptoks=\toks36
+
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkey
+slibraryfiltered.code.tex
+\pgfkeys@tmptoks=\toks37
+))
+\pgf@x=\dimen257
+\pgf@y=\dimen258
+\pgf@xa=\dimen259
+\pgf@ya=\dimen260
+\pgf@xb=\dimen261
+\pgf@yb=\dimen262
+\pgf@xc=\dimen263
+\pgf@yc=\dimen264
+\pgf@xd=\dimen265
+\pgf@yd=\dimen266
+\w@pgf@writea=\write3
+\r@pgf@reada=\read3
+\c@pgf@counta=\count313
+\c@pgf@countb=\count314
+\c@pgf@countc=\count315
+\c@pgf@countd=\count316
+\t@pgf@toka=\toks38
+\t@pgf@tokb=\toks39
+\t@pgf@tokc=\toks40
+\pgf@sys@id@count=\count317
+
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf.
+cfg
+File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfs
+ys-pdftex.def
+File: pgfsys-pdftex.def 2025-08-29 v3.1.11a (3.1.11a)
+
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfs
+ys-common-pdf.def
+File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfs
+yssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfsyssoftpath@smallbuffer@items=\count318
+\pgfsyssoftpath@bigbuffer@items=\count319
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfs
+ysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+re.code.tex
+Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
+
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.cod
+e.tex
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathutil
+.code.tex)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathpars
+er.code.tex
+\pgfmath@dimen=\dimen267
+\pgfmath@count=\count320
+\pgfmath@box=\box63
+\pgfmath@toks=\toks41
+\pgfmath@stack@operand=\toks42
+\pgfmath@stack@operation=\toks43
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunc
+tions.code.tex)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunc
+tions.basic.code.tex)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunc
+tions.trigonometric.code.tex)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunc
+tions.random.code.tex)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunc
+tions.comparison.code.tex)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunc
+tions.base.code.tex)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunc
+tions.round.code.tex)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunc
+tions.misc.code.tex)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunc
+tions.integerarithmetics.code.tex)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathcalc
+.code.tex)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfloa
+t.code.tex
+\c@pgfmathroundto@lastzeros=\count321
+))
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfint.code
+.tex)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+repoints.code.tex
+File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@picminx=\dimen268
+\pgf@picmaxx=\dimen269
+\pgf@picminy=\dimen270
+\pgf@picmaxy=\dimen271
+\pgf@pathminx=\dimen272
+\pgf@pathmaxx=\dimen273
+\pgf@pathminy=\dimen274
+\pgf@pathmaxy=\dimen275
+\pgf@xx=\dimen276
+\pgf@xy=\dimen277
+\pgf@yx=\dimen278
+\pgf@yy=\dimen279
+\pgf@zx=\dimen280
+\pgf@zy=\dimen281
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+repathconstruct.code.tex
+File: pgfcorepathconstruct.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@path@lastx=\dimen282
+\pgf@path@lasty=\dimen283
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+repathusage.code.tex
+File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@shorten@end@additional=\dimen284
+\pgf@shorten@start@additional=\dimen285
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+rescopes.code.tex
+File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfpic=\box64
+\pgf@hbox=\box65
+\pgf@layerbox@main=\box66
+\pgf@picture@serial@count=\count322
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+regraphicstate.code.tex
+File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgflinewidth=\dimen286
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+retransformations.code.tex
+File: pgfcoretransformations.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@pt@x=\dimen287
+\pgf@pt@y=\dimen288
+\pgf@pt@temp=\dimen289
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+requick.code.tex
+File: pgfcorequick.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+reobjects.code.tex
+File: pgfcoreobjects.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+repathprocessing.code.tex
+File: pgfcorepathprocessing.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+rearrows.code.tex
+File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowsep=\dimen290
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+reshade.code.tex
+File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@max=\dimen291
+\pgf@sys@shading@range@num=\count323
+\pgf@shadingcount=\count324
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+reimage.code.tex
+File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+reexternal.code.tex
+File: pgfcoreexternal.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfexternal@startupbox=\box67
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+relayers.code.tex
+File: pgfcorelayers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+retransparency.code.tex
+File: pgfcoretransparency.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+repatterns.code.tex
+File: pgfcorepatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfco
+rerdf.code.tex
+File: pgfcorerdf.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodul
+eshapes.code.tex
+File: pgfmoduleshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfnodeparttextbox=\box68
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodul
+eplot.code.tex
+File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfc
+omp-version-0-65.sty
+Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@nodesepstart=\dimen292
+\pgf@nodesepend=\dimen293
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfc
+omp-version-1-18.sty
+Package: pgfcomp-version-1-18 2025-08-29 v3.1.11a (3.1.11a)
+))
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgffor.s
+ty
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfkeys.
+sty
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkey
+s.code.tex))
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/pgf/math\pgfmath.sty
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.cod
+e.tex))
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffor
+.code.tex
+Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
+\pgffor@iter=\dimen294
+\pgffor@skip=\dimen295
+\pgffor@stack=\toks44
+\pgffor@toks=\toks45
+))
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/ti
+kz\tikz.code.tex
+Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
+
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflib
+raryplothandlers.code.tex
+File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@plot@mark@count=\count325
+\pgfplotmarksize=\dimen296
+)
+\tikz@lastx=\dimen297
+\tikz@lasty=\dimen298
+\tikz@lastxsaved=\dimen299
+\tikz@lastysaved=\dimen300
+\tikz@lastmovetox=\dimen301
+\tikz@lastmovetoy=\dimen302
+\tikzleveldistance=\dimen303
+\tikzsiblingdistance=\dimen304
+\tikz@figbox=\box69
+\tikz@figbox@bg=\box70
+\tikz@tempbox=\box71
+\tikz@tempbox@bg=\box72
+\tikztreelevel=\count326
+\tikznumberofchildren=\count327
+\tikznumberofcurrentchild=\count328
+\tikz@fig@count=\count329
+
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodul
+ematrix.code.tex
+File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfmatrixcurrentrow=\count330
+\pgfmatrixcurrentcolumn=\count331
+\pgf@matrix@numberofcolumns=\count332
+)
+\tikz@expandcount=\count333
+
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/ti
+kz/libraries\tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/ti
+kz/libraries\tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflib
+raryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowinset=\dimen305
+\pgfarrowlength=\dimen306
+\pgfarrowwidth=\dimen307
+\pgfarrowlinewidth=\dimen308
+)
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/ti
+kz/libraries\tikzlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes
+\pgflibraryshapes.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+\lst@mode=\count334
+\lst@gtempboxa=\box73
+\lst@token=\toks46
+\lst@length=\count335
+\lst@currlwidth=\dimen309
+\lst@column=\count336
+\lst@pos=\count337
+\lst@lostspace=\dimen310
+\lst@width=\dimen311
+\lst@newlines=\count338
+\lst@lineno=\count339
+\lst@maxwidth=\dimen312
+
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
 File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
 ) (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
-\c@lstnumber=\count319
-\lst@skipnumbers=\count320
-\lst@framebox=\box63
+\c@lstnumber=\count340
+\lst@skipnumbers=\count341
+\lst@framebox=\box74
 ) (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cf
 g
 File: listings.cfg 2025/11/14 1.11b listings configuration
@@ -495,16 +820,16 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 tlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count321
+\c@section@level=\count342
 )
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.
 sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
-\@linkdim=\dimen259
-\Hy@linkcounter=\count322
-\Hy@pagecounter=\count323
+\@linkdim=\dimen313
+\Hy@linkcounter=\count343
+\Hy@pagecounter=\count344
 
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2025-07-12 v7.01o Hyperref: PDFDocEncoding definition (HO)
@@ -514,7 +839,7 @@ Now handling font encoding PD1 ...
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count324
+\Hy@SavedSpaceFactor=\count345
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2025-07-12 v7.01o Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -527,14 +852,14 @@ Package hyperref Info: Plain pages OFF on input line 4210.
 Package hyperref Info: Backreferencing OFF on input line 4215.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4462.
-\c@Hy@tempcnt=\count325
+\c@Hy@tempcnt=\count346
 
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4801.
-\XeTeXLinkMargin=\dimen260
+\XeTeXLinkMargin=\dimen314
 
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -544,9 +869,9 @@ c.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count326
-\Field@Width=\dimen261
-\Fld@charsize=\dimen262
+\Fld@menulength=\count347
+\Field@Width=\dimen315
+\Fld@charsize=\dimen316
 Package hyperref Info: Hyper figures OFF on input line 6078.
 Package hyperref Info: Link nesting OFF on input line 6083.
 Package hyperref Info: Hyper index ON on input line 6086.
@@ -554,16 +879,16 @@ Package hyperref Info: backreferencing OFF on input line 6093.
 Package hyperref Info: Link coloring OFF on input line 6098.
 Package hyperref Info: Link coloring with OCG OFF on input line 6103.
 Package hyperref Info: PDF/A mode OFF on input line 6108.
-\Hy@abspage=\count327
-\c@Item=\count328
-\c@Hfootnote=\count329
+\Hy@abspage=\count348
+\c@Item=\count349
+\c@Hfootnote=\count350
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
 File: hpdftex.def 2025-07-12 v7.01o Hyperref driver for pdfTeX
-\Fld@listcount=\count330
-\c@bookmark@seq@number=\count331
+\Fld@listcount=\count351
+\c@bookmark@seq@number=\count352
 
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfi
 lecheck.sty
@@ -578,45 +903,41 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip74
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 83.
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 86
+Package hyperref Info: Option `colorlinks' set `true' on input line 85.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 88
 .
 
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-(documentatie.aux
-
-LaTeX Warning: Label `sec:lstm-impl' multiply defined.
-
-)
+(documentatie.aux)
 \openout1 = `documentatie.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Info: Redefining \microtypecontext on input line 86.
-Package microtype Info: Applying patch `item' on input line 86.
-Package microtype Info: Applying patch `toc' on input line 86.
-Package microtype Info: Applying patch `eqnum' on input line 86.
-Package microtype Info: Applying patch `footnote' on input line 86.
-Package microtype Info: Applying patch `verbatim' on input line 86.
-LaTeX Info: Redefining \microtypesetup on input line 86.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Info: Redefining \microtypecontext on input line 88.
+Package microtype Info: Applying patch `item' on input line 88.
+Package microtype Info: Applying patch `toc' on input line 88.
+Package microtype Info: Applying patch `eqnum' on input line 88.
+Package microtype Info: Applying patch `footnote' on input line 88.
+Package microtype Info: Applying patch `verbatim' on input line 88.
+LaTeX Info: Redefining \microtypesetup on input line 88.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -627,7 +948,8 @@ Package microtype Info: Patching command `\showhyphens'.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
- (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.cfg
+
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
@@ -669,17 +991,17 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.m
 kii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count332
-\scratchdimen=\dimen263
-\scratchbox=\box64
-\nofMPsegments=\count333
-\nofMParguments=\count334
-\everyMPshowfont=\toks35
-\MPscratchCnt=\count335
-\MPscratchDim=\dimen264
-\MPnumerator=\count336
-\makeMPintoPDFobject=\count337
-\everyMPtoPDFconversion=\toks36
+\scratchcounter=\count353
+\scratchdimen=\dimen317
+\scratchbox=\box75
+\nofMPsegments=\count354
+\nofMParguments=\count355
+\everyMPshowfont=\toks47
+\MPscratchCnt=\count356
+\MPscratchDim=\dimen318
+\MPnumerator=\count357
+\makeMPintoPDFobject=\count358
+\everyMPtoPDFconversion=\toks48
 )
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-
 base.sty
@@ -695,48 +1017,48 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count338
-Package hyperref Info: Link coloring ON on input line 86.
+\c@lstlisting=\count359
+Package hyperref Info: Link coloring ON on input line 88.
  (documentatie.out) (documentatie.out)
-\@outlinefile=\write3
-\openout3 = `documentatie.out'.
+\@outlinefile=\write4
+\openout4 = `documentatie.out'.
 
-<figures/fii_logo.jpg, id=323, 362.35374pt x 351.3125pt>
+<figures/fii_logo.jpg, id=322, 362.35374pt x 351.3125pt>
 File: figures/fii_logo.jpg Graphic file (type jpg)
 <use figures/fii_logo.jpg>
-Package pdftex.def Info: figures/fii_logo.jpg  used on input line 94.
+Package pdftex.def Info: figures/fii_logo.jpg  used on input line 96.
 (pdftex.def)             Requested size: 113.81102pt x 110.34238pt.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-07.
+09.
 
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-07.
+09.
 
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-107.
+109.
 
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-107.
+109.
 
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 107.
+(Font)              <12> on input line 109.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 107.
+(Font)              <8> on input line 109.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 107.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 107
+(Font)              <6> on input line 109.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 109
 .
 
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
@@ -745,7 +1067,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 107
+LaTeX Font Info:    Trying to load font information for U+msb on input line 109
 .
 
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -763,11 +1085,8 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.175 \newpage
-               [1{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips
-/lm/lm-rm.enc}{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm
-/lm-mathit.enc}{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/l
-m/lm-mathsy.enc}]
+l.145 \newpage
+               [1] (documentatie.toc
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -775,7 +1094,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[2] (documentatie.toc
+[2]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -783,7 +1102,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[3]
+[3])
+\tf@toc=\write5
+\openout5 = `documentatie.toc'.
+
+ [4]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -791,28 +1114,26 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[4])
-\tf@toc=\write4
-\openout4 = `documentatie.toc'.
-
- [5]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[6]
+[5{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.e
+nc}{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}
+]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-70.
+03.
  (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-79.
 
-(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[6{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}
+]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
+82.
+ (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 Package microtype Info: Loading generic protrusion settings for font family
@@ -820,6 +1141,12 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
+Overfull \hbox (10.20215pt too wide) in paragraph at lines 282--290
+[]\T1/lmr/bx/n/12 (-20) Gamified Chal-lenge Mode. \T1/lmr/m/n/12 (-20) A sep-a-
+rate \T1/lmtt/m/n/12 /challenge \T1/lmr/m/n/12 (-20) page with fif-teen procedu
+rally-
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -827,8 +1154,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[7{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}
-]
+[7{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.e
+nc}]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -852,12 +1179,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[10]
-Overfull \hbox (9.07663pt too wide) in paragraph at lines 466--475
-\T1/lmr/m/n/12 (-20) anal-y-sis mod-ule com-putes the Ho-effd-ing sta-tis-ti-ca
-l cor-rec-tion $\OML/lmm/m/it/12 ^^N[] \OT1/lmr/m/n/12 (-20) = []$
- []
+[10{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.
+enc}]
 
+LaTeX Warning: Command \textdegree invalid in math mode on input line 462.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 462.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 463.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 463.
+
+(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+)
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -865,8 +1203,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[11{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.
-enc}]
+[11]
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 480.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -900,18 +1240,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [15]
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 730.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 730.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 731.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 731.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -919,13 +1247,126 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [16]
-(C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
-File: lstlang1.sty 2025/11/14 1.11b listings language file
-)
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 747.
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 748.
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -950,25 +1391,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [19]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 929.
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[20]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[21]
-Overfull \hbox (1.3637pt too wide) in paragraph at lines 1034--1040
-[]\T1/lmr/m/n/12 (-20) In Se-qure, CAS-CADE is im-ple-mented in \T1/lmtt/m/n/12
- backend/classical_processing/cascade.py
+Overfull \hbox (40.92206pt too wide) in paragraph at lines 929--949
+ [][] 
  []
 
 
@@ -978,7 +1405,32 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
+[20]
+Overfull \hbox (7.82755pt too wide) in paragraph at lines 999--1008
+\T1/lmr/m/n/12 (-20) patched asyn-chronously to the se-lected IBM Quan-tum back
+-end (\T1/lmtt/m/n/12 ibm_fez\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 ibm_marrake
+sh\T1/lmr/m/n/12 (-20) ,
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[21]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
 [22]
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1111.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -987,6 +1439,32 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [23]
+Overfull \hbox (35.47864pt too wide) in paragraph at lines 1187--1191
+\T1/lmr/m/n/12 (-20) curve); \T1/lmtt/m/n/12 websocket_routes.py \T1/lmr/m/n/12
+ (-20) con-tains the main sim-u-la-tion loop; \T1/lmtt/m/n/12 challenge_routes.
+py
+ []
+
+
+Overfull \hbox (13.48328pt too wide) in paragraph at lines 1191--1199
+[]\T1/lmr/m/n/12 (-20) Protocol-independent quan-tum cir-cuit con-struc-tion (\
+T1/lmtt/m/n/12 bb84_circuit.py\T1/lmr/m/n/12 (-20) ),
+ []
+
+
+Overfull \hbox (26.57631pt too wide) in paragraph at lines 1191--1199
+\T1/lmr/m/n/12 (-20) noise model (\T1/lmtt/m/n/12 noise_model.py\T1/lmr/m/n/12 
+(-20) ), chan-nel at-ten-u-a-tion (\T1/lmtt/m/n/12 channel_model.py\T1/lmr/m/n/
+12 (-20) ), WCP/decoy
+ []
+
+
+Overfull \hbox (62.66658pt too wide) in paragraph at lines 1191--1199
+\T1/lmr/m/n/12 (-20) sim-u-la-tion and PNS at-tack (\T1/lmtt/m/n/12 decoy_state
+.py\T1/lmr/m/n/12 (-20) ), finite-key anal-y-sis (\T1/lmtt/m/n/12 finite_key_an
+alysis.py\T1/lmr/m/n/12 (-20) ),
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -995,77 +1473,83 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [24]
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
+Overfull \hbox (30.88287pt too wide) in paragraph at lines 1199--1204
+\T1/lmr/m/n/12 (-20) block er-ror cor-rec-tion (\T1/lmtt/m/n/12 error_correctio
+n.py\T1/lmr/m/n/12 (-20) ), CAS-CADE rec-on-cil-i-a-tion (\T1/lmtt/m/n/12 casca
+de.py\T1/lmr/m/n/12 (-20) ),
+ []
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
+Overfull \hbox (56.93106pt too wide) in paragraph at lines 1204--1206
+[]\T1/lmr/m/n/12 (-20) Random For-est clas-si-fier (\T1/lmtt/m/n/12 eavesdrop_d
+etector.py\T1/lmr/m/n/12 (-20) ) and LSTM de-tec-tor (\T1/lmtt/m/n/12 lstm_dete
+ctor.py\T1/lmr/m/n/12 (-20) ). 
+ []
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
+Overfull \hbox (62.9214pt too wide) in paragraph at lines 1206--1210
+[]\T1/lmr/m/n/12 (-20) Mission cat-a-logue (\T1/lmtt/m/n/12 mission_catalog.py\
+T1/lmr/m/n/12 (-20) ), pa-ram-e-ter in-stan-tia-tor (\T1/lmtt/m/n/12 instantiat
+or.py\T1/lmr/m/n/12 (-20) ),
+ []
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
+Overfull \hbox (29.06802pt too wide) in paragraph at lines 1206--1210
+\T1/lmr/m/n/12 (-20) De-tec-tive and En-gi-neer graders (\T1/lmtt/m/n/12 grader
+.py\T1/lmr/m/n/12 (-20) ), and per-sis-tence helpers (\T1/lmtt/m/n/12 persisten
+ce.py\T1/lmr/m/n/12 (-20) ). 
+ []
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
+Overfull \hbox (4.02281pt too wide) in paragraph at lines 1210--1213
+[]\T1/lmr/m/n/12 (-20) JWT se-cu-rity (\T1/lmtt/m/n/12 security.py\T1/lmr/m/n/1
+2 (-20) ), FastAPI de-pen-den-cies (\T1/lmtt/m/n/12 dependencies.py\T1/lmr/m/n/
+12 (-20) ), OAuth
+ []
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
+Overfull \hbox (71.15625pt too wide) in paragraph at lines 1225--1234
+\T1/lmtt/m/n/12 DecoyStatePanel\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 PnsAttack
+Panel\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 FiniteKeyPanel\T1/lmr/m/n/12 (-20) 
+, \T1/lmtt/m/n/12 LstmDetectionPanel\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 Smar
+tEvePanel\T1/lmr/m/n/12 (-20) ,
+ []
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
+Overfull \hbox (68.5049pt too wide) in paragraph at lines 1234--1238
+[]\T1/lmr/m/n/12 (-20) The gam-i-fied learn-ing page. Con-tains \T1/lmtt/m/n/12
+ LevelGrid\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 MissionBriefing\T1/lmr/m/n/12 
+(-20) ,
+ []
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
+Overfull \hbox (38.62933pt too wide) in paragraph at lines 1254--1259
+[]\T1/lmr/m/n/12 (-20) Authenticated user ac-counts. Columns: \T1/lmtt/m/n/12 i
+d\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 email \T1/lmr/m/n/12 (-20) (unique), \T
+1/lmtt/m/n/12 full_name\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 password_hash
+ []
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
+Overfull \hbox (1.65654pt too wide) in paragraph at lines 1254--1259
+\T1/lmr/m/n/12 (-20) (nul-lable for OAuth-only ac-counts), \T1/lmtt/m/n/12 goog
+le_id\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 avatar_url\T1/lmr/m/n/12 (-20) , \T
+1/lmtt/m/n/12 is_email_verified\T1/lmr/m/n/12 (-20) ,
+ []
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
+Overfull \hbox (28.7285pt too wide) in paragraph at lines 1260--1267
+\T1/lmr/m/n/12 (-20) FK, SET NULL on delete), \T1/lmtt/m/n/12 n_qubits\T1/lmr/m
+/n/12 (-20) , \T1/lmtt/m/n/12 depolarizing_prob\T1/lmr/m/n/12 (-20) , \T1/lmtt/
+m/n/12 measurement_error_prob\T1/lmr/m/n/12 (-20) ,
+ []
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1211.
+Overfull \hbox (92.033pt too wide) in paragraph at lines 1260--1267
+\T1/lmtt/m/n/12 eve_intercept \T1/lmr/m/n/12 (-20) (bool), \T1/lmtt/m/n/12 sift
+ed_key_length\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 qber\T1/lmr/m/n/12 (-20) , 
+\T1/lmtt/m/n/12 is_secure\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 final_key\T1/lm
+r/m/n/12 (-20) , \T1/lmtt/m/n/12 channel_distance_km\T1/lmr/m/n/12 (-20) ,
+ []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1075,65 +1559,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [25]
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1212.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1212.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1213.
+Overfull \hbox (34.74564pt too wide) in paragraph at lines 1273--1280
+\T1/lmr/m/n/12 (-20) (JSON), \T1/lmtt/m/n/12 user_answer \T1/lmr/m/n/12 (-20) (
+JSON), \T1/lmtt/m/n/12 correct\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 score\T1/l
+mr/m/n/12 (-20) , \T1/lmtt/m/n/12 feedback \T1/lmr/m/n/12 (-20) (JSON), \T1/lmt
+t/m/n/12 simulation_run_id
+ []
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1213.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1217.
+Overfull \hbox (1.60176pt too wide) in paragraph at lines 1281--1286
+[]\T1/lmr/m/n/12 (-20) Aggregated per-user Chal-lenge Mode statis-tics. Pri-mar
+y key is \T1/lmtt/m/n/12 user_id
+ []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1159,215 +1596,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [28]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 1346.
-
-Overfull \hbox (18.77908pt too wide) in paragraph at lines 1346--1368
- [][] 
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[29]
-Overfull \hbox (7.82755pt too wide) in paragraph at lines 1416--1425
-\T1/lmr/m/n/12 (-20) patched asyn-chronously to the se-lected IBM Quan-tum back
--end (\T1/lmtt/m/n/12 ibm_fez\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 ibm_marrake
-sh\T1/lmr/m/n/12 (-20) ,
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[30]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[31]
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1528.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[32]
-Overfull \hbox (35.47864pt too wide) in paragraph at lines 1582--1586
-\T1/lmr/m/n/12 (-20) curve); \T1/lmtt/m/n/12 websocket_routes.py \T1/lmr/m/n/12
- (-20) con-tains the main sim-u-la-tion loop; \T1/lmtt/m/n/12 challenge_routes.
-py
- []
-
-
-Overfull \hbox (13.48328pt too wide) in paragraph at lines 1586--1594
-[]\T1/lmr/m/n/12 (-20) Protocol-independent quan-tum cir-cuit con-struc-tion (\
-T1/lmtt/m/n/12 bb84_circuit.py\T1/lmr/m/n/12 (-20) ),
- []
-
-
-Overfull \hbox (26.57631pt too wide) in paragraph at lines 1586--1594
-\T1/lmr/m/n/12 (-20) noise model (\T1/lmtt/m/n/12 noise_model.py\T1/lmr/m/n/12 
-(-20) ), chan-nel at-ten-u-a-tion (\T1/lmtt/m/n/12 channel_model.py\T1/lmr/m/n/
-12 (-20) ), WCP/decoy
- []
-
-
-Overfull \hbox (62.66658pt too wide) in paragraph at lines 1586--1594
-\T1/lmr/m/n/12 (-20) sim-u-la-tion and PNS at-tack (\T1/lmtt/m/n/12 decoy_state
-.py\T1/lmr/m/n/12 (-20) ), finite-key anal-y-sis (\T1/lmtt/m/n/12 finite_key_an
-alysis.py\T1/lmr/m/n/12 (-20) ),
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[33]
-Overfull \hbox (30.88287pt too wide) in paragraph at lines 1594--1599
-\T1/lmr/m/n/12 (-20) block er-ror cor-rec-tion (\T1/lmtt/m/n/12 error_correctio
-n.py\T1/lmr/m/n/12 (-20) ), CAS-CADE rec-on-cil-i-a-tion (\T1/lmtt/m/n/12 casca
-de.py\T1/lmr/m/n/12 (-20) ),
- []
-
-
-Overfull \hbox (56.93106pt too wide) in paragraph at lines 1599--1601
-[]\T1/lmr/m/n/12 (-20) Random For-est clas-si-fier (\T1/lmtt/m/n/12 eavesdrop_d
-etector.py\T1/lmr/m/n/12 (-20) ) and LSTM de-tec-tor (\T1/lmtt/m/n/12 lstm_dete
-ctor.py\T1/lmr/m/n/12 (-20) ). 
- []
-
-
-Overfull \hbox (62.9214pt too wide) in paragraph at lines 1601--1605
-[]\T1/lmr/m/n/12 (-20) Mission cat-a-logue (\T1/lmtt/m/n/12 mission_catalog.py\
-T1/lmr/m/n/12 (-20) ), pa-ram-e-ter in-stan-tia-tor (\T1/lmtt/m/n/12 instantiat
-or.py\T1/lmr/m/n/12 (-20) ),
- []
-
-
-Overfull \hbox (29.06802pt too wide) in paragraph at lines 1601--1605
-\T1/lmr/m/n/12 (-20) De-tec-tive and En-gi-neer graders (\T1/lmtt/m/n/12 grader
-.py\T1/lmr/m/n/12 (-20) ), and per-sis-tence helpers (\T1/lmtt/m/n/12 persisten
-ce.py\T1/lmr/m/n/12 (-20) ). 
- []
-
-
-Overfull \hbox (4.02281pt too wide) in paragraph at lines 1605--1608
-[]\T1/lmr/m/n/12 (-20) JWT se-cu-rity (\T1/lmtt/m/n/12 security.py\T1/lmr/m/n/1
-2 (-20) ), FastAPI de-pen-den-cies (\T1/lmtt/m/n/12 dependencies.py\T1/lmr/m/n/
-12 (-20) ), OAuth
- []
-
-
-Overfull \hbox (71.15625pt too wide) in paragraph at lines 1620--1629
-\T1/lmtt/m/n/12 DecoyStatePanel\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 PnsAttack
-Panel\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 FiniteKeyPanel\T1/lmr/m/n/12 (-20) 
-, \T1/lmtt/m/n/12 LstmDetectionPanel\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 Smar
-tEvePanel\T1/lmr/m/n/12 (-20) ,
- []
-
-
-Overfull \hbox (68.5049pt too wide) in paragraph at lines 1629--1633
-[]\T1/lmr/m/n/12 (-20) The gam-i-fied learn-ing page. Con-tains \T1/lmtt/m/n/12
- LevelGrid\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 MissionBriefing\T1/lmr/m/n/12 
-(-20) ,
- []
-
-
-Overfull \hbox (38.62933pt too wide) in paragraph at lines 1649--1654
-[]\T1/lmr/m/n/12 (-20) Authenticated user ac-counts. Columns: \T1/lmtt/m/n/12 i
-d\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 email \T1/lmr/m/n/12 (-20) (unique), \T
-1/lmtt/m/n/12 full_name\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 password_hash
- []
-
-
-Overfull \hbox (1.65654pt too wide) in paragraph at lines 1649--1654
-\T1/lmr/m/n/12 (-20) (nul-lable for OAuth-only ac-counts), \T1/lmtt/m/n/12 goog
-le_id\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 avatar_url\T1/lmr/m/n/12 (-20) , \T
-1/lmtt/m/n/12 is_email_verified\T1/lmr/m/n/12 (-20) ,
- []
-
-
-Overfull \hbox (28.7285pt too wide) in paragraph at lines 1655--1662
-\T1/lmr/m/n/12 (-20) FK, SET NULL on delete), \T1/lmtt/m/n/12 n_qubits\T1/lmr/m
-/n/12 (-20) , \T1/lmtt/m/n/12 depolarizing_prob\T1/lmr/m/n/12 (-20) , \T1/lmtt/
-m/n/12 measurement_error_prob\T1/lmr/m/n/12 (-20) ,
- []
-
-
-Overfull \hbox (92.033pt too wide) in paragraph at lines 1655--1662
-\T1/lmtt/m/n/12 eve_intercept \T1/lmr/m/n/12 (-20) (bool), \T1/lmtt/m/n/12 sift
-ed_key_length\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 qber\T1/lmr/m/n/12 (-20) , 
-\T1/lmtt/m/n/12 is_secure\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 final_key\T1/lm
-r/m/n/12 (-20) , \T1/lmtt/m/n/12 channel_distance_km\T1/lmr/m/n/12 (-20) ,
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[34]
-Overfull \hbox (34.74564pt too wide) in paragraph at lines 1668--1675
-\T1/lmr/m/n/12 (-20) (JSON), \T1/lmtt/m/n/12 user_answer \T1/lmr/m/n/12 (-20) (
-JSON), \T1/lmtt/m/n/12 correct\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 score\T1/l
-mr/m/n/12 (-20) , \T1/lmtt/m/n/12 feedback \T1/lmr/m/n/12 (-20) (JSON), \T1/lmt
-t/m/n/12 simulation_run_id
- []
-
-
-Overfull \hbox (1.60176pt too wide) in paragraph at lines 1676--1681
-[]\T1/lmr/m/n/12 (-20) Aggregated per-user Chal-lenge Mode statis-tics. Pri-mar
-y key is \T1/lmtt/m/n/12 user_id
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[35]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[36]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[37]
-<figures/controls.jpg, id=745, 192.72pt x 864.22874pt>
+<figures/controls.jpg, id=670, 192.72pt x 864.22874pt>
 File: figures/controls.jpg Graphic file (type jpg)
 <use figures/controls.jpg>
-Package pdftex.def Info: figures/controls.jpg  used on input line 1778.
+Package pdftex.def Info: figures/controls.jpg  used on input line 1383.
 (pdftex.def)             Requested size: 227.62204pt x 1020.74373pt.
 
 
@@ -1377,7 +1609,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[38]
+[29]
 Overfull \vbox (368.76065pt too high) has occurred while \output is active []
 
 
@@ -1388,7 +1620,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[39 <./figures/controls.jpg>]
+[30 <./figures/controls.jpg>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1396,12 +1628,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[40]
-<figures/photongrid_strong_eve.jpg, id=766, 1606.0pt x 284.06125pt>
+[31]
+<figures/photongrid_strong_eve.jpg, id=692, 1606.0pt x 284.06125pt>
 File: figures/photongrid_strong_eve.jpg Graphic file (type jpg)
 <use figures/photongrid_strong_eve.jpg>
 Package pdftex.def Info: figures/photongrid_strong_eve.jpg  used on input line 
-1854.
+1459.
 (pdftex.def)             Requested size: 426.79134pt x 75.48825pt.
 
 
@@ -1411,11 +1643,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[41 <./figures/photongrid_strong_eve.jpg>]
-<figures/lstm_panel.jpg, id=774, 1606.0pt x 234.8775pt>
+[32 <./figures/photongrid_strong_eve.jpg>]
+<figures/lstm_panel.jpg, id=700, 1606.0pt x 234.8775pt>
 File: figures/lstm_panel.jpg Graphic file (type jpg)
 <use figures/lstm_panel.jpg>
-Package pdftex.def Info: figures/lstm_panel.jpg  used on input line 1918.
+Package pdftex.def Info: figures/lstm_panel.jpg  used on input line 1523.
 (pdftex.def)             Requested size: 426.79134pt x 62.41785pt.
 
 
@@ -1425,8 +1657,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[42 <./figures/lstm_panel.jpg>]
-Overfull \hbox (89.38095pt too wide) in paragraph at lines 1978--1985
+[33 <./figures/lstm_panel.jpg>]
+
+LaTeX Warning: Reference `eq:gllp-rate' on page 34 undefined on input line 1553
+.
+
+
+Overfull \hbox (89.38095pt too wide) in paragraph at lines 1583--1590
 \T1/lmr/m/n/12 (-20) Fifteen mis-sions are de-fined as Python \T1/lmtt/m/n/12 M
 ission \T1/lmr/m/n/12 (-20) dat-a-classes in \T1/lmtt/m/n/12 backend/challenge/
 mission_catalog.py\T1/lmr/m/n/12 (-20) .
@@ -1439,11 +1676,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[43]
-<figures/challenge_grid.jpg, id=786, 920.43875pt x 752.8125pt>
+[34]
+<figures/challenge_grid.jpg, id=710, 920.43875pt x 752.8125pt>
 File: figures/challenge_grid.jpg Graphic file (type jpg)
 <use figures/challenge_grid.jpg>
-Package pdftex.def Info: figures/challenge_grid.jpg  used on input line 2031.
+Package pdftex.def Info: figures/challenge_grid.jpg  used on input line 1636.
 (pdftex.def)             Requested size: 398.33858pt x 325.80518pt.
 
 
@@ -1453,11 +1690,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[44]
-<figures/challenge_result.jpg, id=791, 560.0925pt x 565.11125pt>
+[35]
+<figures/challenge_result.jpg, id=715, 560.0925pt x 565.11125pt>
 File: figures/challenge_result.jpg Graphic file (type jpg)
 <use figures/challenge_result.jpg>
-Package pdftex.def Info: figures/challenge_result.jpg  used on input line 2040.
+Package pdftex.def Info: figures/challenge_result.jpg  used on input line 1645.
 
 (pdftex.def)             Requested size: 284.52756pt x 287.09056pt.
 
@@ -1468,7 +1705,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[45 <./figures/challenge_grid.jpg>]
+[36 <./figures/challenge_grid.jpg>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1476,7 +1713,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[46 <./figures/challenge_result.jpg>]
+[37 <./figures/challenge_result.jpg>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1484,7 +1721,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[47]
+[38]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1492,11 +1729,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[48]
-<figures/qber_chart.jpg, id=820, 1594.95876pt x 259.97125pt>
+[39]
+<figures/qber_chart.jpg, id=744, 1594.95876pt x 259.97125pt>
 File: figures/qber_chart.jpg Graphic file (type jpg)
 <use figures/qber_chart.jpg>
-Package pdftex.def Info: figures/qber_chart.jpg  used on input line 2203.
+Package pdftex.def Info: figures/qber_chart.jpg  used on input line 1808.
 (pdftex.def)             Requested size: 426.79134pt x 69.56244pt.
 
 
@@ -1506,7 +1743,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[49 <./figures/qber_chart.jpg>]
+[40 <./figures/qber_chart.jpg>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1514,7 +1751,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[50]
+[41]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1522,9 +1759,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[51] (documentatie.lof)
-\tf@lof=\write5
-\openout5 = `documentatie.lof'.
+[42]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[43] (documentatie.lof)
+\tf@lof=\write6
+\openout6 = `documentatie.lof'.
 
 
 
@@ -1534,7 +1779,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[52]
+[44]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1542,7 +1787,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[53]
+[45]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1550,7 +1795,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[54]
+[46]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1558,26 +1803,26 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[55] (documentatie.aux)
+[47] (documentatie.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
 
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `documentatie.out' has not changed.
-(rerunfilecheck)             Checksum: 3C2C953E7EC173E5B386067910D5E429;14890.
+(rerunfilecheck)             Checksum: 8083BC98FA9F0413C9007E349D63C666;14591.
  ) 
 Here is how much of TeX's memory you used:
- 19923 strings out of 467870
- 315993 string characters out of 5417872
- 1088261 words of memory out of 5000000
- 47950 multiletter control sequences out of 15000+600000
- 721545 words of font info for 245 fonts, out of 8000000 for 9000
+ 30817 strings out of 467870
+ 561071 string characters out of 5417872
+ 1241977 words of memory out of 5000000
+ 58660 multiletter control sequences out of 15000+600000
+ 720986 words of font info for 241 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 73i,13n,79p,1203b,2063s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,13n,94p,1203b,1377s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.p
 fb><C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.
 pfb><C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10
@@ -1600,9 +1845,9 @@ lmtt12.pfb><C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm
 /lmtti10.pfb><C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/type1/public/
 amsfonts/symbols/msam10.pfb><C:/Users/Andrei/AppData/Local/Programs/MiKTeX/font
 s/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on documentatie.pdf (56 pages, 1059647 bytes).
+Output written on documentatie.pdf (48 pages, 1022853 bytes).
 PDF statistics:
- 1038 PDF objects out of 1200 (max. 8388607)
- 262 named destinations out of 1000 (max. 500000)
- 52388 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 966 PDF objects out of 1000 (max. 8388607)
+ 237 named destinations out of 1000 (max. 500000)
+ 52392 words of extra memory for PDF output out of 61914 (max. 10000000)
 

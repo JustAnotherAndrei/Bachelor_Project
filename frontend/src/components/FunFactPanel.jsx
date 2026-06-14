@@ -203,7 +203,7 @@ export const FACTS = [
   // ----- Foundational papers -----
   {
     category: 'History',
-    text: "The EPR paradox (Einstein-Podolsky-Rosen 1935) introduced the entanglement scenarios that QKD still relies on. Einstein famously called the resulting correlations 'spooky action at a distance' — modern QKD turns this discomfort into a security feature.",
+    text: "The EPR paradox (Einstein-Podolsky-Rosen 1935) introduced the entanglement scenarios that QKD still relies on. Einstein famously called the resulting correlations 'spooky action at a distance' - modern QKD turns this discomfort into a security feature.",
   },
   {
     category: 'History',
