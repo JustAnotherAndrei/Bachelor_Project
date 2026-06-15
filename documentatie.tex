@@ -403,11 +403,11 @@ detected, no matter how much computing power they have. Table
 
 The fundamental unit of quantum information is the qubit (short for quantum
 bit). Unlike a classical bit, which is either 0 or 1, a qubit can exist in a state called "superposition" of both basis states simultaneously. Using the "bra-ket" notation, the general state of a qubit is written as:
-\begin{equation}
+\begin{equation*}
   \ket{\psi} = \alpha\ket{0} + \beta\ket{1},
   \qquad \alpha,\beta \in \mathbb{C}, \quad |\alpha|^2 + |\beta|^2 = 1,
   \label{eq:qubit}
-\end{equation}
+\end{equation*}
 where $\ket{0}$ and $\ket{1}$ are the computational basis states (eigenstates
 of the Pauli-$Z$ operator), and $|\alpha|^2$, $|\beta|^2$ are the probabilities
 of measuring the qubit in state $\ket{0}$ or $\ket{1}$, respectively.
@@ -430,18 +430,18 @@ physical mechanism utilized by BB84 to detect eavesdropping.
 
 In addition to the computational $Z$-basis $\{\ket{0},\ket{1}\}$, BB84 also uses
 the diagonal ($X$-basis) $\{\ket{+},\ket{-}\}$, defined by:
-\begin{equation}
+\begin{equation*}
   \ket{+} = \frac{\ket{0} + \ket{1}}{\sqrt{2}}, \qquad
   \ket{-} = \frac{\ket{0} - \ket{1}}{\sqrt{2}}.
   \label{eq:hadamard-states}
-\end{equation}
+\end{equation*}
 The transformation between the two bases is performed by the
 Hadamard gate $H$:
-\begin{equation}
+\begin{equation*}
   H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}, with
   \quad H\ket{0} = \ket{+}, \quad H\ket{1} = \ket{-}.
   \label{eq:hadamard}
-\end{equation}
+\end{equation*}
 In the \textbf{Sequre} implementation, the Hadamard gate is applied in Qiskit via
 'qc.h(0)' when Alice encodes a bit in the $X$-basis and
 Bob measures in the $X$-basis (rotating back before the standard $Z$-measurement).
@@ -620,7 +620,7 @@ def correct_errors(alice_key, bob_key, block_size=4):
 This approach sacrifices key material (meaning that entire blocks are discarded rather than
 individual erroneous bits), but guarantees that all retained blocks are
 error-free with high probability for low to moderate QBER. The full CASCADE algorithm~\cite{brassard1994} improves upon this by
-iteratively narrowing down the position of individual erroneous bits through binary search, achieving near-optimal reconciliation efficiency; therefore, it is identified as a future development direction for \textbf{Sequre}.
+iteratively narrowing down the position of individual erroneous bits through binary search, achieving near-optimal reconciliation efficiency, therefore being identified as a future development direction for \textbf{Sequre}.
 
 \subsubsection{Privacy Amplification}
 
@@ -676,10 +676,10 @@ Real QKD systems do not have single-photon sources - they use
 attenuated lasers, so-called \textbf{weak coherent pulses} (WCP). A WCP
 with mean photon number $\mu$ emits $n$ photons per pulse with Poisson
 probability:
-\begin{equation}
+\begin{equation*}
   P(n \mid \mu) \;=\; e^{-\mu}\,\frac{\mu^n}{n!}.
   \label{eq:poisson}
-\end{equation}
+\end{equation*}
 For $\mu < 1$ most pulses are vacuum or single-photon, but a non-trivial
 fraction contains $n \geq 2$ photons - and these multi-photon pulses
 open the door to the \textbf{photon-number-splitting} (PNS) attack: Eve
@@ -701,22 +701,22 @@ discrepancy between the per-intensity gains. From the gains
 $Q_\mu = \sum_n P(n \mid \mu) Y_n$ and error rates $E_\mu$, the two-decoy
 GLLP analysis produces a verifiable lower bound on the single-photon
 yield $Y_1$:
-\begin{equation}
+\begin{equation*}
   Y_1^{L} \;\geq\;
     \frac{\mu}{\mu\nu - \nu^2}\!\left(
       Q_\nu e^{\nu} - Q_\mu e^{\mu}\,\frac{\nu^2}{\mu^2}
       - \frac{\mu^2 - \nu^2}{\mu^2}\,Y_0
     \right),
   \label{eq:y1-bound}
-\end{equation}
+\end{equation*}
 and a secure key rate:
-\begin{equation}
+\begin{equation*}
   R \;\geq\; q\,\bigl[
     -Q_\mu f(E_\mu) H_2(E_\mu)
     + Q_1^{L}\bigl(1 - H_2(e_1^{U})\bigr)
   \bigr],
   \label{eq:decoy-rate}
-\end{equation}
+\end{equation*}
 with $Q_1^L = \mu e^{-\mu} Y_1^L$ and $Y_0$ the dark-count background.
 \textbf{Sequre}'s decoy-state panel renders all of these quantities live, so the
 user can watch the single-photon contribution being recovered from
@@ -733,11 +733,11 @@ correcting \emph{individual} unnatural bits via binary search on parity.
 CASCADE proceeds in several passes, each parameterized by a
 block size $B_i$, the first block size depending on the estimated QBER
 $Q$:
-\begin{equation}
+\begin{equation*}
   B_1 \;\approx\; \left\lceil \frac{0.73}{Q} \right\rceil,
   \qquad B_{i+1} = 2\,B_i.
   \label{eq:cascade-blocksize}
-\end{equation}
+\end{equation*}
 Within a pass, the key is randomly permuted and partitioned into blocks
 of size $B_i$. Alice announces the parity of each block, and for any block
 whose parity disagrees with Bob's, the parties run a binary search (
@@ -841,24 +841,24 @@ $\approx 25\%$ sifting efficiency.
 
 E91~\cite{ekert1991} takes a different route: its security is grounded
 in quantum entanglement. A source emits photon pairs in the Bell state:
-\begin{equation}
+\begin{equation*}
   \ket{\Phi^+} = \frac{1}{\sqrt{2}}\bigl(\ket{00} + \ket{11}\bigr),
   \label{eq:bell-state}
-\end{equation}
+\end{equation*}
 and Alice and Bob each measure their photon at one of three canonical
 angles:
-\begin{align}
+\begin{align*}
   \text{Alice:} &\quad \theta_a \in \{0°,\,22.5°,\,45°\}, \\
   \text{Bob:}   &\quad \theta_b \in \{22.5°,\,45°,\,67.5°\}.
   \label{eq:e91-angles}
-\end{align}
+\end{align*}
 Rounds where both parties picked the same angle contribute to the key
 (perfect anti-correlation of $\ket{\Phi^+}$ in the same basis); the
 remaining ones feed the CHSH correlator:
-\begin{equation}
+\begin{equation*}
   S = E(0°,\,22.5°) - E(0°,\,67.5°) + E(45°,\,22.5°) + E(45°,\,67.5°),
   \label{eq:chsh}
-\end{equation}
+\end{equation*}
 with $E(\theta_a, \theta_b) = P(\text{same}) - P(\text{different})$. A
 maximally entangled state gives $|S| = 2\sqrt{2}$ (Tsirelson bound);
 classical local-hidden-variable theories are bounded by $|S| \leq 2$.
@@ -876,19 +876,19 @@ security statement has to account for that.
 
 Tomamichel et al.~\cite{tomamichel2012} give a tight bound using a
 Hoeffding correction on the QBER:
-\begin{equation}
+\begin{equation*}
   Q_\mathrm{upper} = \hat{Q} + \delta_\mathrm{PE}, \qquad
   \delta_\mathrm{PE} = \sqrt{\frac{\ln(2/\varepsilon_\mathrm{PE})}{2n}}.
   \label{eq:hoeffding}
-\end{equation}
+\end{equation*}
 The composable finite-key length is then:
-\begin{equation}
+\begin{equation*}
   \ell \leq n\bigl[1 - H_2(Q_\mathrm{upper})\bigr]
            - n\,f_\mathrm{EC}\,H_2(\hat{Q})
            - \log_2\!\tfrac{2}{\varepsilon_\mathrm{corr}}
            - 2\log_2\!\tfrac{1}{2\varepsilon_\mathrm{PA}},
   \label{eq:finite-key}
-\end{equation}
+\end{equation*}
 where the four terms are the parameter-estimation penalty, the
 error-correction leakage (with $f_\mathrm{EC} \approx 1.16$ for CASCADE)
 and the privacy-amplification and correctness overheads. The total
@@ -992,7 +992,6 @@ dimensions most relevant to \textbf{Sequre}'s design goals.
     Decoy-state / PNS / finite-key      & \checkmark & -- & -- & -- & -- \\
     ML eavesdropper detection           & \checkmark & -- & -- & -- & -- \\
     Gamified Challenge Mode             & \checkmark & -- & -- & -- & -- \\
-    \midrule
     Component-level physical fidelity   & -- & -- & \checkmark & -- & -- \\
     Network-layer protocol primitives   & -- & -- & -- & \checkmark & -- \\
     Official IBM curriculum integration & -- & -- & -- & -- & \checkmark \\
@@ -1002,8 +1001,8 @@ dimensions most relevant to \textbf{Sequre}'s design goals.
 
 The defining differentiator of \textbf{Sequre} is the combination of
 \emph{research-grade analytical depth} (decoy-state bounds, finite-key
-security, LSTM detection, real hardware) with a \emph{fully accessible
-web interface} and a \emph{gamified learning layer}. NetSquid goes
+security, LSTM detection, real hardware) with a fully accessible
+web interface and a gamified learning layer. NetSquid goes
 deeper on the physics, QuNetSim goes broader on network primitives, and
 the Qiskit notebooks have the official-curriculum status - but none of
 them combine the three axes \textbf{Sequre} targets.
@@ -1040,22 +1039,22 @@ dispatching to real hardware.
 
 \textbf{Qiskit-Aer} is the high-performance simulator backend. It supports
 both ideal statevector simulation (used for the zero-noise baseline) and
-noisy simulation via the \texttt{NoiseModel} API. \textbf{Sequre} builds a noise
+noisy simulation via the NoiseModel API. \textbf{Sequre} builds a noise
 model with depolarising errors on the X and H gates and a Pauli
 bit-flip channel on measurement, parameterised by the user-controlled
-\texttt{depolarizing\_prob} and \texttt{measurement\_error\_prob} inputs.
+'depolarizing\_prob' and 'measurement\_error\_prob' inputs.
 
 \subsection{Qiskit IBM Runtime}
 \label{sec:ibm-runtime}
 
 For real-hardware execution, \textbf{Sequre} integrates with the
-\textbf{Qiskit IBM Runtime} \texttt{SamplerV2} API. Individual BB84
-circuits are batched into a single \texttt{SamplerV2} job, dispatched
+\textbf{Qiskit IBM Runtime} SamplerV2 API. Individual BB84
+circuits are batched into a single SamplerV2 job, dispatched
 asynchronously to the selected IBM Quantum backend
-(\texttt{ibm\_fez}, \texttt{ibm\_marrakesh}, or \texttt{ibm\_kingston}),
+('ibm\_fez', 'ibm\_marrakesh, or 'ibm\_kingston'),
 and polled via the runtime job handle. Results are streamed to the
 frontend over the open WebSocket connection as soon as the job
-completes. Access credentials are stored in a server-side \texttt{.env}
+completes. Access credentials are stored in a server-side '.env'
 file that is never committed to version control.
 
 \subsection{FastAPI}
@@ -1108,10 +1107,10 @@ columns if absent and silently skip them otherwise.
 \label{sec:pytorch}
 
 \textbf{PyTorch} is used for the LSTM eavesdropper detector
-(Section~\ref{sec:lstm-impl}). The CPU build (no CUDA required) is
+(section~\ref{sec:lstm-impl}). The CPU build (no CUDA required) is
 installed as a backend dependency. The LSTM, linear classifier, and
-training loop are implemented in \texttt{backend/ml/lstm\_detector.py};
-the trained weights are saved to \texttt{lstm\_weights.pt} at the end
+training loop are implemented in 'backend/ml/lstm\_detector.py';
+the trained weights are saved to 'lstm\_weights.pt' at the end
 of the first training run and loaded from disk on subsequent server
 starts. The entire training cycle (1\,200 synthetic sequences, 60 epochs)
 completes in under 30 seconds on a modern CPU.
@@ -1158,7 +1157,7 @@ The authentication subsystem uses:
   \item \textbf{bcrypt} for password hashing (work factor~12);
   \item \textbf{python-jose} for JWT access and refresh token signing
         (HS256, configurable secret);
-  \item \textbf{Starlette \texttt{SessionMiddleware}} for the OAuth
+  \item \textbf{Starlette 'SessionMiddleware'} for the OAuth
         \texttt{state} parameter across the Google redirect;
   \item \textbf{Authlib} for the Google OAuth 2.0 flow
         (authorisation-code with PKCE);
@@ -1467,20 +1466,20 @@ qubits sequentially:
 Four distinct adversary models are implemented:
 
 \begin{description}
-  \item[\textbf{Weak Eve} (30\%)] Randomly intercepts 30\% of qubits
+  \item[\textbf{Weak Eve} (30\%)]: Randomly intercepts 30\% of qubits
         with intercept-resend. Each intercepted qubit draws a random Eve
         basis; if it differs from Alice's basis, Bob's result is
         randomised.
-  \item[\textbf{Strong Eve} (100\%)] Same logic at 100\% interception
+  \item[\textbf{Strong Eve} (100\%)]: Same logic at 100\% interception
         rate, producing QBER $\approx 25\%$.
-  \item[\textbf{Smart Eve}] An adaptive controller
+  \item[\textbf{Smart Eve}]: An adaptive controller
         (\texttt{quantum\_logic/smart\_eve.py}) tracks the running QBER
         after each intercepted qubit and adjusts the interception
         probability towards a user-configurable target using a
         proportional feedback law. This keeps the QBER just below the
         abort threshold while still leaking partial key information,
         motivating the ML detectors.
-  \item[\textbf{PNS Eve}] Applied to the WCP pulse list before circuit
+  \item[\textbf{PNS Eve}]: Applied to the WCP pulse list before circuit
         simulation. Vacuum pulses ($n=0$) are unchanged; single-photon
         pulses ($n=1$) are blocked (set \texttt{detected=False}); multiphoton
         pulses ($n \geq 2$) are split (Eve retains one photon,
@@ -1492,7 +1491,7 @@ Four distinct adversary models are implemented:
 \subsection{Real-Time WebSocket Streaming and PhotonGrid}
 \label{sec:websocket-photongrid}
 
-The \texttt{PhotonGrid} component receives qubit events as they arrive
+The 'PhotonGrid' component receives qubit events as they arrive
 and renders up to 80 cells in a grid. Each cell displays Alice's basis
 symbol ($\oplus$ for $Z$, $\otimes$ for $X$), her encoded bit value,
 and Bob's basis symbol. Colour encodes the outcome: violet for basis-matched
@@ -1500,7 +1499,7 @@ sifted bits that agree, red for errors, grey for discarded (basis mismatch).
 Eve-intercepted qubits receive an orange border and badge. A progress
 counter and a live percentage bar show completion.
 
-In Detective missions, the Eve-intercept markers and the channel-status
+In "Detective" missions, the Eve-intercept markers and the channel-status
 indicator are censored until the player submits their verdict, preventing
 the UI from trivially revealing the answer.
 
@@ -1516,7 +1515,7 @@ the UI from trivially revealing the answer.
 \subsection{Key Distillation Pipeline}
 \label{sec:key-pipeline}
 
-The \texttt{SimulationSummary} component visualises the progressive
+The 'SimulationSummary' component visualises the progressive
 shrinkage of the raw qubit sequence into a final secret key through
 four stages: \textit{Raw} ($n$ qubits transmitted) $\to$
 \textit{Sifted} ($\approx n/2$ after basis matching) $\to$
@@ -1528,23 +1527,23 @@ cost of each step concrete.
 \subsection{Decoy-State and PNS Attack Panels}
 \label{sec:decoy-panel}
 
-When WCP source is active, the \texttt{DecoyStatePanel} renders the
+When WCP source is active, the 'DecoyStatePanel' renders the
 per-intensity gain table ($Q_\mu$, $Q_\nu$, $Q_0$), the single-photon
 yield bound $Y_1^L$, the single-photon error rate $e_1^U$, the
-multi-photon fraction, and the estimated secure key rate $R$ from
-Equation~\eqref{eq:decoy-rate}.
+multi-photon fraction and the estimated secure key rate $R$ from the 
+equation at ~\eqref{eq:decoy-rate}.
 
-When PNS Eve is active, the \texttt{PnsAttackPanel} additionally reports
+When PNS Eve is active, the 'PnsAttackPanel' additionally reports
 the number of blocked single-photon pulses, the number of split
 multi-photon pulses, and the estimated information-leakage fraction.
-The detection badge reads \textit{``Decoy-state caught the attack''} when
-$Y_1 < 0.05$ or $R < 0.002$, and \textit{``Decoy-state bounds suspicious''}
+The detection badge reads "Decoy-state caught the attack" when
+$Y_1 < 0.05$ or $R < 0.002$, and "Decoy-state bounds suspicious"
 otherwise.
 
 \subsection{Finite-Key Security Panel}
 \label{sec:finite-panel}
 
-The \texttt{FiniteKeyPanel} renders both the asymptotic GLLP key length
+The 'FiniteKeyPanel' renders both the asymptotic GLLP key length
 and the finite-key bound from Equation~\eqref{eq:finite-key} side by side,
 with a percentage ratio and a breakdown table showing QBER, $\delta_\mathrm{PE}$,
 $h(Q)$, EC leakage, PA overhead, and $\varepsilon_\mathrm{sec}$. A warning
@@ -1559,7 +1558,7 @@ Two ML detection panels are rendered after each run:
 \textbf{MLDetectionPanel} (Random Forest): shows the estimated
 $\hat{P}(\text{Eve})$, the binary verdict, and the feature importances
 as a horizontal bar chart. The model is trained lazily on accumulated
-history; a \textit{Train} button triggers retraining.
+history; a \textit{"Train"} button triggers retraining.
 
 \textbf{LstmDetectionPanel}: shows $P(\text{Eve} \mid \text{sequence})$
 as a large percentage with a probability bar and a 50\% threshold marker,
@@ -1580,23 +1579,23 @@ the result is included in the \texttt{type: "result"} payload.
 \subsection{Bell Test Panel (E91)}
 \label{sec:bell-panel}
 
-For E91 runs the \texttt{BellTestPanel} renders the four CHSH correlation
+For E91 runs the 'BellTestPanel' renders the four CHSH correlation
 terms $E(\theta_a, \theta_b)$, their signed combination $S$, the classical
 bound~2, and the Tsirelson bound $2\sqrt{2} \approx 2.83$. A green badge
-\textit{``Bell violated — entanglement confirmed''} is shown when
+\textit{``Bell violated - entanglement confirmed''} is shown when
 $|S| > 2$; a red badge \textit{``Bell bound not exceeded''} appears when
 Eve has destroyed the correlations ($|S| \approx 0$ for Strong Eve).
 
 \subsection{QBER Historical Chart and Key Rate Curve}
 \label{sec:charts}
 
-The \texttt{QBERChart} plots the QBER of every run in the session as a
+The 'QBERChart' plots the QBER of every run in the session as a
 timeline with a red dashed line at the 11\% security threshold. It
 allows the user to observe the statistical spread of QBER estimates and
 to compare Eve-present versus Eve-absent distributions across multiple
 runs.
 
-The \texttt{KeyRateChart} plots the theoretical secure key rate
+The 'KeyRateChart' plots the theoretical secure key rate
 $R(L) = \eta(L)[1 - 2h(Q_\mathrm{noise})]$ from $L = 0$ to
 $L = 150$\,km for the configured noise parameters, with a vertical marker
 at the current channel distance. This makes the rate--distance trade-off
@@ -1605,7 +1604,7 @@ from Equation~\eqref{eq:gllp-rate} concrete and immediately visible.
 \subsection{Educational Panel and Fun Facts}
 \label{sec:edu-panel}
 
-The \texttt{EducationalPanel} contains five expandable accordion cards:
+The 'EducationalPanel' contains five expandable accordion cards:
 \textit{BB84 Protocol}, \textit{Sifting and key generation},
 \textit{QBER and eavesdropping}, \textit{No-cloning theorem}, and
 \textit{Error correction and privacy amplification}. Each card presents
@@ -1631,14 +1630,14 @@ back-navigation link.
 \label{sec:missions}
 
 Fifteen missions are defined as Python \texttt{Mission} dataclasses in
-\texttt{backend/challenge/mission\_catalog.py}. Each mission specifies a
-difficulty level, a mission type (\texttt{detective} or
-\texttt{engineer}), human-readable briefing text, parameter ranges to
+'backend/challenge/mission\_catalog.py'. Each mission specifies a
+difficulty level, a mission type ("detective" or
+"engineer"), human-readable briefing text, parameter ranges to
 randomise from on each attempt, fixed parameters, the fields the user
 is allowed to configure (Engineer missions), and a structured success
 criterion.
 
-The 15 missions are grouped into five difficulty bands:
+The 15 missions are grouped into five difficulty bands, as follows:
 
 \begin{description}
   \item[Levels 1--3 (Detective, easy)] Clear Eve-present vs Eve-absent
@@ -1646,7 +1645,7 @@ The 15 missions are grouped into five difficulty bands:
   \item[Levels 4--6 (Detective, medium)] Weak Eve vs elevated channel
         noise; QBER is in the gray zone; LSTM panel provides the decisive
         evidence.
-  \item[Levels 7--9 (Detective, hard)] Smart Eve / PNS / long-distance
+  \item[Levels 7--9 (Detective, hard)] Smart Eve/PNS/long-distance
         runs that require reading multiple panels simultaneously.
   \item[Levels 10--12 (Engineer, easy)] Short-link configurations that
         require meeting a simple finite-key output or CHSH constraint.
@@ -1658,7 +1657,7 @@ The 15 missions are grouped into five difficulty bands:
 \subsubsection{Grading}
 \label{sec:grading}
 
-Two graders are implemented in \texttt{backend/challenge/grader.py}:
+Two graders are implemented in 'backend/challenge/grader.py':
 
 \textbf{DetectiveGrader} computes ground truth from the instantiated
 parameters (\texttt{eve\_mode} determines verdict and attack type),

@@ -103,9 +103,9 @@ def apply_pns_attack(pulses: list[PulseResult]) -> dict:
     the polarisation (a quantum non-demolition measurement is theoretically
     allowed). She then:
 
-      * blocks single-photon pulses (n = 1) entirely — she cannot extract
+      * blocks single-photon pulses (n = 1) entirely - she cannot extract
         information without disturbing them (no-cloning theorem);
-      * splits multi-photon pulses (n ≥ 2) — keeps one photon in a quantum
+      * splits multi-photon pulses (n ≥ 2) - keeps one photon in a quantum
         memory until Alice announces the basis, and forwards the remaining
         n − 1 photons to Bob through a lossless replacement channel.
 
