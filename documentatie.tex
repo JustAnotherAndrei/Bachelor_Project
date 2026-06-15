@@ -77,7 +77,7 @@
 \usepackage{hyperref}
 \hypersetup{
   colorlinks=true,
-  linkcolor=blue!55!black,
+  linkcolor=black,
   citecolor=blue!60!black,
   urlcolor=blue!70!black,
   pdftitle={Sequre - Bachelor's Thesis},
@@ -116,6 +116,58 @@
   \end{center}
 \end{titlepage}
 
+
+% =================== AI USE DISCLOSURE =======================================
+\newpage
+\thispagestyle{plain}
+\begin{center}
+  {\Large \textbf{Regarding the use of AI in my thesis}}
+\end{center}
+\vspace{10pt}
+
+\noindent
+In line with the faculty's requirements, this section discloses how AI
+assistants were used during the development of this thesis. All design
+decisions, scientific reasoning, and the final responsibility for the
+content are mine; AI was used as a productivity tool under my direct
+review. The primary assistant was Claude (via the Claude
+extension), with GitHub Copilot for occasional line-level
+autocomplete.
+
+\subsection*{Use in the codebase}
+
+AI helped with boilerplate scaffolding (REST endpoints, SQLAlchemy
+models, React components, FastAPI routes), debugging on specific errors
+I described, suggestions during larger refactors - notably the
+WebSocket handler refactor for alternative-protocol support and the
+LSTM training script - and drafting docstrings and inline comments.
+Every suggestion was reviewed, tested, and either accepted, modified,
+or rejected by me before being committed.
+
+What was NOT delegated to the AI: the core design of the
+simulation pipeline, the Smart Eve feedback-control law, the LSTM
+architecture and training-corpus design, the "Challenge Mode" mission
+catalogue, and the decoy-state and finite-key pipelines. All
+experimental results shown in chapter~\ref{sec:results} come from simulation
+runs that I executed and verified myself.
+
+\subsection*{Use in the documentation}
+
+The documentation was drafted, restructured, and revised in an iterative
+dialogue with the AI assistant, based on source material I provided (i.e. my own code, notes, and cited references). The AI also generated LaTeX
+scaffolding for the comparison tables, the TikZ topology diagram in
+section~\ref{sec:system-overview}, and figure layouts. Each suggested
+edit was reviewed and accepted, modified, or rejected by me.
+
+\subsection*{What remains entirely mine}
+
+The thesis topic and scope, the platform's design and feature set, the
+choice of which QKD protocols and attacks to implement, the experimental
+design and reported results, the application screenshots, all source
+code that I reviewed and tested, and the final responsibility for every
+claim in this document.
+
+
 % =================== ABSTRACT ================================================
 \newpage
 \thispagestyle{plain}
@@ -125,7 +177,7 @@
 \vspace{10pt}
 
 \noindent
-Quantum Key Distribution (QKD) lets two parties share a secret key with
+\textbf{Quantum Key Distribution} (QKD) lets two parties share a secret key with
 security backed by the laws of physics rather than computational hardness.
 In practice, QKD still is hard to study hands-on, because real hardware is
 expensive, and the simulators that do exist are either research tools that require specialist knowledge, or classroom demos that barely scratch the surface.
@@ -350,7 +402,7 @@ detected, no matter how much computing power they have. Table
 \subsubsection{Qubits and Quantum States}
 
 The fundamental unit of quantum information is the qubit (short for quantum
-bit). Unlike a classical bit, which is either 0 or 1, a qubit can exist in a state called "superposition" of both basis states simultaneously. Using "bra-ket" notation, the general state of a qubit is written as:
+bit). Unlike a classical bit, which is either 0 or 1, a qubit can exist in a state called "superposition" of both basis states simultaneously. Using the "bra-ket" notation, the general state of a qubit is written as:
 \begin{equation}
   \ket{\psi} = \alpha\ket{0} + \beta\ket{1},
   \qquad \alpha,\beta \in \mathbb{C}, \quad |\alpha|^2 + |\beta|^2 = 1,

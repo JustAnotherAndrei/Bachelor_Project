@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.6.1)  15 JUN 2026 00:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.6.1)  15 JUN 2026 22:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1085,8 +1085,8 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.145 \newpage
-               [1] (documentatie.toc
+l.172 \newpage
+               [1] [2] (documentatie.toc
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1094,7 +1094,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[2]
+[3]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1102,11 +1102,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[3])
+[4])
 \tf@toc=\write5
 \openout5 = `documentatie.toc'.
 
- [4]
+ [5]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1114,11 +1114,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[5{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.e
+[6{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.e
 nc}{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}
 ]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-03.
+55.
  (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -1129,10 +1129,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[6{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}
+[7{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}
 ]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-82.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
+34.
  (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -1141,7 +1141,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Overfull \hbox (10.20215pt too wide) in paragraph at lines 282--290
+Overfull \hbox (10.20215pt too wide) in paragraph at lines 334--342
 []\T1/lmr/bx/n/12 (-20) Gamified Chal-lenge Mode. \T1/lmr/m/n/12 (-20) A sep-a-
 rate \T1/lmtt/m/n/12 /challenge \T1/lmr/m/n/12 (-20) page with fif-teen procedu
 rally-
@@ -1154,16 +1154,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[7{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.e
+[8{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.e
 nc}]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[8]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1179,19 +1171,27 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[10{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.
+[10]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[11{C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.
 enc}]
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 462.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 514.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 462.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 514.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 463.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 515.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 463.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 515.
 
 (C:\Users\Andrei\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
@@ -1203,18 +1203,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[11]
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 480.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
 [12]
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 532.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1248,126 +1240,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [16]
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 802.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
-LaTeX Warning: Command \textdegree invalid in math mode on input line 807.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -1375,6 +1247,126 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [17]
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 854.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 859.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1391,10 +1383,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [19]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 929.
 
-Overfull \hbox (40.92206pt too wide) in paragraph at lines 929--949
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[20]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 981.
+
+Overfull \hbox (40.92206pt too wide) in paragraph at lines 981--1001
  [][] 
  []
 
@@ -1405,8 +1405,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[20]
-Overfull \hbox (7.82755pt too wide) in paragraph at lines 999--1008
+[21]
+Overfull \hbox (7.82755pt too wide) in paragraph at lines 1051--1060
 \T1/lmr/m/n/12 (-20) patched asyn-chronously to the se-lected IBM Quan-tum back
 -end (\T1/lmtt/m/n/12 ibm_fez\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 ibm_marrake
 sh\T1/lmr/m/n/12 (-20) ,
@@ -1419,18 +1419,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[21]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
 [22]
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1109.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1439,6 +1428,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [23]
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1161.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1447,27 +1439,35 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [24]
-Overfull \hbox (35.47864pt too wide) in paragraph at lines 1185--1189
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[25]
+Overfull \hbox (35.47864pt too wide) in paragraph at lines 1237--1241
 \T1/lmr/m/n/12 (-20) curve); \T1/lmtt/m/n/12 websocket_routes.py \T1/lmr/m/n/12
  (-20) con-tains the main sim-u-la-tion loop; \T1/lmtt/m/n/12 challenge_routes.
 py
  []
 
 
-Overfull \hbox (13.48328pt too wide) in paragraph at lines 1189--1197
+Overfull \hbox (13.48328pt too wide) in paragraph at lines 1241--1249
 []\T1/lmr/m/n/12 (-20) Protocol-independent quan-tum cir-cuit con-struc-tion (\
 T1/lmtt/m/n/12 bb84_circuit.py\T1/lmr/m/n/12 (-20) ),
  []
 
 
-Overfull \hbox (26.57631pt too wide) in paragraph at lines 1189--1197
+Overfull \hbox (26.57631pt too wide) in paragraph at lines 1241--1249
 \T1/lmr/m/n/12 (-20) noise model (\T1/lmtt/m/n/12 noise_model.py\T1/lmr/m/n/12 
 (-20) ), chan-nel at-ten-u-a-tion (\T1/lmtt/m/n/12 channel_model.py\T1/lmr/m/n/
 12 (-20) ), WCP/decoy
  []
 
 
-Overfull \hbox (62.66658pt too wide) in paragraph at lines 1189--1197
+Overfull \hbox (62.66658pt too wide) in paragraph at lines 1241--1249
 \T1/lmr/m/n/12 (-20) sim-u-la-tion and PNS at-tack (\T1/lmtt/m/n/12 decoy_state
 .py\T1/lmr/m/n/12 (-20) ), finite-key anal-y-sis (\T1/lmtt/m/n/12 finite_key_an
 alysis.py\T1/lmr/m/n/12 (-20) ),
@@ -1480,43 +1480,43 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[25]
-Overfull \hbox (30.88287pt too wide) in paragraph at lines 1197--1202
+[26]
+Overfull \hbox (30.88287pt too wide) in paragraph at lines 1249--1254
 \T1/lmr/m/n/12 (-20) block er-ror cor-rec-tion (\T1/lmtt/m/n/12 error_correctio
 n.py\T1/lmr/m/n/12 (-20) ), CAS-CADE rec-on-cil-i-a-tion (\T1/lmtt/m/n/12 casca
 de.py\T1/lmr/m/n/12 (-20) ),
  []
 
 
-Overfull \hbox (56.93106pt too wide) in paragraph at lines 1202--1204
+Overfull \hbox (56.93106pt too wide) in paragraph at lines 1254--1256
 []\T1/lmr/m/n/12 (-20) Random For-est clas-si-fier (\T1/lmtt/m/n/12 eavesdrop_d
 etector.py\T1/lmr/m/n/12 (-20) ) and LSTM de-tec-tor (\T1/lmtt/m/n/12 lstm_dete
 ctor.py\T1/lmr/m/n/12 (-20) ). 
  []
 
 
-Overfull \hbox (62.9214pt too wide) in paragraph at lines 1204--1208
+Overfull \hbox (62.9214pt too wide) in paragraph at lines 1256--1260
 []\T1/lmr/m/n/12 (-20) Mission cat-a-logue (\T1/lmtt/m/n/12 mission_catalog.py\
 T1/lmr/m/n/12 (-20) ), pa-ram-e-ter in-stan-tia-tor (\T1/lmtt/m/n/12 instantiat
 or.py\T1/lmr/m/n/12 (-20) ),
  []
 
 
-Overfull \hbox (29.06802pt too wide) in paragraph at lines 1204--1208
+Overfull \hbox (29.06802pt too wide) in paragraph at lines 1256--1260
 \T1/lmr/m/n/12 (-20) De-tec-tive and En-gi-neer graders (\T1/lmtt/m/n/12 grader
 .py\T1/lmr/m/n/12 (-20) ), and per-sis-tence helpers (\T1/lmtt/m/n/12 persisten
 ce.py\T1/lmr/m/n/12 (-20) ). 
  []
 
 
-Overfull \hbox (4.02281pt too wide) in paragraph at lines 1208--1211
+Overfull \hbox (4.02281pt too wide) in paragraph at lines 1260--1263
 []\T1/lmr/m/n/12 (-20) JWT se-cu-rity (\T1/lmtt/m/n/12 security.py\T1/lmr/m/n/1
 2 (-20) ), FastAPI de-pen-den-cies (\T1/lmtt/m/n/12 dependencies.py\T1/lmr/m/n/
 12 (-20) ), OAuth
  []
 
 
-Overfull \hbox (71.15625pt too wide) in paragraph at lines 1223--1232
+Overfull \hbox (71.15625pt too wide) in paragraph at lines 1275--1284
 \T1/lmtt/m/n/12 DecoyStatePanel\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 PnsAttack
 Panel\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 FiniteKeyPanel\T1/lmr/m/n/12 (-20) 
 , \T1/lmtt/m/n/12 LstmDetectionPanel\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 Smar
@@ -1524,35 +1524,35 @@ tEvePanel\T1/lmr/m/n/12 (-20) ,
  []
 
 
-Overfull \hbox (68.5049pt too wide) in paragraph at lines 1232--1236
+Overfull \hbox (68.5049pt too wide) in paragraph at lines 1284--1288
 []\T1/lmr/m/n/12 (-20) The gam-i-fied learn-ing page. Con-tains \T1/lmtt/m/n/12
  LevelGrid\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 MissionBriefing\T1/lmr/m/n/12 
 (-20) ,
  []
 
 
-Overfull \hbox (38.62933pt too wide) in paragraph at lines 1252--1257
+Overfull \hbox (38.62933pt too wide) in paragraph at lines 1304--1309
 []\T1/lmr/m/n/12 (-20) Authenticated user ac-counts. Columns: \T1/lmtt/m/n/12 i
 d\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 email \T1/lmr/m/n/12 (-20) (unique), \T
 1/lmtt/m/n/12 full_name\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 password_hash
  []
 
 
-Overfull \hbox (1.65654pt too wide) in paragraph at lines 1252--1257
+Overfull \hbox (1.65654pt too wide) in paragraph at lines 1304--1309
 \T1/lmr/m/n/12 (-20) (nul-lable for OAuth-only ac-counts), \T1/lmtt/m/n/12 goog
 le_id\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 avatar_url\T1/lmr/m/n/12 (-20) , \T
 1/lmtt/m/n/12 is_email_verified\T1/lmr/m/n/12 (-20) ,
  []
 
 
-Overfull \hbox (28.7285pt too wide) in paragraph at lines 1258--1265
+Overfull \hbox (28.7285pt too wide) in paragraph at lines 1310--1317
 \T1/lmr/m/n/12 (-20) FK, SET NULL on delete), \T1/lmtt/m/n/12 n_qubits\T1/lmr/m
 /n/12 (-20) , \T1/lmtt/m/n/12 depolarizing_prob\T1/lmr/m/n/12 (-20) , \T1/lmtt/
 m/n/12 measurement_error_prob\T1/lmr/m/n/12 (-20) ,
  []
 
 
-Overfull \hbox (92.033pt too wide) in paragraph at lines 1258--1265
+Overfull \hbox (92.033pt too wide) in paragraph at lines 1310--1317
 \T1/lmtt/m/n/12 eve_intercept \T1/lmr/m/n/12 (-20) (bool), \T1/lmtt/m/n/12 sift
 ed_key_length\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 qber\T1/lmr/m/n/12 (-20) , 
 \T1/lmtt/m/n/12 is_secure\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 final_key\T1/lm
@@ -1566,8 +1566,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[26]
-Overfull \hbox (34.74564pt too wide) in paragraph at lines 1271--1278
+[27]
+Overfull \hbox (34.74564pt too wide) in paragraph at lines 1323--1330
 \T1/lmr/m/n/12 (-20) (JSON), \T1/lmtt/m/n/12 user_answer \T1/lmr/m/n/12 (-20) (
 JSON), \T1/lmtt/m/n/12 correct\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 score\T1/l
 mr/m/n/12 (-20) , \T1/lmtt/m/n/12 feedback \T1/lmr/m/n/12 (-20) (JSON), \T1/lmt
@@ -1575,19 +1575,11 @@ t/m/n/12 simulation_run_id
  []
 
 
-Overfull \hbox (1.60176pt too wide) in paragraph at lines 1279--1284
+Overfull \hbox (1.60176pt too wide) in paragraph at lines 1331--1336
 []\T1/lmr/m/n/12 (-20) Aggregated per-user Chal-lenge Mode statis-tics. Pri-mar
 y key is \T1/lmtt/m/n/12 user_id
  []
 
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[27]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1604,10 +1596,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [29]
-<figures/controls.jpg, id=674, 192.72pt x 864.22874pt>
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[30]
+<figures/controls.jpg, id=681, 192.72pt x 864.22874pt>
 File: figures/controls.jpg Graphic file (type jpg)
 <use figures/controls.jpg>
-Package pdftex.def Info: figures/controls.jpg  used on input line 1381.
+Package pdftex.def Info: figures/controls.jpg  used on input line 1433.
 (pdftex.def)             Requested size: 227.62204pt x 1020.74373pt.
 
 
@@ -1617,7 +1617,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[30]
+[31]
 Overfull \vbox (368.76065pt too high) has occurred while \output is active []
 
 
@@ -1628,7 +1628,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[31 <./figures/controls.jpg>]
+[32 <./figures/controls.jpg>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1636,12 +1636,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[32]
-<figures/photongrid_strong_eve.jpg, id=696, 1606.0pt x 284.06125pt>
+[33]
+<figures/photongrid_strong_eve.jpg, id=702, 1606.0pt x 284.06125pt>
 File: figures/photongrid_strong_eve.jpg Graphic file (type jpg)
 <use figures/photongrid_strong_eve.jpg>
 Package pdftex.def Info: figures/photongrid_strong_eve.jpg  used on input line 
-1457.
+1509.
 (pdftex.def)             Requested size: 426.79134pt x 75.48825pt.
 
 
@@ -1651,11 +1651,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[33 <./figures/photongrid_strong_eve.jpg>]
-<figures/lstm_panel.jpg, id=704, 1606.0pt x 234.8775pt>
+[34 <./figures/photongrid_strong_eve.jpg>]
+<figures/lstm_panel.jpg, id=710, 1606.0pt x 234.8775pt>
 File: figures/lstm_panel.jpg Graphic file (type jpg)
 <use figures/lstm_panel.jpg>
-Package pdftex.def Info: figures/lstm_panel.jpg  used on input line 1521.
+Package pdftex.def Info: figures/lstm_panel.jpg  used on input line 1573.
 (pdftex.def)             Requested size: 426.79134pt x 62.41785pt.
 
 
@@ -1665,13 +1665,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[34 <./figures/lstm_panel.jpg>]
+[35 <./figures/lstm_panel.jpg>]
 
-LaTeX Warning: Reference `eq:gllp-rate' on page 35 undefined on input line 1551
+LaTeX Warning: Reference `eq:gllp-rate' on page 36 undefined on input line 1603
 .
 
 
-Overfull \hbox (89.38095pt too wide) in paragraph at lines 1581--1588
+Overfull \hbox (89.38095pt too wide) in paragraph at lines 1633--1640
 \T1/lmr/m/n/12 (-20) Fifteen mis-sions are de-fined as Python \T1/lmtt/m/n/12 M
 ission \T1/lmr/m/n/12 (-20) dat-a-classes in \T1/lmtt/m/n/12 backend/challenge/
 mission_catalog.py\T1/lmr/m/n/12 (-20) .
@@ -1684,11 +1684,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[35]
-<figures/challenge_grid.jpg, id=714, 920.43875pt x 752.8125pt>
+[36]
+<figures/challenge_grid.jpg, id=721, 920.43875pt x 752.8125pt>
 File: figures/challenge_grid.jpg Graphic file (type jpg)
 <use figures/challenge_grid.jpg>
-Package pdftex.def Info: figures/challenge_grid.jpg  used on input line 1634.
+Package pdftex.def Info: figures/challenge_grid.jpg  used on input line 1686.
 (pdftex.def)             Requested size: 398.33858pt x 325.80518pt.
 
 
@@ -1698,11 +1698,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[36]
-<figures/challenge_result.jpg, id=720, 560.0925pt x 565.11125pt>
+[37]
+<figures/challenge_result.jpg, id=726, 560.0925pt x 565.11125pt>
 File: figures/challenge_result.jpg Graphic file (type jpg)
 <use figures/challenge_result.jpg>
-Package pdftex.def Info: figures/challenge_result.jpg  used on input line 1643.
+Package pdftex.def Info: figures/challenge_result.jpg  used on input line 1695.
 
 (pdftex.def)             Requested size: 284.52756pt x 287.09056pt.
 
@@ -1713,7 +1713,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[37 <./figures/challenge_grid.jpg>]
+[38 <./figures/challenge_grid.jpg>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1721,15 +1721,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[38 <./figures/challenge_result.jpg>]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[39]
+[39 <./figures/challenge_result.jpg>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1738,10 +1730,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [40]
-<figures/qber_chart.jpg, id=748, 1594.95876pt x 259.97125pt>
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[41]
+<figures/qber_chart.jpg, id=754, 1594.95876pt x 259.97125pt>
 File: figures/qber_chart.jpg Graphic file (type jpg)
 <use figures/qber_chart.jpg>
-Package pdftex.def Info: figures/qber_chart.jpg  used on input line 1806.
+Package pdftex.def Info: figures/qber_chart.jpg  used on input line 1858.
 (pdftex.def)             Requested size: 426.79134pt x 69.56244pt.
 
 
@@ -1751,15 +1751,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[41 <./figures/qber_chart.jpg>]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[42]
+[42 <./figures/qber_chart.jpg>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1775,11 +1767,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[44] (documentatie.lof)
-\tf@lof=\write6
-\openout6 = `documentatie.lof'.
-
-
+[44]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1787,7 +1775,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[45]
+[45] (documentatie.lof)
+\tf@lof=\write6
+\openout6 = `documentatie.lof'.
+
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1811,7 +1803,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[48] (documentatie.aux)
+[48]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[49] (documentatie.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
@@ -1824,11 +1824,11 @@ Package rerunfilecheck Info: File `documentatie.out' has not changed.
 (rerunfilecheck)             Checksum: 8083BC98FA9F0413C9007E349D63C666;14591.
  ) 
 Here is how much of TeX's memory you used:
- 30829 strings out of 467870
- 561218 string characters out of 5417872
- 1242008 words of memory out of 5000000
- 58661 multiletter control sequences out of 15000+600000
- 721475 words of font info for 246 fonts, out of 8000000 for 9000
+ 30831 strings out of 467870
+ 561229 string characters out of 5417872
+ 1241991 words of memory out of 5000000
+ 58660 multiletter control sequences out of 15000+600000
+ 721572 words of font info for 247 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,13n,94p,1203b,1377s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.p
@@ -1853,9 +1853,9 @@ lmtt12.pfb><C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm
 /lmtti10.pfb><C:/Users/Andrei/AppData/Local/Programs/MiKTeX/fonts/type1/public/
 amsfonts/symbols/msam10.pfb><C:/Users/Andrei/AppData/Local/Programs/MiKTeX/font
 s/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on documentatie.pdf (49 pages, 1023841 bytes).
+Output written on documentatie.pdf (50 pages, 1026623 bytes).
 PDF statistics:
- 971 PDF objects out of 1000 (max. 8388607)
- 238 named destinations out of 1000 (max. 500000)
+ 977 PDF objects out of 1000 (max. 8388607)
+ 239 named destinations out of 1000 (max. 500000)
  52392 words of extra memory for PDF output out of 61914 (max. 10000000)
 
