@@ -471,7 +471,7 @@ export default function SimulationControls({ config, onChange, onApplyPreset, on
           className="bg-gray-800 border border-gray-700 text-gray-100 text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-violet-500 disabled:opacity-50"
         />
         <p className="text-[11px] text-gray-500">
-          Fix the seed to make a run bit-for-bit reproducible (useful for thesis screenshots).
+          Fix the seed to make a run bit-for-bit reproducible
         </p>
       </div>
 
