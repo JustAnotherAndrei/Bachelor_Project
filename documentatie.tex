@@ -303,7 +303,7 @@ global XP leaderboard.
         Eve at 30\%, Strong Eve at 100\%, Smart Eve (a proportional-feedback
         controller that holds the QBER just below the 11\% abort threshold)
         and PNS on the WCP source. Together they show what a QBER-only check
-        catches - and what it doesn't.
+        can or can't catch
 
   \item \textbf{Decoy-state BB84 and an explicit PNS attack simulator.} A
         weak-coherent-pulse source emits three intensity classes; the
@@ -328,7 +328,7 @@ global XP leaderboard.
 
   \item \textbf{Three alternative protocols: B92, SARG04, E91.} All three
         share the BB84 noise model, post-processing and UI. E91 adds a CHSH
-        Bell test - $S$ is computed live and compared against the classical
+        Bell test, $S$ is computed live and compared against the classical
         bound 2 and the Tsirelson bound $2\sqrt{2}$.
 
   \item \textbf{Gamified Challenge Mode.} A separate \texttt{/challenge} page
@@ -1582,8 +1582,8 @@ the result is included in the \texttt{type: "result"} payload.
 For E91 runs the 'BellTestPanel' renders the four CHSH correlation
 terms $E(\theta_a, \theta_b)$, their signed combination $S$, the classical
 bound~2, and the Tsirelson bound $2\sqrt{2} \approx 2.83$. A green badge
-\textit{``Bell violated - entanglement confirmed''} is shown when
-$|S| > 2$; a red badge \textit{``Bell bound not exceeded''} appears when
+"Bell violated - entanglement confirmed" is shown when
+$|S| > 2$; a red badge "Bell bound not exceeded" appears when
 Eve has destroyed the correlations ($|S| \approx 0$ for Strong Eve).
 
 \subsection{QBER Historical Chart and Key Rate Curve}
@@ -1605,13 +1605,13 @@ from Equation~\eqref{eq:gllp-rate} concrete and immediately visible.
 \label{sec:edu-panel}
 
 The 'EducationalPanel' contains five expandable accordion cards:
-\textit{BB84 Protocol}, \textit{Sifting and key generation},
-\textit{QBER and eavesdropping}, \textit{No-cloning theorem}, and
-\textit{Error correction and privacy amplification}. Each card presents
-the corresponding concept in accessible language alongside the simulation
+BB84 Protocol, Sifting and key generation,
+QBER and eavesdropping, No-cloning theorem, and
+Error correction wiht privacy amplification. Each of these card presents
+the corresponding concept in an accessible language alongside the simulation
 results, enabling self-paced study.
 
-The \texttt{FunFactPanel} renders one of 50 curated QKD trivia items
+The 'FunFactPanel' renders one of 50 curated QKD trivia items
 drawn from protocol history, landmark experiments, open research problems,
 attack models, and standards - covering BB84, B92, SARG04, E91, the
 PNS attack, the decoy-state method, the Micius satellite,
@@ -1667,7 +1667,7 @@ on a fully correct attempt.
 
 \textbf{EngineerGrader} evaluates each constraint in the mission's
 objective against the simulation result, using dot-notation extraction
-(e.g.\ \texttt{finite\_key.finite\_length}) and a comparison operator
+(e.g.\ 'finite\_key.finite\_length') and a comparison operator
 (\texttt{>=}, \texttt{==}, \texttt{<}). The score scales linearly with
 the fraction of constraints satisfied.
 
@@ -1701,10 +1701,10 @@ best\_streak) tuples, ordered by XP descending.
 \subsection{Session Metadata Widget}
 \label{sec:session-meta}
 
-A compact \texttt{SessionMeta} widget in the Dashboard header displays
+A compact 'SessionMeta' widget in the Dashboard header displays
 the current local date, time (updated every second), and the user's
 approximate city derived from a non-interactive IP geolocation lookup
-(\texttt{ipapi.co}, result cached in \texttt{localStorage} for 24 hours).
+('ipapi.co', result cached in 'localStorage' for 24 hours).
 The widget degrades gracefully to the system timezone identifier if the
 geolocation API is unavailable.
 
@@ -1786,7 +1786,7 @@ Hoeffding correction $\delta_\mathrm{PE}$ is large enough to drive the
 finite-key bound to zero for $\varepsilon_\mathrm{sec} = 3 \times
 10^{-10}$; the bound becomes positive only around
 $n \approx 1\,000$--$2\,000$ sifted bits, consistent with the
-analysis in Section~\ref{sec:finite-key-theory}.
+analysis in section~\ref{sec:finite-key-theory}.
 
 \subsection{Key Rate vs.\ Channel Distance}
 \label{sec:distance-results}
@@ -1812,7 +1812,7 @@ analysis in Section~\ref{sec:finite-key-theory}.
 
 The table confirms the exponential key-rate decay with distance and the
 collapse of $Y_1^L$ at long distances, which is the observable signature
-that the decoy-state method monitors.
+that the decoy-state method observs.
 
 \subsection{B92 Sifting Efficiency}
 \label{sec:b92-results}
@@ -1883,10 +1883,10 @@ educational platforms.
 Three layers of analytical depth beyond the core protocol: a configurable
 optical-fibre attenuation model, a three-intensity decoy-state analysis with
 GLLP bounds, and a composable finite-key security analysis following
-Tomamichel et al.~\cite{tomamichel2012}. Together, these bring the
+Tomamichel.~\cite{tomamichel2012}. As a whole, these bring the
 simulator to the level of a simplified research-grade testbed.
 
-A spectrum of five adversary models (Weak, Strong, Smart, PNS, and none)
+A spectrum of five adversary models (None, Weak, Strong, Smart and PNS)
 that cover the full range from textbook intercept-resend to a calibrated
 sub-threshold attacker and a silent multi-photon exploit, motivating the
 two-layer ML detection stack.
@@ -1903,7 +1903,7 @@ direct cross-protocol comparison within the same interface.
 
 A gamified Challenge Mode with 15 procedurally parameterised missions,
 two mission formats (Detective and Engineer), a global XP leaderboard,
-per-user progress tracking, and post-failure pedagogical hints — implemented
+per-user progress tracking, and post-failure pedagogical hints, are implemented
 as a standalone authenticated feature that reuses the entire simulation stack.
 
 A multi-user web platform with email/password and Google OAuth authentication,
@@ -1916,7 +1916,7 @@ history and Challenge Mode progress.
 Several directions for future work are identified:
 
 \textbf{Multiplayer adversarial mode.} The natural extension of Challenge
-Mode is a 1-vs-1 adversarial game where one player acts as Eve
+Mode is a 1v1 adversarial game where one player acts as Eve
 (configuring the attack) and the other as Alice/Bob (declaring a verdict).
 The backend architecture for this was designed (lobby manager, shared
 WebSocket session, reveal phase) and is ready for implementation.
@@ -1936,7 +1936,7 @@ and distance conditions.
 \textbf{Measurement-device-independent (MDI-QKD).} Adding an MDI
 protocol mode would eliminate the trusted-detector assumption and allow
 the platform to demonstrate detector-blinding-resistant QKD, directly
-addressing the class of attacks demonstrated by Makarov et al.\ in 2010.
+addressing the class of attacks demonstrated by Makarov in 2010.
 
 \textbf{Full device-independent (DI-QKD) via loophole-free Bell test.}
 The E91 implementation could be extended towards a device-independent
