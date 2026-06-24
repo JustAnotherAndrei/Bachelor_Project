@@ -8,13 +8,14 @@ from qiskit_ibm_runtime import QiskitRuntimeService, SamplerV2 as Sampler
 from qiskit import QuantumCircuit
 
 
-def get_ibm_service(token: str, instance: str = "open-instance") -> QiskitRuntimeService:
+def get_ibm_service(token: str, instance: str | None = None) -> QiskitRuntimeService:
     """
     Authenticate with IBM Quantum (new platform) and return the service object.
 
     Args:
         token:    IBM Cloud API key.
-        instance: Service instance name. Default is "open-instance" (free/trial plan).
+        instance: Cloud Resource Name (CRN) of the Quantum Runtime instance.
+                  If None, Qiskit selects the default instance for the token.
 
     Returns:
         An authenticated QiskitRuntimeService.

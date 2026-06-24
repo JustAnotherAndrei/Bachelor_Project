@@ -389,6 +389,7 @@ async def _run_ibm(session_id, circuits, n_qubits, backend_name,
     from quantum_logic.ibm_integration import get_ibm_service
 
     token = os.getenv("IBM_QUANTUM_TOKEN")
+    instance = os.getenv("IBM_QUANTUM_INSTANCE")
     if not token:
         await session_manager.send_event(session_id, {
             "type": "error",
@@ -402,7 +403,7 @@ async def _run_ibm(session_id, circuits, n_qubits, backend_name,
             "message": f"Connecting to {backend_name}...",
         })
         # All IBM calls are blocking — run them in a thread pool
-        service = await asyncio.to_thread(get_ibm_service, token)
+        service = await asyncio.to_thread(get_ibm_service, token, instance)
         backend = await asyncio.to_thread(service.backend, backend_name)
 
         await session_manager.send_event(session_id, {

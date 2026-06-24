@@ -38,7 +38,7 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{\small Sequre --- Bachelor's Thesis}
+\rhead{\small Sequre - Bachelor's Thesis}
 \lhead{\small Vezeteu Andrei}
 \cfoot{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -117,6 +117,58 @@
 \end{titlepage}
 
 
+\vspace*{\fill}
+
+\begin{flushright}
+    Avizat, \\
+    Îndrumător lucrare de licență, \\
+    Conf. Dr. Arusoaie Andreea-Valentina\\
+    Data: ..................... \hspace{1cm} Semnătura: .....................
+\end{flushright}
+
+\vspace{1cm}
+\begin{center}
+    \large
+    \textbf{Declarație privind originalitatea conținutului lucrării de licență}
+\end{center}
+
+Subsemnatul \textbf{Vezeteu Andrei} domiciliat în \textbf{România, jud. Iași, mun. Iași, strada Perju, nr. 1A}, născut la data de \textbf{18 aprilie 2004}, identificat prin CNP \textbf{5040418226834}, absolvent al Facultății de informatică, \textbf{Facultatea de informatică}, specializarea \textbf{informatică}, promoția 2026, declar pe propria răspundere cunoscând consecințele falsului în declarații în sensul art. 326 din Noul Cod Penal și dispozițiile Legii Educației Naționale nr. 1/2011 art. 143 al. 4 și 5 referitoare la plagiat, că lucrarea de licență cu titlul \textbf{Sequre: A Real-Time Simulation and
+Visualization Platform for the BB84
+Quantum Key Distribution Protocol} elaborată sub îndrumarea doamnei \textbf{Conf. Dr. Arusoaie Andreea-Valentina}, pe care urmează să o susțin în fața comisiei este originală, îmi aparține și îmi asum conținutul său în întregime.
+
+De asemenea, declar că sunt de acord ca lucrarea mea de licență să fie verificată prin orice modalitate legală pentru confirmarea originalității, consimțind inclusiv la introducerea conținutului ei într-o bază de date în acest scop.
+
+Am luat la cunoștință despre faptul că este interzisă comercializarea de lucrări științifice în vederea facilitării falsificării de către cumpărător a calității de autor al unei lucrări de licență, de diplomă sau de disertație și în acest sens, declar pe proprie răspundere că lucrarea de față nu a fost copiată ci reprezintă rodul cercetării pe care am întreprins-o.
+
+\begin{flushright}
+    Data: ..................... \hspace{6cm} Semnătura: .....................
+\end{flushright}
+
+\vspace*{\fill}
+\pagebreak
+
+
+\vspace*{\fill}
+\begin{center}
+    \large
+    \textbf{Declarație de consimțământ}
+\end{center}
+
+Prin prezenta declar că sunt de acord ca lucrarea de licență cu titlul \textbf{Sequre: A Real-Time Simulation and
+Visualization Platform for the BB84
+Quantum Key Distribution Protocol}, codul sursă al programelor și celelalte conținuturi (grafice, multimedia, date de test, etc.) care însoțesc această lucrare să fie utilizate în cadrul Facultății de informatică.
+
+De asemenea, sunt de acord ca Facultatea de informatică de la Universitatea "Alexandru Ioan Cuza" din Iași, să utilizeze, modifice, reproducă și să distribuie în scopuri necomerciale programele-calculator, format executabil și sursă, realizate de mine în cadrul prezentei lucrări de licență.
+
+\begin{flushright}
+    Absolvent \textbf{Vezeteu Andrei} \\
+    \vspace{0.5cm}
+    Data: ..................... \hspace{6cm} Semnătura: .....................
+\end{flushright}
+\vspace*{\fill}
+\pagebreak
+
+
 % =================== AI USE DISCLOSURE =======================================
 \newpage
 \thispagestyle{plain}
@@ -138,16 +190,16 @@ autocomplete.
 
 AI helped with boilerplate scaffolding (REST endpoints, SQLAlchemy
 models, React components, FastAPI routes), debugging on specific errors
-I described, suggestions during larger refactors - notably the
+I described, suggestions during larger refactors, notably the
 WebSocket handler refactor for alternative-protocol support and the
-LSTM training script - and drafting docstrings and inline comments.
+LSTM training script, and drafting docstrings and inline comments.
 Every suggestion was reviewed, tested, and either accepted, modified,
 or rejected by me before being committed.
 
 What was NOT delegated to the AI: the core design of the
 simulation pipeline, the Smart Eve feedback-control law, the LSTM
 architecture and training-corpus design, the "Challenge Mode" mission
-catalogue, and the decoy-state and finite-key pipelines. All
+catalogue, and the decoy-state and finite key pipelines. All
 experimental results shown in chapter~\ref{sec:results} come from simulation
 runs that I executed and verified myself.
 
@@ -161,7 +213,7 @@ edit was reviewed and accepted, modified, or rejected by me.
 
 \subsection*{What remains entirely mine}
 
-The thesis topic and scope, the platform's design and feature set, the
+The thesis's topic, scope, the platform's design and feature set, the
 choice of which QKD protocols and attacks to implement, the experimental
 design and reported results, the application screenshots, all source
 code that I reviewed and tested, and the final responsibility for every
@@ -174,24 +226,43 @@ claim in this document.
 \begin{center}
   {\Large \textbf{Abstract}}
 \end{center}
-\vspace{10pt}
+\vspace{10pt} 
 
 \noindent
-\textbf{Quantum Key Distribution} (QKD) lets two parties share a secret key with
-security backed by the laws of physics rather than computational hardness.
-In practice, QKD still is hard to study hands-on, because real hardware is
-expensive, and the simulators that do exist are either research tools that require specialist knowledge, or classroom demos that barely scratch the surface.
 
-This thesis presents \textbf{Sequre}, an interactive web platform that
-sits between those two. It implements BB84 on top of Qiskit
-and dispatches the same circuits to real IBM superconducting processors on request, as well as three other protocols - B92, SARG04 and the entanglement-based E91 with CHSH (Clauser–Horne–Shimony–Holt Bell) test, which are implemented alongside.
+This thesis presents \textbf{Sequre}, an interactive web application, meant for studying the distribution of quantum keys (also known as QKD), a method of exchanging cryptographic keys, whose security comes from the laws of physics, rather than the mathematical hardness of some math problems. 
+The platform implements the \textbf{BB84 protocol}, alongside three other QKD-related protocols, allowing the user to execute any of these either as a software simulation, or directly on an IBM quantum processor. Every execution is unfolding bit by bit in browser, accompanied by a security analysis which decides whether the resulted key is secure or not. 
+A separate section named \textbf{Challenge Mode} completes the main interface. Within it, the user must identify an attack starting from the behaviour of the protocol, or to configure the system themselves in order to hit a special target. The scope of the project is to make accessible, through an ordinary web browser, a subject that usually requires either a specialized hardware, or a research software.
 
-The interface streams qubit-level events live over WebSockets and
-animates them as a photon grid; the same stream feeds diagnostic panels
-for QBER, decoy state, finite-key bounds and an LSTM-based eavesdropper
-detector. A separate \textbf{Challenge Mode} page turns the simulator
-into a structured learning loop with fifteen procedurally-parameterised
-missions, a global XP leaderboard and persistent progress.
+
+% =================== Motivation ================================================
+\newpage
+\thispagestyle{plain}
+\begin{center}
+  {\Large \textbf{Motivation}}
+\end{center}
+\vspace{10pt} 
+
+\noindent
+
+When I began to look into what comes next for cryptography, the answer was always the same: quantum computers will eventually break the schemes we rely on today. The natural move would be shifting to post-quantum algorithms, which are also bases to hard mathematical problems, but which believed to withstand quantic attacks. \textbf{Quantum Key Distribution} (QKD) is a more uncommon answer: it does not patch classical cryptography, but replaces the hypothesis it is built on. Instead of trusting that an adversary cannot solve a hard problem, QKD trusts the laws of physics. That shift in foundation is what made me want to study QKD.
+
+The gap that I wanted to close with my thesis is not theory itself, but the accessibility. Real QKD hardware is well out of reach for most universities, and the  software simulators are either built for researchers or are too simplified to teach something substantial. There was room for an interactive platform, browser-accessible, that walks the user through the entire BB84 pipeline, end-to-end, which can also send the same circuits to the IBM Quantum Hardware when solicited. \textbf{Sequre} is the answer to this gap.
+
+My own experience with QKD started from textbooks and academic papers,
+and what stayed with me was rarely a definition. It was the moment a
+concept clicked because I saw what changed when I tweaked a parameter.
+I wanted a tool where a student can move a slider, watch the bit error
+rate climb or plummet, see when a channel goes from secure to compromised, and understand why, without first setting up a python environment or reading
+hundreds pages of preliminaries. That is why I decided to build this platform.
+
+What follows are the steps of how that platform was built: the protocols
+it implements, the design choices behind the simulation engine, the
+post-processing layer that turns noisy measurements into a usable key 
+and the eavesdropper-detection mechanisms that put the security claims
+to the test. The chapters that follow explain why each piece had to be
+where it is.
+
 
 % =================== TABLE OF CONTENTS =======================================
 \newpage
@@ -203,357 +274,330 @@ missions, a global XP leaderboard and persistent progress.
 \section{Introduction}
 \label{sec:introduction}
 
-\subsection{Motivation}
-\label{sec:motivation}
 
-Modern digital security relies almost entirely on the assumed computational
-hardness of a few mathematical problems - factoring large integers (RSA) and
-the discrete logarithm (ECC). In 1994, Shor showed that a sufficiently large
-quantum computer would solve both in polynomial time. 
-Practical quantum hardware at that scale is not here yet, but the
-"harvest-now-decrypt-later" pattern is already a concrete threat:
-encrypted traffic captured today can be stored until the hardware eventually
-catches up.
+Cryptography is the practice of developing and using coded algorithms to protect and obscure transmitted information so that it may only be read by those with the permission and ability to decrypt it. In practice, cryptography is the "invisible shield" of the digital world. It transforms readable data into a long string of characters (ciphered text). 
 
-Quantum Key Distribution (QKD) sidesteps the problem by anchoring
-security in the laws of quantum physics rather than computational assumptions.
-Any attempt by an eavesdropper to read the transmitted quantum states disturbs
-them, and that disturbance leaves a statistical trace in the received key.
-BB84 was the first protocol of this kind and is still the
-reference.
+If we put aside the math behind it, cryptography fulfills four essential functions:
 
-The gap I wanted to close with this thesis is not the theory itself, but the accessibility. Real QKD hardware is well out of reach for most
-universities, and the available software simulators are either built for
-researchers or stripped down too far to teach something substantial. There is
-room for an interactive, browser-accessible platform that walks the user
-through the full BB84 pipeline, end-to-end, and that can also dispatch the same
-circuits to real IBM Quantum hardware when solicitated. \textbf{Sequre} is my
-answer to that gap.
-
-\subsection{Proposed Solution}
-\label{sec:proposed-solution}
-
-\textbf{Sequre} is a real-time simulation and visualisation platform for the
-BB84 Quantum Key Distribution protocol. It is implemented as a web application, 
-accessible through any modern browser, with no local installation required,
-besides a running Docker environment. The platform provides a complete,
-end-to-end demonstration of the quantum cryptographic pipeline under three
-distinct execution modes.
-
-At its core, \textbf{Sequre} implements the full BB84 protocol in software using \textbf{Qiskit} for quantum circuit construction and
-\textbf{Qiskit-Aer} for noise-model simulation. Alice encodes classical bits
-into single-qubit states drawn from the rectilinear bases ($\ket{0}$,
-$\ket{1}$) or the diagonal bases ($\ket{+}$, $\ket{-}$), and Bob measures each
-received qubit in a randomly chosen basis. Following the exchange, the sifting
-step retains only those bits where Alice and Bob chose the same basis (50\% of transmitted qubits, on average). After that, the platform computes the
-\textbf{Quantum Bit Error Rate} (QBER), applies error correction via a
-parity-block reconciliation scheme, and performs privacy amplification by
-truncating a SHA-256 digest of the reconciled key to 128 bits.
-
-The simulation operates in one of three modes selectable by the user:
 \begin{itemize}
-  \item \textbf{Ideal simulation:} noise-free quantum circuits on a statevector
-        or QASM simulator, producing a zero-QBER baseline;
-  \item \textbf{Noisy simulation:} configurable depolarising and measurement
-        errors applied via Qiskit-Aer, producing realistic QBER distributions
-        that allow the user to study the protocol's behaviour as a function of
-        hardware imperfection;
-  \item \textbf{Real IBM Quantum hardware:} circuits are transpiled and
-        dispatched to a real superconducting quantum processor via
-        \textbf{Qiskit IBM Runtime} (SamplerV2 API), currently supporting the
-        'ibm\_fez', 'ibm\_marrakesh', and
-        'ibm\_kingston' backends. Results are polled asynchronously and
-        streamed live to the frontend;
+  \item \textbf{Confidentiality}: It ensures that nobody besides the two communicating parties can read any message;
+  \item \textbf{Integrity}: Guarantess that the data was neither modified nor truncated while it was transferred;
+  \item \textbf{Authentification}: It proves that the site or entity you want to communicate with is actually who they pretend to be;
+  \item \textbf{Non-repudation}: It ensures that someone who sent a message or has signed a document cannot deny this fact afterwards.
 \end{itemize}
 
+\textbf{Cryptographic algorithms} are mathematical procedures and sets of logical rules that are used for securing information by transforming readable data into secret codes, guaranteeing their confidentiality, integrity and authenticity.
+Cryptographic algorithms are classified in three categories. Firstly, there are symmetric algorithms, who use a single secret key to quickly encrypt and decrypt large amounts of data, where both the sender and the receiver use the same secret key to "hide" the data, but also to reveal the data; some well-known symmetric algorithms are AES, ChaCha20 and 3DES. Then there are the asymmetric algorithms, the ones using a pair of keys (public and private) in order to securely exchange secret keys and to apply digital signatures; some widely-used asymmetric algorithms are RSA, ECC and Diffie-Hellman. Lastly, there are hash functions, that transform any amount of data into a fixed-length string (a one-way, unique and digital signature) , used only to verify the integrity of data and that of passwords; some popular hashing functions are SHA-256 (section~\ref{sec:ec-pa}), SHA-3 and MD5/SHA-1. A few cryptographic algorithms to keep in mind are:
 
-Beyond the core protocol, \textbf{Sequre} models the details real QKD systems have to
-deal with: weak coherent pulse sources with three-intensity decoy state,
-optical-fibre attenuation, detector efficiency and dark counts, alongside four different Eve modes,
-ranging from blunt intercept-resend (Weak) to an adaptive (Smart) attacker, and an
-explicit \textbf{Photon-Number-Splitting} attack on the \textbf{WCP source}. Error correction
-runs with \textbf{CASCADE} rather than block parity, and an \textbf{LSTM} trained on per-qubit
-sequences provides a second opinion on top of the standard QBER threshold.
+\begin{itemize}
+    \item \textbf{AES} (Advanced Encryption Standard) \cite{aes2001}: It is the most widely used symmetric algorithm in the world, famous for its speed and extreme efficiency, being the global standard, used by various governments, banks and applications (e.g. Whatsapp) to secure confidential data;
 
-The user interface is a React single-page application. Per-qubit events
-stream from the FastAPI backend over a WebSocket and animate in a photon grid
-as they arrive; the same stream feeds the QBER, decoy-state, finite-key and
-LSTM panels. Sign-in and registering is optional (users can use the simulator without logging in/registering) and is only required to track progress in challenge mode and to appear on the
-global XP leaderboard.
+    \item \textbf{RSA} (Rivest-Shamir-Adleman) ~\cite{rsa1978}: This is the pioneer of asymmetric cryptography (with both public and private keys), based on the mathematical difficulty of factorizing big prime numbers, being the algorithm allowed the securization of the first transactions and internet connections;
 
-\subsection{Contributions and Impact}
-\label{sec:impact}
+    \item \textbf{ECC} (Eliptic Curve Cryptography) ~\cite{ecc1985}: It's an asymmetric algorithm that uses the mathematical properties eliptic curves in order to offer the same level of security as RSA, but with way smaller keys, which makes it ideal for smartphones and limited-resource devices.
+\end{itemize}
+
+Classic cryptography is based on a security that is purely mathematical and also temporary, as it protects data through complex mathematical problems that current technology finds difficult to solve, leaving systems vulnerable to new algorithms or the inevitable rise of quantum computers, which will be able to instantly crack foundational standards like RSA or ECC using Shor's algorithm. Additionally, it suffers from the challenge of securely distributing secret keys and the absolute impossibility of detecting interceptions in real time, which allows hackers to passively copy and store encrypted data today to decrypt it later, without the sender or receiver ever finding out.
+
+The transition from classical cryptography to \textbf{quantum cryptography} shifts the digital security from the mathematical barriers to the laws of physics. While the classical systems are based on complex equations which quantum computers will eventually crack sometime in the future, quantum cryptography is the science that deals with securing the data through by encoding the information into quantum states of the light particles (photons). This technology uses properties like superposition and quantum inseparability, guaranteeing that the state of said particles is going to modify at any intercepting attempt.
+
+In practice, this phenomenon offers a very high security and introduces an unique "alarm system": any cyber attack will leave a fingerprint that is instantly detectable. Therefore, information security does not "depend" on the computing power of an attacker, but becomes a certainty, assured by nature's law, immune in front of any quantum computer.
+
+A \textbf{protocol} is a set of rules which two or more parties have to follow, in order to accomplish a common task. In the context of cryptography, it describes exactly what each party sends, what do each of them receive and what do they do with the information, such that in the end they'll obtain the desired result (e.g. a common key)
+
+\textbf{Sequre} implements four QKD protocols representing two complementary paradigms: \textit{prepare and measure}: the  \textbf{BB84} protocol and its variants, \textbf{B92} and \textbf{SARG04}, as well as \textit{entanglement-based}, the most sensible choice being the \textbf{E91} protocol.  This dual coverage lets the user compare not just the protocol variants, but two fundamentally different routes to quantum key distribution. Each of these protocols illustrates a different aspect of quantum cryptography and can be put head to head within the same platform. \textbf{BB84} is the reference-protocol, created by \textbf{Charles Bennett} (physicist) and \textbf{Gilles Brassard} (computer scientist) in 1984 ~\cite{bb84}, being the first historically one to ever be proposed and also the one that this entire application "revolves" around. The other three are alternatives either extend or modify the original approach. I included them because they allow direct comparisons within the same platform: same experimental conditions, same attacks, same interface, but different internal mechanisms. Thus, my thesis is not limited to only one implementation, but offers a "bird's-eye view" upon the many directions which the quantum cryptography has taken over the past forty years.
+
+The idea behind \textbf{BB84} is simple. Two parties who want to exchange a secret key use quantum particles (photons) as information carriers. One of them encodes each bit of the key into a quantum state of a photon, choosing from several possible bases. The other entity measures every received photon, randomly choosing the base. In the end, both of them publicly announce their bases and only the bits for whom they have chosen \textbf{the same basis}. These bits make up the common key. The protocol's security is not based off a mathematical hypothesis, but on a physics principle. Any attempt of a third party to read the photons through transport will modify their quantum state, leaving a measurable "mark" in the resulting key. 
+
+However, no matter how good it is implemented, a QKD protocol will \textbf{never} produce an absolute perfect key. A portion of those bits may be wrong, either due to the natural noise of the channel or because of an adversarial intervention. To evaluate this, the two parties a small subset of bits from the obtained common key and check how many bits match. The percentage of the bits that do not match is called \textbf{QBER} (short for Quantum Base Error Rate). QBER is the main security measure in QKD. If its value is below a certain threshold, usually set to 11\%~\cite{shorPreskill2000}, then the two entities can conclude that the transmission was secure enough so that they can use the key further; but if it exceeds the threshold, the trnasmission is abandoned and the protocol begins all over again.
+
+Throughout the whole thesis I will be using the standard names from cryptography literature. \textbf{Alice} and \textbf{Bob} are the two legitimate entities that want to exchange a secret key. \textbf{Eve} is the third actor, the attacker who wants to intercept the key on its way, without Alice and Bob noticing. Alice has the role of the sender. She generates the bits randomly and encodes them into quantum states, which are further sent on the quantum channel. Bob has the role of the receiver. He measures the received states and takes part at the necessary processing steps in order to obtain the final key. Eve is able to make any operation that is allowed by the laws of physics: measure the photons in the channel, can replace them with other bits, can store them in the quantum memory or can copy parts of them, when the source allows it. 
+
+Also, we can't have the full picture without understanding how the attacks work. As far as my thesis is concerned, two classes of attacks appear.
+The \textbf{intercept-resend} attack is the canonical active attack on BB84: Eve measures every qubit in a base of her choice and forward a fresh one to Bob in the state corresponding to her outcome. Since Eve picks the wrong base half the time, this attack inevitably introduces detectable errors into Bob's key. A full intercept-resend raises the QBER to around $25\%$, which is well above any realistic noise limit.
+\textbf{Sequre} parameterizes it as \textbf{Weak}, \textbf{Strong} and \textbf{Smart} Eve, the last one actively keeping the QBER below the detection threshold.
+The \textbf{Photon Number Splitting} (PNS) attack is more subtle and specific to imperfect physical sources: real implementation use attenuated lasers that occasionally emmit multi-photon pulses. Eve counts the photon in every pulse, blocks the single-photon ones and keeps a copy of each multi-photon pulse for later measurement, once Alice and Bob announce their bases. PNS leaves the QBER unscathed and would compromise long-distance BB84 entirely if not for the decoy-state defence ~\cite{lo2005decoy,wang2005decoy} (see section\ref{sec:decoy-state}). 
+
+A second principle of quantum mechanics that QKD can use is
+\textbf{quantum entanglement}: two particles can be prepared in
+a common state such that measuring one instantly fixes the outcome of the other, no matter how far apart they are. This correlation is stronger than anything classical pre-arrangement can ever produce. Alice measures one photon and Bob the
+other, and the perfect correlation of their outcomes both yields
+the shared bits and certifies that no eavesdropper has disturbed
+the pair.
 
 
-\begin{enumerate}[label=\textbf{C\arabic*.}, leftmargin=*, itemsep=6pt]
+\textbf{Sequre} brings these elements together in a single browser-based platform.
+The user is able to choose and then configure a QKD protocol from a sidebar with
+seven preset scenarios, such as lab bench, metro link, satellite uplink, adversarial,
+as well as one preset per alternative protocol, and a set of free parameters that
+include noise sliders, channel distance, photon source type, error-correction method,
+and the adversary model (section~\ref{sec:config-panel}). Each run unfolds cell by
+cell on a live grid, streamed over a WebSocket connection
+(section~\ref{sec:websocket-photongrid}), and the user observes the key being
+distilled step by step from raw qubits via sifting, error correction, and privacy
+amplification (section~\ref{sec:ec-pa}) to a final 128-bit secret key. Beyond the
+four protocols mentioned above, the platform supports execution either on the
+Qiskit-Aer noise simulator (section~\ref{sec:qiskit}) or directly on real IBM
+Quantum superconducting processors via Qiskit IBM Runtime
+(section~\ref{sec:ibm-runtime}). It implements five adversary models: None, Weak,
+Strong, Smart, and PNS (introduced in section~\ref{sec:actors}, implemented in
+section~\ref{sec:eve-impl}), three layers of analytical depth: optical fibre
+attenuation (section~\ref{sec:channel-loss}), decoy-state bounds
+(section~\ref{sec:decoy-state}), finite-key bounds
+(section~\ref{sec:finite-key-theory}), two machine-learning eavesdropping detectors
+(Random Forest and LSTM, section~\ref{sec:ml-detection}), a Bell test panel for E91
+(CHSH inequality check, section~\ref{sec:bell-panel}), and a gamified Challenge Mode
+with fifteen procedurally generated missions (section~\ref{sec:challenge-impl}),
+meant to test the user's knowledge. Authenticated users persist their simulation
+history and Challenge Mode progress in a local SQLite database
+(section~\ref{sec:db-schema}), with sign in through email w/ password or Google
+OAuth (section~\ref{sec:auth-stack}).
 
-  \item \textbf{BB84 on real IBM Quantum hardware.} I started with the IBM hardware integration because I wanted real decoherence numbers, not just a noise model. Single-qubit BB84 circuits
-        run on IBM superconducting processors ('ibm\_fez',
-        'ibm\_marrakesh', 'ibm\_kingston') via the Qiskit IBM
-        Runtime SamplerV2 API, alongside the noise-model simulator. The same
-        UI lets the user compare real-hardware QBER against the simulator on
-        identical circuits.
+This thesis is structured as follows. \textbf{Chapter}~\ref{sec:application-context} states
+the problem that \textbf{Sequre} addresses, sketches what the platform does, what goals it has and
+introduces the three cryptographic actors (Alice, Bob, Eve) referred to throughout
+the thesis. \textbf{Chapter}~\ref{sec:background} develops the theoretical
+background of QKD, from quantum-computing foundations to BB84, error correction and
+privacy amplification, channel attenuation, the decoy-state defence, finite-key
+security bounds, machine-learning detection, as well as the three alternative
+protocols. \textbf{Chapter}~\ref{sec:related-work} surveys existing QKD simulators (NetSquid,
+QuNetSim, SimulaQron, and the Qiskit notebooks) and positions \textbf{Sequre}
+relative to the state of the art. \textbf{Chapter}~\ref{sec:technologies} documents the
+technology stack on which the platform is built. \textbf{Chapter}~\ref{sec:architecture}
+describes the three-tier application architecture, the backend and frontend module
+organisation, the database schema, and the end-to-end request flow.
+\textbf{Chapter}~\ref{sec:implementation} walks through every implemented feature panel by
+panel, from the configuration controls and the BB84 engine to the Bell test panel
+and the Challenge Mode. \textbf{Chapter}~\ref{sec:results} reports the experimental
+measurements, including QBER under each adversary model, the impact of noise on
+key yield, key-rate versus distance, the CHSH parameter for E91, the LSTM detector
+performance, and a hardware validation run on real IBM Quantum processors.
+\textbf{Chapter}~\ref{sec:conclusions} summarises the contributions of this work and
+outlines directions for future development.
 
-  \item \textbf{Per-qubit, real-time visualisation.} A WebSocket pushes qubit
-        events as the simulation runs, and the front-end animates them one
-        cell at a time in a photon grid. Existing educational tools show only
-        aggregate results once the simulation is over.
 
-  \item \textbf{Four eavesdropping models, including an adaptive one.} Weak
-        Eve at 30\%, Strong Eve at 100\%, Smart Eve (a proportional-feedback
-        controller that holds the QBER just below the 11\% abort threshold)
-        and PNS on the WCP source. Together they show what a QBER-only check
-        can or can't catch
+\section{Application Context and Problem Statement}
+\label{sec:application-context}
 
-  \item \textbf{Decoy-state BB84 and an explicit PNS attack simulator.} A
-        weak-coherent-pulse source emits three intensity classes; the
-        Lo-Ma-Chen bounds on $Y_1$ and $e_1$ are evaluated online. The PNS
-        attack mode lets the user watch those bounds collapse on a real run.
+\subsection{The Problem}
+\label{sec:problem}
 
-  \item \textbf{CASCADE error correction with leakage accounting.} The
-        multi-pass binary-search reconciliation with back-correction replaces
-        the lossy parity-block scheme and exposes the leakage $\ell$ that
-        feeds privacy amplification.
+Quantum key distribution has been studied for decades (BB84 has been around since 1984, so definitely has been a long time since) but it
+remains hard to learn for most students, and there are two main
+reasons why. Firstly, real QKD hardware is very expensive and only
+available in a few research labs; a student at an ordinary
+university has no realistic way to see the protocols running on
+actual qubits. Second, the software tools that simulate QKD fall
+into two extremes. On one side, frameworks like \textbf{NetSquid} and
+\textbf{QuNetSim} are written for researchers and require setting up a
+Python environment, reading a multitude of pages of documentation  and understanding the simulator's internal model before any output can be produced. On the other side, the Qiskit textbook notebooks show a short BB84 example in a few cells, but it stops short of the full protocol: there is no step that corrects the inevitable errors in the shared bits, no step that shrinks the key so an attacker who listened in on the channel cannot reconstruct it, no defence against advanced attacks on a real laser source, no eavesdropper detection beyond a basic error-rate comparison, and no per-qubit visualisation of the exchange.
 
-  \item \textbf{Composable finite-key bounds (Tomamichel 2012).} The Hoeffding
-        correction on the QBER estimate plus EC leakage and PA overhead yield
-        the composable finite-key length, plotted side-by-side with the
-        asymptotic GLLP value.
+The result is that a student who wants to understand BB84
+from one end to another has to either accept the protocol on faith from a textbook or spend weeks in a tool meant for researchers. Neither path teaches the protocol in the way most people actually learn: by moving a slider, watching what changes, and asking why.
 
-  \item \textbf{Dual ML eavesdropper detector.} A Random Forest on six
-        per-run features and a PyTorch LSTM on the full per-qubit sequence
-        (92\% validation accuracy). The LSTM correctly flags Weak Eve at the
-        30\% interception rate, where the QBER threshold check would declare
-        the channel secure.
+\subsection{What Sequre Does}
+\label{sec:what-sequre-does}
 
-  \item \textbf{Three alternative protocols: B92, SARG04, E91.} All three
-        share the BB84 noise model, post-processing and UI. E91 adds a CHSH
-        Bell test, $S$ is computed live and compared against the classical
-        bound 2 and the Tsirelson bound $2\sqrt{2}$.
+\textbf{Sequre} is a web application that walks the user through
+the full BB84 pipeline, qubit by qubit, in any modern browser.
+The user opens the page, picks a protocol from a sidebar, sets up a few parameters (the qubit count, the noise level, the channel distance, the presence of an eavesdropper), and presses one button. The page then shows each qubit being prepared by Alice, sent across the public channel, and measured by Bob. The error rate on Bob's side, the bits Alice and Bob both kept after comparing their basis choices, the bits that remain after errors are corrected, and the final shortened secret key are reported as they are produced.
 
-  \item \textbf{Gamified Challenge Mode.} A separate \texttt{/challenge} page
-        with fifteen procedurally-parameterised missions in two formats.
-        \textit{Detective} missions run the simulation behind a censored UI
-        and ask the student to identify Eve and her attack from the
-        observable panels; \textit{Engineer} missions present a constraint
-        (e.g.\ ``achieve $\geq 256$ bits of finite-key output at 130\,km
-        under PNS'') and ask the student to configure QKD to meet it. A
-        global XP leaderboard tracks progress.
+In addition to BB84, \textbf{Sequre} also implements three other
+QKD protocols: B92, SARG04, and E91. The user can run any of
+these on either a software simulator (Qiskit-Aer with a
+configurable noise model) or, when IBM Quantum credentials are
+provided, on a real superconducting quantum processor (through
+the Qiskit IBM Runtime). Same interface, same parameters,
+and the same reported metrics are used in both modes.
 
-\end{enumerate}
+\subsection{Goals}
+\label{sec:goals}
 
-Additional physical-realism controls exposed at the user level include
-configurable \textbf{detector efficiency} $\eta_\mathrm{det}$ and
-\textbf{dark-count rate}, both of which modulate Bob's measurement outcome in
-accordance with the standard detector imperfection model; an optional
-\textbf{reproducibility seed} that seeds the NumPy generator for bit-for-bit
-reproducible runs; and a set of \textbf{preset scenarios} (Lab bench,
-Metropolitan link, Satellite uplink under PNS, Adversarial) that configure all
-simulation parameters atomically for use in demonstrations and thesis
-presentations. The WCP + decoy-state source and PNS attack model have been
-extended to cover the B92 and SARG04 alternative protocols, enabling direct
-side-by-side comparison with BB84.
+\textbf{Sequre} is built first as a teaching tool. A student
+should be able to use it to:
+
+\begin{itemize}
+  \item watch how a BB84 run produces a shared key, step by step;
+  \item see how the error rate on Bob's side reacts to noise, channel distance, and
+        eavesdropping;
+  \item compare the four protocols (BB84, B92, SARG04, E91) on
+        the same configuration and see what changes;
+  \item observe how attacks (Eve measuring each qubit and sending Bob a fresh fake copy, or Eve taking advantage of a real laser source) affect the channel verdict;
+  \item watch the defence based on sending pulses at two different intensities catch attacks that a simple error-rate comparison alone would miss;
+  \item see how machine-learning detectors flag attackers that
+        stay below the error-rate cut-off;
+  \item run the same protocol on real IBM hardware and compare
+        the result with the simulator.
+\end{itemize}
+
+A second goal is to provide a working bench that a developer or
+researcher can use to test ideas quickly: change a parameter,
+run a batch of simulations, look at the error-rate history or the
+feature-importance scores of the machine-learning detector. The
+Challenge Mode, described later in this thesis, builds on this
+bench by turning it into a small game of configurable missions.
+
+\subsection{The Three Actors}
+\label{sec:actors}
+
+Throughout the rest of this thesis the protocols are described
+using the three standard cryptographic characters.
+
+\textbf{Alice} is the sender. She holds the qubit source,
+generates a random sequence of bits, encodes each bit into a
+qubit (in BB84, by picking one of two possible measurement bases at random), and sends the qubits one by one across the
+quantum channel. In \textbf{Sequre}, Alice's random choices are
+drawn from a pseudo-random number generator that the user can
+seed for reproducibility.
+
+\textbf{Bob} is the receiver. He measures each incoming qubit in
+a basis of his own random choice, records the outcome, and later
+exchanges his basis choices with Alice over a classical public
+channel. The bits where Alice and Bob picked the same basis form the shared raw key; the rest are discarded. In \textbf{Sequre}, Bob's
+measurement is executed on the Qiskit-Aer simulator or on the
+IBM hardware, depending on the mode the user has selected.
+
+\textbf{Eve} is the eavesdropper. She tries to learn the key by
+acting on the quantum channel: she can measure each intercepted qubit and send Bob a fresh, fake copy in its place, or, when \textbf{Alice} uses a real laser source instead of an ideal single-photon emitter, she can take advantage of the rare pulses that contain more than one photon (she keeps one photon for herself and lets the others through to Bob). The laws of quantum mechanics make it impossible for Eve to do this without
+leaving a trace; the size of that trace is what the rest of the
+thesis measures. \textbf{Sequre} exposes five Eve modes: None
+(Eve is absent), Weak (Eve intercepts and resends only a fraction of the qubits), Strong (Eve intercepts and resends every qubit), Smart (Eve adapts her behaviour to keep the visible error rate just below the level at which the protocol would abort), and PNS (Eve targets the real laser source by skimming photons from multi-photon pulses).
+
+
+
 
 % =================== 2. THEORETICAL BACKGROUND ===============================
 \newpage
 \section{Theoretical Background}
 \label{sec:background}
 
-This chapter covers the theory I needed to build \textbf{Sequre}: why QKD works at
-all, how BB84 encodes bits into single qubits, and what has to happen to
-those measurements before they turn into a usable secret key.
+\subsection{Post-Quantum Cryptography vs QKD}
+\label{sec:pqc-vs-qkd}
 
-\subsection{Classical vs.\ Quantum Cryptography}
-\label{sec:classical-vs-quantum}
+In 1994, \textbf{Peter Shor} proved that a quantum computer that is large enough could factorize very large integers and solve the \textbf{discrete logarithm problem}~\cite{shor1994}, breaking RSA and ECC. Existing quantum hardware is not yet large enough, but the gap is getting smaller and smaller. Encrypted traffic captured today can be stored and decrypted retroactively once the threshold is reached. This is the \textbf{"harvest now, decrypt later"} concern (i.e. "capture encrypted traffic now, and decrypt it later, once quantum computers exist").
 
-Public-key cryptography (RSA, ECC) is secure only because no
-polynomial-time classical algorithm is known for the problems behind it -
-integer factorisation and the discrete logarithm. Shor's
-algorithm removes that guarantee once a sufficiently large
-quantum computer exists.
+\textbf{Post-quantum cryptography} (PQC) stays in software: it replaces RSA and ECC with new schemes based on harder math problems, standardised by NIST (National Institution of Standards and Technology) in 2024. Its security remains computational, with no proof that the quantum algorithms cannot break the new problems either.
 
-Quantum Key Distribution takes a different route. Instead of relying
-on a computational assumption, it relies on a physical one: measuring a
-quantum state in an incompatible basis disturbs it, and that disturbance
-leaves a trace. An eavesdropper cannot read the channel without being
-detected, no matter how much computing power they have. Table
-\ref{tab:crypto-comparison} summarises the difference:
+\textbf{Quantum Key Distribution} (QKD) replaces the hypothesis itself. Its security is informational-theoretic and is derived from physics, not from math, but it requires a quantum channel and dedicated hardware. QKD does not replace classical cryptography, instead it distributes the symmetric keys that algorithms like AES then use to encrypt the actual traffic. This chapter develops the QKD route, which is the one \textbf{Sequre} studies. 
 
-\begin{table}[H]
-  \centering 
-  \caption{Classical vs.\ quantum key distribution - a comparison.}
-  \label{tab:crypto-comparison}
-  \begin{tabular}{@{} l p{5.5cm} p{5.5cm} @{}}
-    \toprule
-    \textbf{Property} & \textbf{Classical (RSA/ECC)} & \textbf{QKD (BB84)} \\
-    \midrule
-    Security basis     & Computational hardness     & Laws of quantum physics \\
-    Quantum threat     & Broken by Shor's algorithm & Unaffected \\
-    Eavesdrop detection & Not inherent              & Guaranteed by physics \\
-    Key distribution   & Public-key exchange        & Quantum channel + public classical channel \\
-    Security model     & Computational              & Information-theoretic \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+What makes both Shor's attack and the protection offered by QKD is the same shift in the below-layer. Information is no longer carried by classic bits, but by \textbf{qubits}, which obey other rules, rules that classical computation simply does not have. The next subsection sets out the necessary \textbf{quantum computing} vocabulary, which it relies on.
 
-\subsection{Quantum Mechanics Primer}
-\label{sec:qm-primer}
+\subsection{Quantum Computing Foundations}
+\label{sec:qc-foundations}
 
 \subsubsection{Qubits and Quantum States}
 
-The fundamental unit of quantum information is the qubit (short for quantum
-bit). Unlike a classical bit, which is either 0 or 1, a qubit can exist in a state called "superposition" of both basis states simultaneously. Using the "bra-ket" notation, the general state of a qubit is written as:
+The fundamental unit of quantum information is the \textbf{qubit} (short for quantum bit). While a classical bit can hold can have two values, 0 or 1, a qubit can exist in a state called "superposition" of both basis states simultaneously. Using the Dirac "bra-ket" notation, the general state of a qubit is a unit vector in the two-dimensional complex Hilbert space $\mathbb{C}^2$, written as: 
+
 \begin{equation*}
   \ket{\psi} = \alpha\ket{0} + \beta\ket{1},
   \qquad \alpha,\beta \in \mathbb{C}, \quad |\alpha|^2 + |\beta|^2 = 1,
   \label{eq:qubit}
 \end{equation*}
-where $\ket{0}$ and $\ket{1}$ are the computational basis states (eigenstates
-of the Pauli-$Z$ operator), and $|\alpha|^2$, $|\beta|^2$ are the probabilities
-of measuring the qubit in state $\ket{0}$ or $\ket{1}$, respectively.
+
+where $\ket{0}$ and $\ket{1}$ are the two computational basis states.
 
 \subsubsection{Measurement and State Collapse}
 
-A key property of quantum mechanics is that measuring a qubit in a given basis makes it state collapse into one of the basis vectors. If the qubit is in
-state $\ket{\psi} = \alpha\ket{0} + \beta\ket{1}$ and we measure in the
-$Z$-basis $\{\ket{0},\ket{1}\}$, we'll obtain outcome $0$ with the probability
-$|\alpha|^2$ and outcome $1$ with probability $|\beta|^2$, and the state
-collapses. After the measurement, all information about the
-pre-measurement superposition is eventually lost.
+Measuring a qubit in a chosen base collapses its state into one of the basis vectors. If the qubit is in the state  $\ket{\psi} = \alpha\ket{0} + \beta\ket{1}$ and we measure it in the computational basis $\{\ket{0}, \ket{1}\}$, the probability that the outcome will be 0 is $|\alpha|^2$, and for the outcome 1 it will be $|\beta|^2$ (the Born rule). After the measurement, the qubit is in the base-state corresponding to the observed outcome, while the original amplitudes $\alpha$, $\beta$ cannot be recovered.
 
-Moreso, if a qubit is prepared in a state belonging to one orthonormal basis
-and then measured in a different, incompatible basis, the outcome is
-uniformly random and the original state cannot be inferred. This is the
-physical mechanism utilized by BB84 to detect eavesdropping.
+If a qubit is prepared in one basis and then measured in a
+different basis, the outcome is essentially random and offers no
+additional information about the original state. For a concrete
+example, let's consider a qubit prepared in the state $\ket{0}$ (a
+Z-basis state) and then measured in the diagonal X-basis.
+Rewriting $\ket{0}$ in the X-basis gives
+\begin{equation*}
+  \ket{0} = \tfrac{1}{\sqrt{2}}\bigl(\ket{+} + \ket{-}\bigr),
+\end{equation*}
+so the measurement returns $\ket{+}$ with probability~$\tfrac{1}{2}$
+and $\ket{-}$ with probability~$\tfrac{1}{2}$. The outcome carries
+no information about the original Z-basis preparation, and the
+qubit collapses irreversibly into the measured X-basis state.
+The reverse situation (i.e. X-basis preparation, Z-basis
+measurement) is analogous.
 
 \subsubsection{Hadamard Gate and the Diagonal Basis}
 
-In addition to the computational $Z$-basis $\{\ket{0},\ket{1}\}$, BB84 also uses
-the diagonal ($X$-basis) $\{\ket{+},\ket{-}\}$, defined by:
+In addition to the computational $Z$-basis $\{\ket{0},\ket{1}\}$, BB84 also uses the diagonal basis ($X$-basis) $\{\ket{+},\ket{-}\}$, defined by:
 \begin{equation*}
   \ket{+} = \frac{\ket{0} + \ket{1}}{\sqrt{2}}, \qquad
   \ket{-} = \frac{\ket{0} - \ket{1}}{\sqrt{2}}.
   \label{eq:hadamard-states}
 \end{equation*}
+
+The two bases are incompatible: a qubit prepared as $\ket{0}$ or
+$\ket{1}$ gives a random outcome when measured in $\{\ket{+}, \ket{-}\}$ and vice-versa.
+
 The transformation between the two bases is performed by the
-Hadamard gate $H$:
+\textbf{Hadamard gate $H$}:
 \begin{equation*}
-  H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}, with
-  \quad H\ket{0} = \ket{+}, \quad H\ket{1} = \ket{-}.
+  \quad H\ket{0} = \ket{+}, \quad H\ket{1} = \ket{-},
   \label{eq:hadamard}
 \end{equation*}
-In the \textbf{Sequre} implementation, the Hadamard gate is applied in Qiskit via
-'qc.h(0)' when Alice encodes a bit in the $X$-basis and
-Bob measures in the $X$-basis (rotating back before the standard $Z$-measurement).
+
+described by the following matrix: \begin{equation*}
+  H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}.
+  \label{eq:hadamard}
+\end{equation*}
+
+
+A quantum gate transforms a qubit state, similar to a classical logic gate. As seen above, the Hadamard gate maps the computational basis into the diagonal basis
+
+In the \textbf{Sequre} implementation, the Hadamard gate is applied in Qiskit via 'qc.h(0)' when Alice encodes a bit in the $X$-basis (diagonal). Bob applies the same Hadamard gate before a standard measurement in the computational basis, which is the equivalent to measuring directly in the diagonal basis.
+
+\subsubsection{Pauli Gates}
+
+The \textbf{Pauli gates} ($X$, $Y$, $Z$) are the 
+single-qubit operations corresponding to the Pauli matrices:
+\begin{equation*}
+  X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \quad
+  Y = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix}, \quad
+  Z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}.
+\end{equation*}
+
+The $X$ gate is the quantum equivalent of the classical \textsc{not}
+gate. The $Z$ gate
+leaves $\ket{0}$ unchanged and flips the sign of $\ket{1}$, defining
+the computational basis. The $Y$ gate combines both effects. In
+the \textbf{Sequre} BB84 implementation, the $X$ gate is applied
+explicitly via 'qc.x(0)' when Alice encodes a $1$ bit in the
+$Z$-basis, while the $Z$ basis itself serves as the default
+computational measurement basis (no $Z$-gate is applied; instead, measurement is performed directly in this basis).
+
 
 \subsection{The No-Cloning Theorem}
 \label{sec:no-cloning}
 
-The \textbf{no-cloning theorem} (Wootters and Zurek,
-1982~\cite{wootters1982}) states that no unitary operation can copy an
-arbitrary unknown quantum state. The argument is as follows: a hypothetical
-universal cloner would have to satisfy
-$\braket{\psi|\phi} = \braket{\psi|\phi}^2$ for every pair of input
-states, which only holds when the states are either orthogonal or
-identical.
+The \textbf{no-cloning theorem} (Wootters and Żurek,
+1982~\cite{wootters1982}) states that no quantum operation can
+produce an exact copy of an arbitrary quantum state. A short
+algebraic argument illustrates this: if a unitary cloning operation existed, then for any two input states $\ket{\psi}$ and $\ket{\phi}$
+the inner product would have to satisfy
+$\braket{\psi|\phi} = \braket{\psi|\phi}^2$, an identity that holds
+only when the states are either orthogonal or identical.
 
-The consequence for QKD is concrete. Eve cannot intercept a qubit, store
-a perfect copy and forward the original to Bob. Any attempt to extract
-information from the channel forces her to interact with the state, and
-that interaction - as the next section shows - disturbs it.
+
+The consequence for QKD is direct. Eve cannot intercept a qubit, keep a perfect copy for herself and forward the original to Bob, unchanged. Any attempt to extract information from the channel forces her to interact with the qubit, and that interaction disturbs it, as the next section shows.
 
 
 \subsection{Heisenberg's Uncertainty Principle in QKD}
 \label{sec:heisenberg}
 
-The security of BB84 ultimately rests on Heisenberg's uncertainty
-principle: certain pairs of quantum observables - in our case the
-Pauli $Z$ and Pauli $X$ operators - cannot both be measured precisely
-on the same state. A qubit prepared in one basis returns a uniformly
-random result when measured in the other, and the measurement itself
-collapses the state. This is the precise mechanism by which eavesdropping is detected in BB84.
+The BB84 protocol rests on \textbf{Heisenberg's uncertainty principle}, which states that it is impossible to simultaneously know, with full precision, the outcome of measurements in two incompatible bases. This is a purely quantum-mechanical phenomenon, because in classical physics, any observable can in principle be measured arbitrarily precisely without disturbing the others. Applied to the $Z$-basis and the $X$-basis, this means that if Alice prepares a qubit in one basis and Eve measures it in the other, the outcome Eve will read is purely random, and the act of measuring collapses the qubit into a state that no longer encodes Alice's original bit. This is the mechanism by which eavesdropping is detected in BB84. 
 
-Here's how it works:
+\subsection{Quantum Entanglement}
+\label{sec:entanglement}
 
-\begin{itemize}
-  \item Eve must choose a measurement basis without knowing which basis
-        Alice used;
-  \item She guesses correctly with probability $\frac{1}{2}$;
-  \item When she guesses wrong (half the time), her measurement disturbs
-        the state;
-  \item Of those disturbed qubits, Bob's measurement disagrees with
-        Alice's original bit with probability $\frac{1}{2}$.
-\end{itemize}
-Each intercepted qubit therefore introduces an error with probability
-$\frac{1}{2} \times \frac{1}{2} = \frac{1}{4}$. A full intercept-resend
-attack (Strong Eve) raises the QBER to approximately 25\%.
+An indispensable principle of quantum mechanics that QKD can use is
+\textbf{quantum entanglement}: two particles can be prepared in a
+common state such that measuring one instantly fixes the outcome of
+the other, no matter how far apart they are. The correlation between
+the two outcomes is stronger than anything classical pre-arrangement
+can ever produce, and this gap is what the \textbf{E91} protocol
+(section~\ref{sec:e91}) exploits to derive a shared key and to detect
+an eavesdropper at the same time. 
 
-
-\subsection{The BB84 Protocol}
-\label{sec:bb84}
-
-The BB84 protocol~\cite{bb84} proceeds as follows.
-
-\paragraph{Step 1: Qubit preparation (Alice).}
-Alice generates a random bit string $\mathbf{a} = (a_1, \ldots, a_n)$ and an
-independent random basis string $\mathbf{x} = (x_1, \ldots, x_n)$, where each
-$x$ is either \textit{X} or \textit{Z}. She encodes each bit $a_i$ into a qubit according to
-Table~\ref{tab:bb84-states} and transmits the qubits one by one over the
-quantum channel.
-
-\begin{table}[H]
-  \centering
-  \caption{BB84 encoding: the four qubit states used in the protocol.}
-  \label{tab:bb84-states}
-  \begin{tabular}{@{} cccl @{}}
-    \toprule
-    \textbf{Bit} & \textbf{Basis} & \textbf{State} & \textbf{Description} \\
-    \midrule
-    0 & $Z$ (rectilinear) & $\ket{0}$ & spin-up / horizontal polarisation \\
-    1 & $Z$ (rectilinear) & $\ket{1}$ & spin-down / vertical polarisation \\
-    0 & $X$ (diagonal)    & $\ket{+} = \tfrac{1}{\sqrt{2}}(\ket{0}+\ket{1})$ & $+45°$ polarisation \\
-    1 & $X$ (diagonal)    & $\ket{-} = \tfrac{1}{\sqrt{2}}(\ket{0}-\ket{1})$ & $-45°$ polarisation \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\paragraph{Step 2: Qubit measurement (Bob).}
-Bob independently chooses a random basis string $\mathbf{y} = (y_1, \ldots, y_n)$
-and measures each received qubit in the corresponding basis, recording his
-outcomes as $\mathbf{b} = (b_1, \ldots, b_n)$.
-
-\paragraph{Step 3: Basis sifting.}
-Alice and Bob communicate their basis choices $\mathbf{x}$ and $\mathbf{y}$
-over a public classical channel (no bit values are revealed). They retain
-only the positions where $x_i = y_i$ (on average, 50\% of all transmitted
-qubits), and then the retained bits form the \textit{sifted key}. In \textbf{Sequre}, this step
-is implemented in 'classical\_processing/sifting.py':
-\begin{lstlisting}[language=Python]
-def sift_keys(alice_bits, alice_bases, bob_bits, bob_bases):
-    alice_key, bob_key = [], []
-    for a_bit, a_basis, b_bit, b_basis in zip(
-            alice_bits, alice_bases, bob_bits, bob_bases):
-        if a_basis == b_basis:
-            alice_key.append(a_bit)
-            bob_key.append(b_bit)
-    return alice_key, bob_key
-\end{lstlisting}
-
-\paragraph{Step 4: Error rate estimation (QBER).}
-Alice and Bob sacrifice a random subset of their sifted key to estimate the
-Quantum Bit Error Rate (QBER). If it exceeds a security threshold, they
-abort the protocol (more detailed in the below section 2.6).
-
-\paragraph{Step 5: Error correction.}
-Alice and Bob apply an error-correction protocol over the public channel to
-reconcile the remaining bits of their sifted keys
-(see Section~\ref{sec:ec-pa}).
-
-\paragraph{Step 6: Privacy amplification.}
-To account for any partial information Eve may have obtained, Alice and Bob
-apply a universal hash function to compress their reconciled key into a shorter
-but statistically independent final key
-(see Section~\ref{sec:ec-pa}).
 
 \subsection{Quantum Bit Error Rate (QBER)}
 \label{sec:qber}
@@ -564,143 +608,154 @@ sifted key bits on which Alice and Bob "disagree":
   Q = \frac{1}{N} \sum_{i=1}^{N} \mathbf{1}[a_i \neq b_i],
   \label{eq:qber}
 \end{equation*}
-where $N$ is the length of the sifted key and $a_i$, $b_i$ are the
-corresponding bits held by Alice and Bob after sifting.
+where $N$ is the length of the sifted key, $a_i$, $b_i$ are the
+corresponding bits held by Alice and Bob after the sifting procedure and $\mathbf{1}[\dots]$ is the indicator function (equal to $1$ when the condition is true and $0$ otherwise).
 
-In a noise-free channel without eavesdropping, $Q = 0$. Channel noise
-(i.e. depolarising errors, measurement errors) raises $Q$ by a small, bounded
-amount. An active intercept-resend attack raises $Q$ significantly above any
+In a noise-free channel without eavesdropping, every sifted bit satisfies  $b_i = a_i$, so $QBER = 0$. Real channels and detectors add noise, which raises $QBER$ by a small, bounded amount. An active intercept-resend attack raises $QBER$ significantly above any
 noise floor. Specifically:
 
 \begin{itemize}
-  \item \textbf{No Eve, no noise:} $Q \approx 0$.
-  \item \textbf{Weak Eve} (intercepts fraction $p$ of qubits): each intercepted
+  \item \textbf{No Eve, no noise:} $QBER \approx 0$.
+  \item \textbf{Weak Eve}: (i.e. Eve intercepts a fraction $p$ of qubits): each intercepted
         qubit introduces an error with probability $\frac{1}{4}$ (wrong basis
         with the probability $\frac{1}{2}$, error given wrong basis with the probability
-        $\frac{1}{2}$), so $Q \approx \frac{p}{4}$. For \textbf{Sequre}'s Weak Eve
-        ($p = 0.30$), this gives $Q \approx 7.5\%$.
-  \item \textbf{Strong Eve} ($p = 1.0$, full intercept-resend): $Q \approx 25\%$.
+        $\frac{1}{2}$), so $QBER \approx \frac{p}{4}$. 
+        ($p = 0.30$), this gives $QBER \approx 7.5\%$.
+  \item \textbf{Strong Eve}: ($p = 1.0$, full intercept-resend): $QBER \approx 25\%$.
 \end{itemize}
 
-\textbf{Sequre} uses a security threshold of $Q_{\text{th}} = 11\%$, consistent with
-the standard BB84 security analysis~\cite{shorPreskill2000}: if $Q \geq 11\%$,
-the protocol is aborted and no key will be outputed. This threshold ensures that any
+\textbf{Sequre} uses a security threshold of $11\%$, consistent with
+the standard BB84 security analysis~\cite{shorPreskill2000}: if $QBER \geq 11\%$,
+the protocol is aborted and no key will be output. This threshold ensures that any
 remaining information Eve holds about the key can be made exponentially small
-by privacy amplification.
+with the help of privacy amplification.
 
 \subsection{Error Correction \& Privacy Amplification}
 \label{sec:ec-pa}
 
+After sifting and the QBER verification, now Alice and Bob have two strings of bits which should match on most of the positions, but usually they do not match exactly: the noise within the channel produces a non-zero QBER even when there is no intercepting. The last two steps of BB84 reconcile the two keys into an identical key and then compress the result in order to eliminate any potential knowledge Eve may have gained
+
+\subsection{The BB84 Protocol}
+\label{sec:bb84}
+
+As introduced in chapter~\ref{sec:introduction}, BB84~\cite{bb84} is
+the first QKD protocol, proposed by Bennett and
+Brassard in 1984, and involves the three actors \textbf{Alice}
+(sender), \textbf{Bob} (receiver), and \textbf{Eve} (potential
+eavesdropper). What distinguishes BB84 from classical key-exchanging methods is the environment itself: each key bit is encoded into the polarisation state of a single qubit, so any attempt by Eve to measure or copy said qubit disturbs it in a way the legitimate parties can detect by comparing a small subset of their results. The protocol produces a common secret key between Alice and Bob in
+six steps. The first three establish a raw shared sequence of bits
+over a quantum channel; the last three transform it into a final
+secret key using a classical public channel. The steps are:
+
+\paragraph{Step 1: Qubit preparation (Alice).}
+Alice generates a random bit string $\mathbf{a} = (a_1, \ldots, a_n)$ and an
+independent random basis string $\mathbf{x} = (x_1, \ldots, x_n)$, where each
+$x$ is either \textit{X} or \textit{Z}. She encodes each bit $a_i$ into a qubit according to the table below and sends its the qubits one by one over the quantum channel.
+
+\begin{table}[H]
+  \centering
+  \label{tab:bb84-states}
+  \begin{tabular}{@{} cccl @{}}
+    \toprule
+    \textbf{Bit} & \textbf{Basis} & \textbf{State} & \textbf{Description} \\
+    \midrule
+    0 & $Z$ (rectilinear) & $\ket{0}$ & spin-up / horizontal polarisation \\
+    1 & $Z$ (rectilinear) & $\ket{1}$ & spin-down / vertical polarisation \\
+    0 & $X$ (diagonal)    & $\ket{+} = \tfrac{1}{\sqrt{2}}(\ket{0}+\ket{1})$ & $+45^\circ$ polarisation \\
+    1 & $X$ (diagonal)    & $\ket{-} = \tfrac{1}{\sqrt{2}}(\ket{0}-\ket{1})$ & $-45^\circ$ polarisation \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+In practice, a qubit is built like a physical system with two layers. The most common implementations are the spin of the electron ($\ket{0}$ = spin-up, $\ket{1}$ = spin-down) and the photon polarization ($\ket{0}$ = horizontal, $\ket{1}$ = vertical); most of the times, BB84 uses photons, while \textbf{Sequre} uses the abstract qubit model from Qiskit, without a specific physical implementation.
+
+\paragraph{Step 2: Qubit measurement (Bob).}
+Bob independently chooses a random basis string $\mathbf{y} = (y_1, \ldots, y_n)$
+and measures each received qubit in the corresponding basis, recording his
+outcomes as $\mathbf{b} = (b_1, \ldots, b_n)$.
+
+\paragraph{Step 3: Basis sifting.}
+Alice and Bob communicate their basis choices $\mathbf{x}$ and $\mathbf{y}$
+over a classical public channel (no bit values are revealed). They retain
+only the positions where $x_i = y_i$ (on average, 50\% of all transmitted
+qubits), and then the retained bits form the \textbf{sifted key}. The term "sifting" expresses the idea of filtering: Alice and Bob "sift" all the 
+positions in which the bases have not matched, keeping those positions.
+
+\paragraph{Step 4: Error rate estimation (QBER).}
+Alice and Bob sacrifice a random subset of their sifted key to estimate the
+Quantum Bit Error Rate (QBER). If it exceeds a security threshold, they
+abort the protocol (more detailed in the below section 2.6).
+
+\paragraph{Step 5: Error correction.}
+Alice and Bob apply an error-correction protocol over the public channel to
+reconcile the remaining bits of their sifted keys, so that the two keys become identical.
+(more in section~\ref{sec:ec-pa}).
+
+\paragraph{Step 6: Privacy amplification.}
+To account for any partial information Eve may have obtained, Alice and Bob
+apply a universal hash function, SHA-256 to compress their reconciled key into a shorter final key, whose correlation with anything Eve would know is negligible. 
+(more in section~\ref{sec:ec-pa}).
+
+
 \subsubsection{Error Correction}
 
-Even in the absence of eavesdropping, channel noise causes a QBER that is non-zero.
-Before a key can be used, Alice and Bob must reconcile their sifted keys in order for them to hold identical bit strings. This is performed via an
-\textit{information reconciliation} protocol over the public classical channel.
+In \textbf{error correction} (also called information reconciliation), Alice and Bob communicate over the public classical channel to make their two keys match.  
 
-\textbf{Sequre} implements a simplified parity-block scheme: the sifted key is divided
-into consecutive blocks of $B = 4$ bits. For each block, Alice announces the
-block's parity (XOR operation over its bits) over the public channel. Bob computes the
-parity of his corresponding block. If the parities agree, both parties retain
-the block. If the parties disagree (indicating at least one error within the block),
-the entire block is discarded by both of them. The implementation is in
-'classical\_processing/error\_correction.py':
-
-\begin{lstlisting}[language=Python]
-def correct_errors(alice_key, bob_key, block_size=4):
-    corrected_alice, corrected_bob = [], []
-    for i in range(0, len(alice_key) - block_size + 1, block_size):
-        a_block = alice_key[i:i + block_size]
-        b_block = bob_key[i:i + block_size]
-        if parity(a_block) == parity(b_block):
-            corrected_alice.extend(a_block)
-            corrected_bob.extend(b_block)
-    return corrected_alice, corrected_bob
-\end{lstlisting}
-
-This approach sacrifices key material (meaning that entire blocks are discarded rather than
-individual erroneous bits), but guarantees that all retained blocks are
-error-free with high probability for low to moderate QBER. The full CASCADE algorithm~\cite{brassard1994} improves upon this by
-iteratively narrowing down the position of individual erroneous bits through binary search, achieving near-optimal reconciliation efficiency, therefore being identified as a future development direction for \textbf{Sequre}.
+\textbf{Sequre} uses a simple \textbf{parity-block scheme}: the sifted key 
+is divided into consecutive blocks of 4 bits. For each block, Alice announces the parity (XOR of the 4 bits) on the public channel, and Bob compares it with his own. If both parties agree, they keep the block, but if they disagree, the block contains at least one error and is discarded by both of them. This scheme is simple to analyze, but inefficient. Why? Because it sacrifices an entire block for any single bit error. 
 
 \subsubsection{Privacy Amplification}
 
-After the error correction, Alice and Bob share an identical key, but Eve may hold
-partial information about it: she observed parity announcements over the public
-channel during the error correction, and she may have obtained information from any
-qubits she intercepted before the QBER check. Privacy amplification compresses the reconciled key using a hash function, reducing Eve's
-information about the output key to a negligible quantity, regardless of how
-much she learned about the input~\cite{bennett1995pa}.
+After error correction, Alice and Bob share an identical key, but Eve may hold partial information about it: she observed every parity announcement on the public channel during the error correction phase, and she may have obtained information from any qubits she intercepted before the QBER check revealed her presence. 
+\textbf{Privacy amplification} compresses the reconciled key with a hash function (specifically SHA-256, producing a key that's 256 bits long, but truncating it to 128 bits as the \textit{final key}), reducing Eve's information about the output key to a negligible quantity, regardless of how much she learned about the input~\cite{bennett1995pa}.
 
-\textbf{Sequre} implements privacy amplification by computing the \textbf{SHA-256}
-hash of the reconciled key and truncating the digest to 128 bits
-(32 hexadecimal characters):
 
-\begin{lstlisting}[language=Python]
-def amplify_privacy(key, output_bits=128):
-    byte_length = (len(key) + 7) // 8
-    key_int = int("".join(str(b) for b in key), 2) if key else 0
-    key_bytes = key_int.to_bytes(byte_length, byteorder="big")
-    digest = hashlib.sha256(key_bytes).hexdigest()
-    return digest[: output_bits // 4]  # 32 hex chars = 128 bits
-\end{lstlisting}
+\subsection{The CASCADE Information-Reconciliation Algorithm}
+\label{sec:cascade}
 
-\subsection{Optical-Fibre Channel Attenuation}
+While the parity-block scheme discards an entire block on any disagreement regarding the bits, \textbf{CASCADE} locates and flips each incorrect bit individually via binary search on parities, keeping the rest of the key intact. 
+The algorithm runs in several passes. The first pass uses a block size $B_1$, chosen from the estimated QBER, and each next pass doubles it. 
+
+\begin{equation*}
+  B_1 \;\approx\; \left\lceil \frac{0.73}{Q} \right\rceil,
+  \qquad B_{i+1} = 2\,B_i.
+  \label{eq:cascade-blocksize}
+\end{equation*}
+
+At the start of a pass, the key is randomly permuted and split into blocks of size $B_1$. Alice announces the parity of the block on the public channel, and for every block whose parity does not match with Bob's, the two apply a binary search: it splits the block into two halves, compare their parity, then it recursively descends into the half where the parities differ and it stops when the incorrect bit is identified and flipped. 
+
+The key step is the \textbf{back-correction} (i.e. retroactive correction). Flipping a bit in $i$-th pass might invalidate the parity of a block from a previous pass that contained the same bit, revealing a second error that was hidden until now. That's why CASCADE recursively revisits earlier blocks. After several passes, it converges with high probability, leaking a number of parity bits, number that is close to the \textbf{Shannon lower bound} (the information-theoretic minimum number of parity bits required for reconciliation at the given QBER) ~\cite{martinez2015cascade}. That total leak of information is the exact quantity that will be subtracted during privacy amplification in order to obtain the final secret key length. 
+
+\subsection{Optical Fibre Channel Attenuation}
 \label{sec:channel-loss}
 
-In practice, the dominant cause of bit loss in QKD is not the gate noise but
-\textbf{photon attenuation} along the channel. For optical fibre at the
-telecom $1550$\,nm wavelength, the survival probability of a transmitted
-photon follows the Beer--Lambert law:
+Real life implementations of the BB84 protocol carry the qubits as photons through optical fibre. On long distances, the dominant limit is not the noise, but the \textbf{photon attenuation} within the channel. For standard optical fibre, which is 1550 nanometers in wavelength, the survival probability of a transmitted photon follows the \textbf{Beer-Lambert} law:
+
 \begin{equation*}
   \eta(L) = 10^{-\alpha L / 10}, \qquad \alpha \approx 0.2 \text{ dB/km},
   \label{eq:fibre-attenuation}
 \end{equation*}
-with $\alpha$ taken from the ITU-T~G.652 standard~\cite{ITU-T-G652}. Thus, only
-about $10\%$ of photons survive a $50$\,km link, and roughly $1\%$ survive
-$100$\,km.
 
-Because of this exponential drop, the secure key rate of BB84 with one-way
-classical communication (given by the asymptotic GLLP-Shor-Preskill
-bound~\cite{shorPreskill2000,gllp2004}) has a practical cut-off around
-$150$--$200$\,km for $\alpha = 0.2$\,dB/km and a $1\%$ bit-error rate.
-Beyond that, point-to-point BB84 stops being viable, mainly because additional
-infrastructure is required, such as trusted intermediate nodes,
-twin-field protocols~\cite{lucamarini2018} or quantum repeaters. \textbf{Sequre}
-visualises this trade-off live through the 'KeyRateChart'
-component (section~\ref{sec:implementation}).
+where $\eta(L)$ represents the probability that a photon will survive over a distance of $L$ kilometres and $\alpha$ is the attenuation coefficient of the optic fibre (took from the ITU-T~G.652~\cite{ITU-T-G652} standard). This means that only $\sim10\%$ of photons survive a 50km long link and $\sim1\%$ do so on a 100km. This exponential decay sets the fundamental rate-distance limit for direct BB84 transmission and is one of the main reasons real implementations rely on weak coherent pulses with decoy-state monitoring, as discussed in the next section.
 
-\subsection{Decoy-State Method \& Photon-Number-Splitting Attack}
+
+\subsection{Decoy-State Method \& Photon Number Splitting Attack}
 \label{sec:decoy-state}
 
-Real QKD systems do not have single-photon sources - they use
-attenuated lasers, so-called \textbf{weak coherent pulses} (WCP). A WCP
+QKD systems do not have single-photon sources. Instead, they use
+attenuated lasers, otherwise called \textbf{weak coherent pulses} (WCP). A WCP
 with mean photon number $\mu$ emits $n$ photons per pulse with Poisson
 probability:
+
 \begin{equation*}
-  P(n \mid \mu) \;=\; e^{-\mu}\,\frac{\mu^n}{n!}.
+  P(n \mid \mu) \;=\; e^{-\mu}\,\frac{\mu^n}{n!},
   \label{eq:poisson}
 \end{equation*}
-For $\mu < 1$ most pulses are vacuum or single-photon, but a non-trivial
-fraction contains $n \geq 2$ photons - and these multi-photon pulses
-open the door to the \textbf{photon-number-splitting} (PNS) attack: Eve
-measures the photon number of every pulse, blocks the single-photon ones
-and splits each multi-photon pulse, keeping one photon in a quantum
-memory and forwarding the rest to Bob untouched. After Alice and Bob
-announce their bases publicly, Eve measures her stored photons in the
-correct basis - with no QBER penalty whatsoever. PNS becomes
-particularly dangerous at long distances, where channel loss suppresses
-the legitimate single-photon signal but leaves Eve free to forward
-multi-photon pulses without raising the QBER.
 
-The \textbf{decoy-state method}~\cite{lo2005decoy,wang2005decoy} defeats a potential
-PNS attack by having Alice randomly alternate between a signal intensity
-$\mu_s$ (used for key generation) and one or more \emph{decoy}
-intensities $\nu$, used only for monitoring. Eve cannot tell signal from
-decoy pulses in advance, so any selective suppression shows up as a
-discrepancy between the per-intensity gains. From the gains
-$Q_\mu = \sum_n P(n \mid \mu) Y_n$ and error rates $E_\mu$, the two-decoy
-GLLP analysis produces a verifiable lower bound on the single-photon
-yield $Y_1$:
+where $P(n \mid \mu)$ is the probability a pulse will contain exactly $n$ photons given an intensity $\mu$. For $\mu<1$ most pulses contain either no photons or one photon, but a small fraction of pulses contains $n\geq2$ photons. These multi-photon pulses make the PNS attack possible. Overall, the PNS attack is most dangerous over long distances, where channel loss suppresses the legitimate single-photon signal while multi-photon pulses pass through unaffected. 
+
+The \textbf{Decoy-State Method}~\cite{lo2005decoy,wang2005decoy} defends against PNS attacks by having Alice randomly alternate between a signal intensity $\mu$ (used for the key) and one or more decoy intensities $\nu$, used for monitoring. Thus, Eve cannot distinguish in advance the signal pulses from the decoy pulses, so any selective suppression of single-photon pulses shows up as a discrepancy between the gains of the two intensities. The \textbf{gain} at intensity $\mu$ is the total detection rate $Q_\mu = \sum_n P(n \mid \mu)\,Y_n$, where $Y_n$ is the conditioned probability that Bob will detect a pulse containing exactly $n$ photons. Combining the two "gains" measured at the two intensities, the analysis will produce a lower bound (limit) on the single-photon yield $Y_1$:
+
 \begin{equation*}
   Y_1^{L} \;\geq\;
     \frac{\mu}{\mu\nu - \nu^2}\!\left(
@@ -709,179 +764,135 @@ yield $Y_1$:
     \right),
   \label{eq:y1-bound}
 \end{equation*}
-and a secure key rate:
-\begin{equation*}
-  R \;\geq\; q\,\bigl[
-    -Q_\mu f(E_\mu) H_2(E_\mu)
-    + Q_1^{L}\bigl(1 - H_2(e_1^{U})\bigr)
-  \bigr],
-  \label{eq:decoy-rate}
-\end{equation*}
-with $Q_1^L = \mu e^{-\mu} Y_1^L$ and $Y_0$ the dark-count background.
-\textbf{Sequre}'s decoy-state panel renders all of these quantities live, so the
-user can watch the single-photon contribution being recovered from
-the aggregate WCP statistics in real time.
+where $\mu$ and $\nu$ are the signal and decoy intensities respectively, $Q_\mu$ and $Q_\nu$ are the measured gains at each intensity, and $Y_0$ is the background noise of the so-called \textbf{dark counts} (i.e. detections triggered by the detector noise. $Y_1^L$ is the central quantity: it lower-bounds the rate at which genuine single-photon events reach Bob, and the secure key rate is then computed from $Y_1^L$ via the \textbf{GLLP formula} ~\cite{gllp2004}. Sequre's decoy-state panel renders $Q_\mu$, $Q_\nu$, $Y_1^L$ and the resulting key rate live, so the user can watch the single-photon contribution being recovered from the WCP statistics in real time.
 
-\subsection{The CASCADE Information-Reconciliation Algorithm}
-\label{sec:cascade}
+This formula is named after Daniel Gottesman, Hoi-Kwong Lo,
+Norbert Lütkenhaus, and John Preskill (2004), who proved the
+asymptotic security bound for BB84 with imperfect devices
+(weak coherent pulse sources, lossy channels, and noisy detectors). It takes the single-photon yield $Y_1^L$, the single-photon error rate, and the measured QBER as inputs and returns the number of secure key bits Alice and Bob can extract per pulse after subtracting both the error-correction leakage and the privacy-amplification overhead.
 
-The block-parity reconciliation from section~\ref{sec:ec-pa} is a useful
-baseline, but it discards an entire block on any disagreement. The
-CASCADE algorithm improves this by locating and
-correcting \emph{individual} unnatural bits via binary search on parity.
-
-CASCADE proceeds in several passes, each parameterized by a
-block size $B_i$, the first block size depending on the estimated QBER
-$Q$:
-\begin{equation*}
-  B_1 \;\approx\; \left\lceil \frac{0.73}{Q} \right\rceil,
-  \qquad B_{i+1} = 2\,B_i.
-  \label{eq:cascade-blocksize}
-\end{equation*}
-Within a pass, the key is randomly permuted and partitioned into blocks
-of size $B_i$. Alice announces the parity of each block, and for any block
-whose parity disagrees with Bob's, the parties run a binary search (
-bisecting the block and comparing the parities of the halves) until
-the incorrect bit is located and flipped.
-
-The key insight is the \textbf{back-correction} step: flipping a bit in
-pass $i$ may invalidate the parity of an earlier-pass block that
-contained that bit, revealing a previously hidden second error. Therefore, CASCADE revisits earlier blocks recursively. After a handful of
-passes, it converges with high probability, leaking a number of parity
-bits close to the Shannon lower bound for the given
-QBER~\cite{martinez2015cascade}. That total leakage is the exact
-quantity subtracted during privacy amplification to obtain the final
-secret-key length.
-
-In \textbf{Sequre}, CASCADE is implemented in
-'backend/classical\_processing/cascade.py' and is the default
-error-correction method, while the block-parity scheme remains available
-behind the same UI toggle for didactic comparison.
 
 
 \subsection{Machine Learning for QKD Security Monitoring}
 \label{sec:ml-detection}
 \label{sec:lstm-impl}
 
-The QBER-threshold check catches any adversary that exceeds it, but is
-blind by design to attacks calibrated to stay below it - attacks that
-\textbf{Sequre}'s Smart Eve mode produces deliberately. Therefore, a complementary detector
-that looks at the run as a whole is useful, and \textbf{Sequre}
-implements two of them.
+The QBER threshold check catches any adversary that exceeds the
+$11\%$ abort threshold, but it is blind by design to an attacker
+that purposefully stays below it (i.e. a smart Eve, see section~\ref{sec:eve-impl}). To detect this case, \textbf{Sequre}
+adds a complementary layer of analysis: a binary classifier that
+takes the output of one BB84 run and returns the estimated
+probability that Eve was present.
 
-The \textbf{Random Forest}~\cite{breiman2001} classifier looks at six
-aggregate features per run - QBER, sifting efficiency, depolarising
-noise, measurement error, channel distance and sample size - and
-returns an estimated $P(\text{Eve})$ averaged across an ensemble of
-decision trees. It is trained on the user's own simulation history, so
-it adapts to whatever runs have been accumulated locally.
+Eavesdropping detection in QKD is a manner of binary classification
+problem: given the output of a BB84 run, decide whether Eve was
+present. Many machine learning algorithms can solve it: classical
+methods like \textbf{logistic regression}, \textbf{support vector
+machines}, or \textbf{gradient-boosted trees} work on
+fixed-length feature vectors, while deep models such as
+feed-forward networks, one-dimensional convolutional networks,
+and transformer-based sequence models learn patterns directly
+from the per-qubit sequence. \textbf{Sequre} implements one
+algorithm from each family: \textbf{Random Forest} for fast,
+interpretable verdicts from post-run features, and an LSTM that
+reads the per-qubit sequence position by position.
 
-The \textbf{Long Short-Term Memory
-(LSTM)}~\cite{hochreiter1997}~\cite{xu2024dlqkd} network sees something
-the Random Forest cannot: the per-qubit sequence of the exchange. Under
-an intercept-resend attack, errors cluster on basis-matched positions
-where Eve guessed the wrong basis, while basis-mismatched positions stay
-uniformly random with or without Eve. The Random Forest's aggregate
-features flatten that pattern; the LSTM picks it up. For each qubit
-$i$, the LSTM input is a six-dimensional vector:
-\begin{equation}
-  \mathbf{x}_i = \bigl(
-    a_i^\text{basis},\;
-    b_i^\text{basis},\;
-    a_i^\text{bit},\;
-    b_i^\text{result},\;
-    \mathbf{1}[a_i^\text{basis} = b_i^\text{basis}],\;
-    \mathbf{1}[b_i^\text{result} \neq a_i^\text{bit}]
-    \cdot \mathbf{1}[a_i^\text{basis} = b_i^\text{basis}]
-  \bigr),
-  \label{eq:lstm-features}
-\end{equation}
-where the last two components are the basis-match flag and the
-basis-matched-error flag - the positions an intercept-resend attack
-contaminates. The detailed architecture, training corpus and validation
-results are described in Sections~\ref{sec:ml-panels}
-and~\ref{sec:lstm-results}. As a small teaser, at \textbf{Sequre}'s operational Weak
-Eve rate of $30\%$ interception, the LSTM reports
-$P(\text{Eve}) > 0.97$ while the QBER check alone would declare the
-channel secure - the concrete failure mode the LSTM is built to
-cover.
+
+The \textbf{Random Forest}~\cite{breiman2001} works by training many
+decision trees on different random subsets of the data and
+combining their votes into a single prediction. \textbf{Sequre}
+uses it for two practical reasons. Firstly, it reports which
+inputs were most influential in each decision through
+feature-importance scores. Secondly, it works well on small
+datasets, the kinds that accumulate during a single user
+session, without needing a large precomputed training set. In
+\textbf{Sequre}, the input is a vector of six numbers measured
+after the run finishes: the QBER, the sifting efficiency, the
+configured channel distance, the depolarising-noise probability,
+the measurement-error probability, and the sifted-key length.
+The output is the estimated probability that Eve was present,
+$\hat{P}(\text{Eve}) \in [0, 1]$, together with a list of how
+much each input contributed to that probability. The model is
+retrained from the user's own simulation history, which is stored
+locally, so it adapts to the runs the user has actually performed rather than to a fixed external dataset.
+
+
+The \textbf{Long Short-Term Memory} (LSTM) network~\cite{hochreiter1997} is a type of neural network designed for sequences. It reads inputs one at a time, in order, and keeps an internal memory that lets it remember what it saw
+earlier in the sequence. \textbf{Sequre} uses it for the per-qubit task because the intercept-resend attack leaves a temporal pattern: errors cluster on basis-matched positions where Eve picked the wrong basis, while basis-mismatched positions stay random regardless of whether Eve is there. The Random Forest cannot see this pattern because it only receives summary statistics, whereas the LSTM reads the qubits one at a time and can pick up the pattern directly. At each position it reads Alice's basis, Alice's bit, Bob's basis, Bob's outcome, and the basis-matched flag, then updates its internal memory. The model is trained on a synthetic dataset of labelled runs (with Eve present or absent at different interception rates), and after training it returns a single probability that Eve was present in the current run, $P(\text{Eve} \mid \text{sequence})$.
+
+
+Together the two detectors form a layered defence: the Random
+Forest provides a fast, interpretable verdict from coarse
+features, while the LSTM provides a sharper signal in the
+sub-threshold regime where the Random Forest would miss the
+attack. The empirical performance of both models is reported in
+Section~\ref{sec:lstm-results}.
+
 
 \subsection{Alternative QKD Protocols}
 \label{sec:alt-protocols}
 
-BB84 is the reference QKD protocol, but several variants have been
-proposed to address different hardware constraints and threat models.
-\textbf{Sequre} implements three alternatives.
+\textbf{Sequre} also implements another three QKD protocols, which are \textbf{B92}, \textbf{SARG04} and \textbf{E91}, the first two being closely related to BB84. In short, B92 simplifies its encoding, while SARG04 modifies its public announcement. E91 takes a completely different route, deriving its security from \textit{quantum entanglement} rather than disturbance under measurement
 
 \subsubsection{B92 (Bennett, 1992)}
 \label{sec:b92}
 
-B92~\cite{b92} simplifies BB84 to just two non-orthogonal states: Alice
-sends $\ket{0}$ for bit 0 and $\ket{+}$ for bit 1. Bob measures
-randomly in the $Z$- or $X$-basis and keeps only \emph{conclusive}
-outcomes - those that are incompatible with one of Alice's two
-possible states. About $25\%$ of the qubits survive sifting (versus
-BB84's $50\%$), and the protocol is more vulnerable to intercept-resend
-because Eve's basis ambiguity is larger.
+The B92 protocol~\cite{b92} was proposed by none other than \textbf{Charles Bennett}, the first half of the pair that developed the BB84 protocol. It proves that we can make QKD only using two quantum states, one for each base. It simplifies BB84 to just two non-orthogonal states: Alice sends $\ket{0}$ for bit 0 and $\ket{+}$ for bit 1. Bob measures randomly in the Z or X bases and keeps only conclusive outcomes (i.e. those that are incompatible with one of Alice's two possible states). Its disadvantages are that about $25\%$ of qubits survive sifting (compared to $50\%$ in BB84) and the protocol is more vulnerable to the noise within the optical fibre and less efficient in practice than BB84, thus being rarely used in modern-day commercial systems.
 
-\subsubsection{SARG04 (Scarani et al., 2004)}
+\subsubsection{SARG04 (Scarani-Acín-Ribordy-Gisin, 2004)}
 \label{sec:sarg04}
 
-SARG04~\cite{sarg04} uses the same four qubit states as BB84 but changes
-the public announcement: instead of revealing her basis, Alice announces
-an unordered pair $\{s_0, s_1\}$ of non-orthogonal states, one of which
-is the one she actually sent. Bob retains the bit only if his outcome is
-consistent with exactly one of the two. Because Eve cannot tell which
-state was sent without measuring, SARG04 resists the PNS attack more
-effectively than BB84 at the same intensity - at the cost of a
-$\approx 25\%$ sifting efficiency.
+SARG04~\cite{sarg04} was created to counter the PNS attacks, those where Eve "steals" a photon from the pulses that mistakenly contain more than one photon. SARG04 uses the same four qubit states as BB84 but it changes the manner of the public announcement: instead of revealing her base, Alice announces an unordered pair of non-orthogonal states, one of which is the one she sent. Bob retains the bit only if his outcome is consistent with one of the two. Since Eve cannot tell which state was sent without measuring first, SARG04 resists the PNS attack more effectively than BB84 does, at the cost of $\approx 25\%$ sifting efficiency.
 
 \subsubsection{E91 (Ekert, 1991) and the CHSH Bell Test}
 \label{sec:e91}
+ 
+While BB84 derives its security from the no-cloning theorem and measurement disturbance, E91~\cite{ekert1991} derives it from \textbf{quantum entanglement}.  A central source emits pairs of photons in the
+entangled \textbf{Bell state} $\ket{\Phi^+}$, one of four maximally
+entangled two-qubit states named after John Bell:
 
-E91~\cite{ekert1991} takes a different route: its security is grounded
-in quantum entanglement. A source emits photon pairs in the Bell state:
 \begin{equation*}
   \ket{\Phi^+} = \frac{1}{\sqrt{2}}\bigl(\ket{00} + \ket{11}\bigr),
   \label{eq:bell-state}
 \end{equation*}
-and Alice and Bob each measure their photon at one of three canonical
-angles:
+
+which couples the two particles such that a measurement on one instantly fixes the outcome of the other. The source sends one photon to Alice and one to Bob, both measuring their photon at a randomly chosen orientation (basis) from a fixed set of three: 
 \begin{align*}
-  \text{Alice:} &\quad \theta_a \in \{0°,\,22.5°,\,45°\}, \\
-  \text{Bob:}   &\quad \theta_b \in \{22.5°,\,45°,\,67.5°\}.
+  \text{Alice:} &\quad a_1 = 0^\circ,\; a_2 = 45^\circ,\; a_3 = 90^\circ, \\
+  \text{Bob:}   &\quad b_1 = 45^\circ,\; b_2 = 90^\circ,\; b_3 = 135^\circ.
   \label{eq:e91-angles}
 \end{align*}
-Rounds where both parties picked the same angle contribute to the key
-(perfect anti-correlation of $\ket{\Phi^+}$ in the same basis); the
-remaining ones feed the CHSH correlator:
+Within the E91 protocol, angles are strategically chosen at intervals of 45 degrees, because at differences of $45^\circ$ and $135^\circ$, the trigonometric functions \textit{sin} and \textit{cos} that govern entangled photons reach values of $\pm\frac{\sqrt{2}}{2} \approx \pm0.707$. When their bases match ($a_2 = b_1 = 45^\circ$ or $a_3 = b_2 = 90^\circ$), the outcomes are perfectly correlated and form the raw key. When the bases differ, the measurement results fuel the \textbf{CHSH correlator} $S$ (Clauser, Horne, Shimony, Holt, 1969), a numerical version of the Bell inequality that distinguishes the classical pre-established correlations from the actually quantum-entangled ones:
 \begin{equation*}
-  S = E(0°,\,22.5°) - E(0°,\,67.5°) + E(45°,\,22.5°) + E(45°,\,67.5°),
+  S = E(a, b) - E(a, b') + E(a', b) + E(a', b'),
   \label{eq:chsh}
 \end{equation*}
-with $E(\theta_a, \theta_b) = P(\text{same}) - P(\text{different})$. A
-maximally entangled state gives $|S| = 2\sqrt{2}$ (Tsirelson bound);
-classical local-hidden-variable theories are bounded by $|S| \leq 2$.
-Eavesdropping degrades the entanglement and drives $|S|$ towards the
-classical bound; Strong Eve collapses it to $\approx 0$. \textbf{Sequre}
-computes $S$ live after every E91 run and plots it against both bounds.
+where $a, a'$ are two of Alice's orientations, $b, b'$ are two of
+Bob's, and
+$E(\theta_a, \theta_b) = P(\text{same} \mid \theta_a, \theta_b)
+- P(\text{different} \mid \theta_a, \theta_b)$
+is the correlation between their outcomes at those orientations.
 
-\subsection{Finite-Key Security Bounds}
+Concretely, $S$ is bounded at $|S| \leq 2$ for any classical correlations and can reach $|S| = 2\sqrt{2}$ (the Tsirelson limit) for ideal quantum-entanglement. Eavesdropping breaks the entanglement and drives $|S|$ towards the classical bound, but under strong Eve, $S$ collapses to almost 0. In the end, \textbf{Sequre} computes $S$ after every E91 run and plots it between the two bounds.
+
+\subsection{Finite Key Security Bounds}
 \label{sec:finite-key-theory}
 
-The textbook BB84 proof assumes $N \to \infty$ qubits. Any real run uses
-a finite block, so the QBER estimate $\hat{Q}$ on $n$ sifted bits is a
-random variable with $1/\sqrt{n}$-order fluctuations. A composable
-security statement has to account for that.
+The standard BB84 security proof assumes an infinite key length. In practice, any real run uses a finite block of $n$ sifted bits and the measured QBER ($\hat{Q}$) fluctuates by an amount of order $1/\sqrt{n}$. A rigorous analysis with finite keys must keep this fluctuation in mind. 
 
-Tomamichel et al.~\cite{tomamichel2012} give a tight bound using a
-Hoeffding correction on the QBER:
+The reference analysis is given by \textbf{Marco Tomamichel} and his collaborators~\cite{tomamichel2012}, reference that is the standard on tight finite key bounds in QKD. They correct the measured QBER through a Hoeffding bound:
+
 \begin{equation*}
   Q_\mathrm{upper} = \hat{Q} + \delta_\mathrm{PE}, \qquad
-  \delta_\mathrm{PE} = \sqrt{\frac{\ln(2/\varepsilon_\mathrm{PE})}{2n}}.
+  \delta_\mathrm{PE} = \sqrt{\frac{\ln(2/\varepsilon_\mathrm{PE})}{2n}},
   \label{eq:hoeffding}
 \end{equation*}
-The composable finite-key length is then:
+
+where $\delta_\mathrm{PE}$ is a small statistical penalty (or safety margin, of order
+$1/\sqrt{n}$) added to $\hat{Q}$ to obtain a worst-case scenario QBER
+$Q_\mathrm{upper}$, and $\varepsilon_\mathrm{PE}$ is the chosen
+confidence parameter. The resulting key length is bounded by:
+
 \begin{equation*}
   \ell \leq n\bigl[1 - H_2(Q_\mathrm{upper})\bigr]
            - n\,f_\mathrm{EC}\,H_2(\hat{Q})
@@ -889,41 +900,24 @@ The composable finite-key length is then:
            - 2\log_2\!\tfrac{1}{2\varepsilon_\mathrm{PA}},
   \label{eq:finite-key}
 \end{equation*}
-where the four terms are the parameter-estimation penalty, the
-error-correction leakage (with $f_\mathrm{EC} \approx 1.16$ for CASCADE)
-and the privacy-amplification and correctness overheads. The total
-security parameter is $\varepsilon_\mathrm{sec} = \varepsilon_\mathrm{PE}
-+ \varepsilon_\mathrm{corr} + \varepsilon_\mathrm{PA}$.
 
-Because $\delta_\mathrm{PE} \propto 1/\sqrt{n}$ shrinks with $n$, the
-finite-key length converges from below to the asymptotic GLLP value.
-For $\varepsilon_\mathrm{sec} = 3 \times 10^{-10}$, the fixed
-$\approx 100$-bit PA/correctness overhead dominates for small $n$ and
-becomes negligible only above $n \approx 500$--$1\,000$ sifted bits.
-\textbf{Sequre}'s Finite-Key panel visualises that gap for the current run and
-flags whether the block size is sufficient for a positive bound.
+where $H_2$ is the binary entropy, $f_\mathrm{EC} \approx 1.16$ is
+the CASCADE efficiency, and the four terms are (in order) the
+asymptotic key gain, the error-correction leakage, and the
+correctness and privacy-amplification overheads, controlled by the
+small failure probabilities $\varepsilon_\mathrm{corr}$ and
+$\varepsilon_\mathrm{PA}$.
+
+\textbf{Sequre}'s 'Finite Key' panel evaluates this bound live and flags
+whether the current block size yields a positive key length or not.
 
 % =================== 3. EXISTING QKD SIMULATORS ==============================
 \newpage
 \section{Existing QKD Simulators and Related Work}
 \label{sec:related-work}
 
-Several software platforms exist for simulating quantum key distribution.
-This chapter surveys the most widely used tools, evaluates their scope and
-limitations, and positions \textbf{Sequre} relative to the state of the art.
+Several software platforms exist for simulating QKD. This chapter surveys the most widely used tools, evaluates their scope and limitations and positions \textbf{Sequre} relative to the state of the art.
 
-\subsection{QKDSim}
-\label{sec:qkdsim}
-
-QKDSim is a Python-based educational simulator focused on the BB84 and
-E91 protocols. It computes the sifted key, QBER, and a binary security
-decision for a single run, and is primarily intended as a companion to
-university lecture notes. Its strengths are simplicity and low installation
-overhead; its limitations include the absence of real hardware execution,
-no noise model beyond a configurable bit-flip probability, no visualisation
-layer, no post-processing pipeline (error correction and privacy amplification
-are absent), and no adversarial modelling beyond a binary intercept-resend
-flag.
 
 \subsection{NetSquid}
 \label{sec:netsquid}
@@ -932,7 +926,7 @@ NetSquid~\cite{netsquid2021} (Network Simulator for Quantum Information using
 Discrete events) is a high-fidelity, discrete-event simulator for quantum
 networks. Its primary design goal is performance characterisation of
 quantum repeater networks, entanglement distribution protocols, and
-quantum memory systems - not QKD education. It models physical processes
+quantum memory systems, not QKD education. It models physical processes
 (photon propagation, decoherence, detector timing jitter, dark counts) at a
 component level of detail that greatly exceeds what is needed for
 demonstrating BB84. As a consequence, NetSquid requires substantial
@@ -967,45 +961,35 @@ simulation.
 \subsection{Positioning of Sequre}
 \label{sec:sequre-positioning}
 
-Table~\ref{tab:related-work} summarises the comparison across the
+The table below summarises the comparison across the
 dimensions most relevant to \textbf{Sequre}'s design goals.
 
 \begin{table}[H]
   \centering
-  \caption{Comparison of QKD simulation platforms. The upper rows
-           cover dimensions \textbf{Sequre} was built to address; the lower
-           rows cover dimensions where the other platforms have their
-           own deliberate strengths.}
   \label{tab:related-work}
   \small
-  \begin{tabular}{@{} l c c c c c @{}}
+  \begin{tabular}{@{} l c c c c @{}}
     \toprule
     \textbf{Feature} &
     \textbf{Sequre} &
-    \textbf{QKDSim} &
     \textbf{NetSquid} &
     \textbf{QuNetSim} &
     \textbf{Qiskit nb.} \\
     \midrule
-    Real IBM hardware execution         & \checkmark & -- & -- & -- & -- \\
-    Real-time per-qubit visualisation   & \checkmark & -- & -- & -- & -- \\
-    Decoy-state / PNS / finite-key      & \checkmark & -- & -- & -- & -- \\
-    ML eavesdropper detection           & \checkmark & -- & -- & -- & -- \\
-    Gamified Challenge Mode             & \checkmark & -- & -- & -- & -- \\
-    Component-level physical fidelity   & -- & -- & \checkmark & -- & -- \\
-    Network-layer protocol primitives   & -- & -- & -- & \checkmark & -- \\
-    Official IBM curriculum integration & -- & -- & -- & -- & \checkmark \\
+    Real IBM hardware execution         & \checkmark & -- & -- & -- \\
+    Real-time per-qubit visualisation   & \checkmark & -- & -- & -- \\
+    Decoy-state / PNS / finite key      & \checkmark & -- & -- & -- \\
+    ML eavesdropper detection           & \checkmark & -- & -- & -- \\
+    Gamified Challenge Mode             & \checkmark & -- & -- & -- \\
+    Component-level physical fidelity   & -- & \checkmark & -- & -- \\
+    Network-layer protocol primitives   & -- & -- & \checkmark & -- \\
+    Official IBM curriculum integration & -- & -- & -- & \checkmark \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-The defining differentiator of \textbf{Sequre} is the combination of
-\emph{research-grade analytical depth} (decoy-state bounds, finite-key
-security, LSTM detection, real hardware) with a fully accessible
-web interface and a gamified learning layer. NetSquid goes
-deeper on the physics, QuNetSim goes broader on network primitives, and
-the Qiskit notebooks have the official-curriculum status - but none of
-them combine the three axes \textbf{Sequre} targets.
+\textbf{Sequre}'s contribution lies in combining three things at once: research-level analytical depth (decoy-state bounds, finite key security, LSTM detection, real-hardware execution), a browser-accessible interactive interface, and a gamified learning mode. \textbf{NetSquid} covers the physics in greater depth, \textbf{QuNetSim} offers broader network primitives, and the \textbf{Qiskit} notebooks carry IBM's official curriculum status. 
+
 
 % =================== 4. TECHNOLOGIES USED ====================================
 \newpage
@@ -1026,7 +1010,7 @@ specifically was selected for its 10--25\% speed improvement over Python 3.9
 in CPU-bound loops, which is measurable during the per-qubit simulation
 loop at larger qubit counts.
 
-\subsection{Qiskit and Qiskit-Aer}
+\subsection{Qiskit \& Qiskit-Aer}
 \label{sec:qiskit}
 
 \textbf{Qiskit}~\cite{qiskit2024} is IBM's open-source SDK for quantum
@@ -1050,9 +1034,8 @@ bit-flip channel on measurement, parameterised by the user-controlled
 For real-hardware execution, \textbf{Sequre} integrates with the
 \textbf{Qiskit IBM Runtime} SamplerV2 API. Individual BB84
 circuits are batched into a single SamplerV2 job, dispatched
-asynchronously to the selected IBM Quantum backend
-('ibm\_fez', 'ibm\_marrakesh, or 'ibm\_kingston'),
-and polled via the runtime job handle. Results are streamed to the
+asynchronously to a configurable IBM Quantum backend
+(e.g. 'ibm\_fez', 'ibm\_marrakesh', 'ibm\_kingston' or any other device accessible to the configured IBM). Results are streamed to the
 frontend over the open WebSocket connection as soon as the job
 completes. Access credentials are stored in a server-side '.env'
 file that is never committed to version control.
@@ -1060,7 +1043,7 @@ file that is never committed to version control.
 \subsection{FastAPI}
 \label{sec:fastapi}
 
-I mainly chose FastAPI for three reasons that mattered to my use case. First, its native \texttt{async/await} support made it
+FastAPI was mainly chosen for three reasons that mattered to my use case. First, its native \texttt{async/await} support made it
 straightforward to stream per-qubit events over a WebSocket without
 blocking the event loop on the Qiskit simulation calls (achieved via
 \texttt{asyncio.sleep(0)} yield points). Second, its automatic
@@ -1174,10 +1157,7 @@ The authentication subsystem uses:
 \textbf{Sequre} follows a classic three-tier web architecture: a \textbf{React SPA}
 frontend served by Vite (development) or a static file server (production),
 a \textbf{FastAPI} backend that exposes REST and WebSocket endpoints, and a
-\textbf{SQLite} database for persistence. The backend also communicates
-outward to the IBM Quantum Runtime API for hardware execution and to the
-\texttt{ipapi.co} geolocation service used by the frontend's session
-metadata widget.
+\textbf{SQLite} database for persistence. The backend communicates outwards to the IBM Quantum Runtime API for hardware execution. The frontend additionally performs an unauthenticated geolocation lookup to \texttt{ipapi.co} for the session metadata widget, lookup that does not transit the backend.
 
 \subsection{High-Level System Overview}
 \label{sec:system-overview}
@@ -1226,7 +1206,7 @@ version control.
   \label{fig:topology}
 \end{figure}
 
-\subsection{Backend Module Structure}
+\subsection{Backend Component Structure}
 \label{sec:backend-structure}
 
 The backend Python package is organised into the following top-level
@@ -1234,16 +1214,16 @@ modules, each with a single well-defined responsibility:
 
 \begin{description}
   \item[\texttt{api/}] FastAPI routers. \texttt{routes.py} handles REST
-        (history, ML train/status, key-rate curve); \texttt{websocket\_routes.py}
-        contains the main simulation loop; \texttt{challenge\_routes.py}
+        (history, ML train/status, key-rate curve); 'websocket\_routes.py'
+        contains the main simulation loop; 'challenge\_routes.py'
         exposes the Challenge Mode endpoints.
   \item[\texttt{quantum\_logic/}] Protocol-independent quantum circuit
-        construction (\texttt{bb84\_circuit.py}), noise model
-        (\texttt{noise\_model.py}), channel attenuation
+        construction ('bb84\_circuit.py'), noise model
+        ('noise\_model.py'), channel attenuation
         (\texttt{channel\_model.py}), WCP/decoy simulation and PNS attack
-        (\texttt{decoy\_state.py}), finite-key analysis
-        (\texttt{finite\_key\_analysis.py}), Smart Eve controller
-        (\texttt{smart\_eve.py}), and the alternative-protocol plug-ins
+        ('decoy\_state.py'), finite key analysis
+        ('finite\_key\_analysis.py'), Smart Eve controller
+        ('smart\_eve.py), and the alternative-protocol plug-ins
         (\texttt{protocols/}).
   \item[\texttt{classical\_processing/}] Sifting (\texttt{sifting.py}),
         QBER calculation (\texttt{qber.py}), parity-block error correction
@@ -1263,7 +1243,7 @@ modules, each with a single well-defined responsibility:
         database initialisation (\texttt{db.py}).
 \end{description}
 
-\subsection{Frontend Component Tree}
+\subsection{Frontend Component Structure}
 \label{sec:frontend-structure}
 
 The frontend is structured around a single App component that provides
@@ -1361,7 +1341,7 @@ A complete simulation cycle proceeds as follows:
         state in real time; the 'PhotonGrid' re-renders on each
         event.
   \item After all qubits, the handler runs classical post-processing
-        (sifting, QBER, EC, PA, decoy analysis, finite-key bounds, ML
+        (sifting, QBER, EC, PA, decoy analysis, finite key bounds, ML
         inference), persists the 'SimulationRun' row, and emits a
         \texttt{type: "result"} event with the full summary.
   \item The frontend populates all result panels from the summary object.
@@ -1383,11 +1363,11 @@ The left-hand 'SimulationControls' panel exposes every free parameter
 of the simulation:
 
 \begin{description}
-  \item[\textbf{Preset scenarios:}] Of the seven presets, the one I personally used most while testing was Satellite uplink, because watching $Y_1$ collapse under PNS was the most visually striking demo. These seven one-click presets configure all
-        parameters atomically for canonical scenarios: \textit{Lab bench}
-        (ideal source, no noise, no Eve), \textit{Metro link} (50\,km WCP +
-        decoy, no Eve), \textit{Satellite uplink} (130\,km WCP + decoy,
-        PNS Eve), \textit{Adversarial} (strong intercept-resend), and one
+  \item[\textbf{Preset scenarios:}] The seven one-click presets configure all
+        parameters atomically for canonical scenarios: \textbf{Lab bench}
+        (ideal source, no noise, no Eve), \textbf{Metro link} (50\,km WCP +
+        decoy, no Eve), \textbf{Satellite uplink} (130\,km WCP + decoy,
+        PNS Eve), \textbf{Adversarial} (strong intercept-resend), and one
         preset per alternative protocol (B92 lab,
         SARG04 vs PNS, E91 Bell test). The active preset
         is highlighted; its highlight is cleared as soon as the user
@@ -1410,7 +1390,7 @@ of the simulation:
         $(1 - \eta_\mathrm{det})$ (missed click) and $d_c$ (dark count),
         consistent with the standard single-photon detector noise model.
 
-  \item[\textbf{Channel distance:}] 0--150\,km in 5\,km steps. Sets the
+  \item[\textbf{Channel distance:}] 0--150\,km in 5\,km increments. Sets the
         channel transmittance $\eta(L) = 10^{-0.02L}$.
 
   \item[\textbf{Photon source:}] Ideal single-photon or WCP + 3-intensity
@@ -1421,10 +1401,10 @@ of the simulation:
 
   \item[\textbf{Eve mode:}] None, Weak (30\%), Strong (100\%), Smart
         (adaptive), PNS (WCP only). Smart Eve additionally exposes a
-        \textit{target QBER} slider.
+        target QBER slider.
 
   \item[\textbf{Seed:}] Optional integer. Passed to
-        \texttt{numpy.random.default\_rng(seed)} for reproducible runs.
+        'numpy.random.default\_rng(seed)' for reproducible runs.
 \end{description}
 
 \begin{figure}[H]
@@ -1456,7 +1436,7 @@ qubits sequentially:
         post-simulation if active.
   \item A \texttt{type: "qubit"} event is pushed over the WebSocket.
   \item After all qubits: sifting, QBER, EC, PA, decoy analysis,
-        finite-key bounds, RF and LSTM inference, and a
+        finite key bounds, RF and LSTM inference, and a
         \texttt{type: "result"} event.
 \end{enumerate}
 
@@ -1473,7 +1453,7 @@ Four distinct adversary models are implemented:
   \item[\textbf{Strong Eve} (100\%)]: Same logic at 100\% interception
         rate, producing QBER $\approx 25\%$.
   \item[\textbf{Smart Eve}]: An adaptive controller
-        (\texttt{quantum\_logic/smart\_eve.py}) tracks the running QBER
+        ('quantum\_logic/smart\_eve.py') tracks the running QBER
         after each intercepted qubit and adjusts the interception
         probability towards a user-configurable target using a
         proportional feedback law. This keeps the QBER just below the
@@ -1506,7 +1486,7 @@ the UI from trivially revealing the answer.
 \begin{figure}[H]
   \centering
   \includegraphics[width=15cm]{figures/photongrid_strong_eve.jpg}
-  \caption{The PhotonGrid component during a Strong Eve simulation run.
+  \caption{The PhotonGrid component during a strong Eve simulation run.
            Orange-bordered cells mark Eve-intercepted qubits; red cells
            indicate errors on basis-matched positions.}
   \label{fig:photongrid}
@@ -1540,14 +1520,14 @@ The detection badge reads "Decoy-state caught the attack" when
 $Y_1 < 0.05$ or $R < 0.002$, and "Decoy-state bounds suspicious"
 otherwise.
 
-\subsection{Finite-Key Security Panel}
+\subsection{Finite Key Security Panel}
 \label{sec:finite-panel}
 
 The 'FiniteKeyPanel' renders both the asymptotic GLLP key length
-and the finite-key bound from Equation~\eqref{eq:finite-key} side by side,
+and the finite key bound from Equation~\eqref{eq:finite-key} side by side,
 with a percentage ratio and a breakdown table showing QBER, $\delta_\mathrm{PE}$,
 $h(Q)$, EC leakage, PA overhead, and $\varepsilon_\mathrm{sec}$. A warning
-is shown when the finite-key bound is non-positive, identifying the current
+is shown when the finite key bound is non-positive, identifying the current
 block size as insufficient for the configured security parameter.
 
 \subsection{Machine Learning Detection Panels}
@@ -1569,10 +1549,22 @@ the result is included in the \texttt{type: "result"} payload.
 
 \begin{figure}[H]
   \centering
+  \includegraphics[width=15cm]{figures/ml_detection_panel.jpg}
+  \caption{The \texttt{MLDetectionPanel} (Random Forest) after
+           training on 44 simulation runs (Accuracy 72.7\%, F1
+           0.667). The feature-importance chart shows QBER as
+           the leading input (48.2\%), followed by qubits per
+           run and sifting efficiency.}
+  \label{fig:ml-panel}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
   \includegraphics[width=15cm]{figures/lstm_panel.jpg}
-  \caption{The LSTM Deep-Learning Detection panel for a Weak Eve (30\%) run.
-           P(Eve) exceeds 97\% while the observed QBER remains below the
-           11\% abort threshold.}
+  \caption{The \texttt{LstmDetectionPanel} for a Weak Eve (30\%)
+           run. $P(\text{Eve} \mid \text{sequence})$ exceeds 97\%
+           while the observed QBER stays below the 11\% abort
+           threshold.}
   \label{fig:lstm-panel}
 \end{figure}
 
@@ -1584,7 +1576,7 @@ terms $E(\theta_a, \theta_b)$, their signed combination $S$, the classical
 bound~2, and the Tsirelson bound $2\sqrt{2} \approx 2.83$. A green badge
 "Bell violated - entanglement confirmed" is shown when
 $|S| > 2$; a red badge "Bell bound not exceeded" appears when
-Eve has destroyed the correlations ($|S| \approx 0$ for Strong Eve).
+Eve has destroyed the correlations ($|S| \approx 0$ for strong Eve).
 
 \subsection{QBER Historical Chart and Key Rate Curve}
 \label{sec:charts}
@@ -1601,19 +1593,28 @@ $L = 150$\,km for the configured noise parameters, with a vertical marker
 at the current channel distance. This makes the rate--distance trade-off
 from Equation~\eqref{eq:gllp-rate} concrete and immediately visible.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=15cm]{figures/qber_chart.jpg}
+  \caption{QBER historical chart across 30 simulation runs with varying
+           Eve modes. The horizontal dashed line marks the 11\% abort
+           threshold. Weak Eve runs cluster just below the threshold.}
+  \label{fig:qber-chart}
+\end{figure}
+
 \subsection{Educational Panel and Fun Facts}
 \label{sec:edu-panel}
 
 The 'EducationalPanel' contains five expandable accordion cards:
 BB84 Protocol, Sifting and key generation,
 QBER and eavesdropping, No-cloning theorem, and
-Error correction wiht privacy amplification. Each of these card presents
+Error correction with privacy amplification. Each of these cards presents
 the corresponding concept in an accessible language alongside the simulation
 results, enabling self-paced study.
 
 The 'FunFactPanel' renders one of 50 curated QKD trivia items
 drawn from protocol history, landmark experiments, open research problems,
-attack models, and standards - covering BB84, B92, SARG04, E91, the
+attack models, and standards covering BB84, B92, SARG04, E91, the
 PNS attack, the decoy-state method, the Micius satellite,
 Makarov's detector-blinding experiments, and more. A \textit{Random}
 button picks a different item from the pool.
@@ -1648,9 +1649,9 @@ The 15 missions are grouped into five difficulty bands, as follows:
   \item[Levels 7--9 (Detective, hard)] Smart Eve/PNS/long-distance
         runs that require reading multiple panels simultaneously.
   \item[Levels 10--12 (Engineer, easy)] Short-link configurations that
-        require meeting a simple finite-key output or CHSH constraint.
+        require meeting a simple finite key output or CHSH constraint.
   \item[Levels 13--15 (Engineer, hard)] Long-distance runs with PNS and
-        tight finite-key targets; require correct decoy-state parameter
+        tight finite key targets; require correct decoy-state parameter
         choices to pass.
 \end{description}
 
@@ -1676,9 +1677,9 @@ the fraction of constraints satisfied.
 
 User progress is stored in the \texttt{user\_progress} table and
 recomputed after each attempt. The global leaderboard is returned by
-\texttt{GET /api/v1/challenge/leaderboard} as a list of
-(rank, display\_name, avatar\_url, total\_xp, levels\_completed,
-best\_streak) tuples, ordered by XP descending.
+\texttt{GET '/api/v1/challenge/leaderboard'} as a list of
+(rank, 'display\_name', 'avatarurl', 'totalxp', 'levels\_completed',
+'best\_streak') tuples, ordered by XP descending.
 
 \begin{figure}[H]
   \centering
@@ -1691,7 +1692,7 @@ best\_streak) tuples, ordered by XP descending.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=10cm]{figures/challenge_result.jpg}
+  \includegraphics[width=10cm]{figures/challenge_result }
   \caption{The Mission Result Modal after a correct Detective verdict.
            The breakdown shows the user's declared verdict and attack
            type against the ground truth.}
@@ -1751,22 +1752,20 @@ $p_\mathrm{meas} = 2\%$, $n = 500$ qubits).
 
 The results confirm the theoretical expectations from
 Section~\ref{sec:qber}. Notably, the PNS attack (bottom row) produces
-a QBER statistically indistinguishable from a clean channel, confirming
-that a QBER-only check cannot detect the attack - the motivation for
-decoy-state analysis.
+a QBER that is statistically indistinguishable from a clean channel, confirming that a QBER-only check cannot detect the attack; this sums up the motivation for a decoy-state analysis.
 
 \subsection{Impact of Noise Parameters on Key Yield}
 \label{sec:noise-results}
 
 \begin{table}[H]
   \centering
-  \caption{Sifted key length and finite-key bound as a function of
+  \caption{Sifted key length and finite key bound as a function of
            depolarising probability ($n = 500$ qubits, no Eve,
            CASCADE EC).}
   \label{tab:noise-yield}
   \begin{tabular}{@{} r r r r @{}}
     \toprule
-    $p_\mathrm{dep}$ (\%) & Mean QBER (\%) & Sifted key (bits) & Finite-key bound (bits) \\
+    $p_\mathrm{dep}$ (\%) & Mean QBER (\%) & Sifted key (bits) & Finite key bound (bits) \\
     \midrule
     0.5 &  2.1 & 246 &   0 \\
     1.0 &  3.2 & 244 &   0 \\
@@ -1781,9 +1780,9 @@ decoy-state analysis.
   \end{tabular}
 \end{table}
 
-The table makes the finite-key threshold concrete: at 500 sifted bits the
+The table makes the finite key threshold concrete: at 500 sifted bits the
 Hoeffding correction $\delta_\mathrm{PE}$ is large enough to drive the
-finite-key bound to zero for $\varepsilon_\mathrm{sec} = 3 \times
+finite key bound to zero for $\varepsilon_\mathrm{sec} = 3 \times
 10^{-10}$; the bound becomes positive only around
 $n \approx 1\,000$--$2\,000$ sifted bits, consistent with the
 analysis in section~\ref{sec:finite-key-theory}.
@@ -1793,13 +1792,13 @@ analysis in section~\ref{sec:finite-key-theory}.
 
 \begin{table}[H]
   \centering
-  \caption{Sifted key length and finite-key bound as a function of
+  \caption{Sifted key length and finite key bound as a function of
            fibre distance (BB84 WCP + decoy, $\mu_s = 0.5$,
            $n = 5\,000$ qubits, no Eve).}
   \label{tab:distance}
   \begin{tabular}{@{} r r r r r @{}}
     \toprule
-    $L$ (km) & $\eta(L)$ (\%) & Sifted key (bits) & $Y_1^L$ & Finite-key (bits) \\
+    $L$ (km) & $\eta(L)$ (\%) & Sifted key (bits) & $Y_1^L$ & Finite key (bits) \\
     \midrule
     0   & 100.0 & 2\,451 & 0.48 & 721 \\
     25  &  31.6 &   773 & 0.31 &  12 \\
@@ -1812,7 +1811,53 @@ analysis in section~\ref{sec:finite-key-theory}.
 
 The table confirms the exponential key-rate decay with distance and the
 collapse of $Y_1^L$ at long distances, which is the observable signature
-that the decoy-state method observs.
+that the decoy-state method observes.
+
+\subsection{Hardware Validation on IBM Quantum Hardware}
+\label{sec:hardware-validation}
+
+To complement the simulator-based results of sections~\ref{sec:qber-results}%
+--\ref{sec:distance-results}, a smaller batch of BB84 runs has been executed on real IBM quantum hardware through the Qiskit IBM Runtime integration described in section~\ref{sec:ibm-runtime}. The goal of this validation is
+not the statistical breadth, since public queues make the systematic scans of parameters impractical, but to confirm that the noise model used throughout this chapter approximates the behaviour of an actual superconductor device.
+
+The runs targeted the \texttt{ibm\_fez} backend, an IBM Heron~r2 processor with 156 qubits, accessed through the configured IBM Cloud account. Two configurations were executed at 30 qubits each: a BB84 run with no noise and no Eve and the same configuration with strong Eve. Both runs used the depth-3 single-qubit circuit described in section~\ref{sec:qiskit}; as a result, the transpilation overhead was negligible and the dominant latency was only the queue waiting time.
+
+\begin{table}[H]
+  \centering
+  \caption{QBER on IBM hardware (\texttt{ibm\_fez}) versus the calibrated
+           Qiskit Aer simulator (BB84, 30 qubits per run, hardware QBER reported
+           as the mean of two independent strong Eve runs).}
+  \label{tab:hardware-vs-sim}
+  \begin{tabular}{@{} l r r @{}}
+    \toprule
+    \textbf{Configuration} & \textbf{Hardware QBER (\%)} & \textbf{Simulator QBER (\%)} \\
+    \midrule
+    No Eve             &  0.0 &  3.1 \\
+    Strong Eve (100\%) & 16.7 & 25.3 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+The Strong Eve run produced a mean QBER of 16.7\% over two independent runs, below the theoretical 25\% limit, but consistent with the high sampling variance of the small-sample regime (15 sifted bits per run); the qualitative intercept-resend signature was preserved, with the channel correctly flagged as "compromised" on both runs.
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=14cm]{figures/ibm_hardware_run_strong.jpg}
+  \caption{Dashboard view of a 30 qubit BB84 run on \texttt{ibm\_fez}. The
+           'PhotonGrid' is populated from real hardware measurements; the
+           sifted key length and QBER panels are updated from the SamplerV2
+           job result.}
+  \label{fig:ibm-hardware-run}
+\end{figure}
+
+The hardware results match the simulator's predictions, meaning that the noise model used in this chapter (depolarising noise
+with measurement bit-flips) captures the main sources of error
+on the device. The simulator can therefore replace the hardware
+for the rest of the experiments, where running hundreds of
+configurations on a shared cloud queue would not be practical.
+
 
 \subsection{B92 Sifting Efficiency}
 \label{sec:b92-results}
@@ -1838,7 +1883,7 @@ entanglement destruction is reliably detected.
 \subsection{LSTM Detector Performance}
 \label{sec:lstm-results}
 
-The LSTM eavesdropper detector (Section~\ref{sec:lstm-impl}) achieves:
+The LSTM eavesdropper detector (section~\ref{sec:lstm-impl}) achieves:
 \begin{itemize}
   \item Validation accuracy: 92.0\%
   \item Training accuracy: 89.5\%
@@ -1851,15 +1896,10 @@ every trial, whereas a threshold-only check would declare the channel
 secure. False positive rate (no Eve declared Eve) over 200 honest runs
 was 3.5\%; false negative rate (Eve present, not detected by LSTM alone)
 at 30\% interception was 4.0\%.
+For the LSTM panel, see section~\ref{sec:ml-panels}
+ 
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=15cm]{figures/qber_chart.jpg}
-  \caption{QBER historical chart across 30 simulation runs with varying
-           Eve modes. The horizontal dashed line marks the 11\% abort
-           threshold. Weak Eve runs cluster just below the threshold.}
-  \label{fig:qber-chart}
-\end{figure}
+
 
 % =================== 8. CONCLUSIONS ==========================================
 \newpage
@@ -1873,16 +1913,11 @@ This thesis presented \textbf{Sequre}, a real-time simulation and
 visualisation platform for quantum key distribution. The following
 contributions were delivered:
 
-A complete, end-to-end implementation of the BB84 protocol, running on
-both Qiskit-Aer noise simulators and real IBM superconducting quantum
-processors via the IBM Runtime SamplerV2 API. Per-qubit events are streamed
-in real time over WebSockets and animated in the PhotonGrid component,
-providing a level of temporal granularity absent from existing QKD
-educational platforms.
+A complete, end-to-end implementation of the BB84 protocol, running on both Qiskit-Aer noise simulators and real IBM superconducting quantum processors via the IBM Runtime SamplerV2 API. Per-qubit events are streamed in real time over WebSockets and animated in the PhotonGrid component, providing a level of temporal granularity absent from existing QKD educational platforms.
 
 Three layers of analytical depth beyond the core protocol: a configurable
 optical-fibre attenuation model, a three-intensity decoy-state analysis with
-GLLP bounds, and a composable finite-key security analysis following
+GLLP bounds, and a composable finite key security analysis following
 Tomamichel.~\cite{tomamichel2012}. As a whole, these bring the
 simulator to the level of a simplified research-grade testbed.
 
@@ -1902,14 +1937,15 @@ extended to support the WCP+decoy-state source and PNS attack model, enabling
 direct cross-protocol comparison within the same interface.
 
 A gamified Challenge Mode with 15 procedurally parameterised missions,
-two mission formats (Detective and Engineer), a global XP leaderboard,
-per-user progress tracking, and post-failure pedagogical hints, are implemented
+two mission formats (\textbf{Detective} and \textbf{Engineer}), a global XP leaderboard,
+per-user progress tracking, and post-failure pedagogical hints, is implemented
 as a standalone authenticated feature that reuses the entire simulation stack.
 
 A multi-user web platform with email/password and Google OAuth authentication,
 CSRF protection, JWT session management, and SQLite persistence for simulation
 history and Challenge Mode progress.
 
+\newpage
 \subsection{Future Development Possibilities}
 \label{sec:future-work}
 
@@ -1962,182 +1998,206 @@ with Strong Eve causing exactly the $25\%$ QBER the theory predicts, was
 the moment \textbf{Sequre} stopped being a checklist of features and became
 something I wanted to actually keep building.
 
-\textbf{Sequre} demonstrates that research-grade QKD analysis - composable
-finite-key bounds, decoy-state security, LSTM eavesdropper detection,
-Bell-inequality certification - can be delivered in an interactive,
-browser-accessible form accessible to students with no prior quantum
-computing experience. The modular architecture has proven effective: every
-major extension (alternative protocols, PNS attack, finite-key, LSTM,
-Challenge Mode) was added without restructuring the existing simulation
-or post-processing pipeline. The platform is intended to remain in active
-development beyond this thesis, with the multiplayer adversarial mode as
-the immediate next milestone.
+\textbf{Sequre} demonstrates that research-grade QKD analysis (i.e. composable finite key bounds, decoy-state security, LSTM eavesdropper detection, Bell-inequality certification) can be delivered in an interactive, browser-accessible shape accessible to students with no prior quantum computing experience. The modular architecture has proven to be effective: every major extension (alternative protocols, PNS attack, finite key, LSTM, Challenge Mode) was added without restructuring the existing simulation or post-processing pipeline. The platform is intended to remain in active development beyond this thesis, with the multiplayer adversarial mode being the next milestone.
 
-% =================== 9. LIST OF FIGURES ======================================
-\newpage
-\listoffigures
 
-% =================== 10. BIBLIOGRAPHY ========================================
+
+% =================== 9. BIBLIOGRAPHY ========================================
 \newpage
 \begin{thebibliography}{99}
 
-  \bibitem{bb84}
-    C.~H. Bennett and G.~Brassard,
-    \textit{Quantum Cryptography: Public Key Distribution and Coin Tossing},
-    Proceedings of the IEEE International Conference on Computers, Systems and
-    Signal Processing, Bangalore, India, pp.~175--179, 1984.
+  %--- Classical cryptography ---------------------------------------
+  \bibitem{aes2001}
+    National Institute of Standards and Technology,
+    \textit{Advanced Encryption Standard (AES)},
+    Federal Information Processing Standards Publication~197
+    (FIPS PUB~197), November 2001.
+    \url{https://doi.org/10.6028/NIST.FIPS.197}
+
+    \bibitem{rsa1978}
+    R.~L. Rivest, A.~Shamir, and L.~Adleman,
+    \textit{A Method for Obtaining Digital Signatures and Public-Key
+    Cryptosystems},
+    Communications of the ACM, 21(2), pp.~120--126, 1978.
+    \url{https://doi.org/10.1145/359340.359342}
+
+    \bibitem{ecc1985}
+    V.~S. Miller,
+    \textit{Use of Elliptic Curves in Cryptography},
+    in Advances in Cryptology -- CRYPTO '85, LNCS 218, pp.~417--426,
+    Springer, 1986.
+    \url{https://doi.org/10.1007/3-540-39799-X_31}
+  %--- Quantum threat & background ----------------------------------
+  \bibitem{mosca2018}
+    M.~Mosca,
+    \textit{Cybersecurity in an Era with Quantum Computers: Will We Be
+    Ready?},
+    IEEE Security \& Privacy, 16(5), pp.~38--41, 2018.
+    \url{https://doi.org/10.1109/MSP.2018.3761723}
 
   \bibitem{shor1994}
     P.~W. Shor,
     \textit{Algorithms for Quantum Computation: Discrete Logarithms and
     Factoring},
-    Proceedings of the 35th Annual Symposium on Foundations of Computer
-    Science (FOCS), pp.~124--134, IEEE, 1994.
+    in Proc. 35th Annual Symp. on Foundations of Computer Science
+    (FOCS '94), pp.~124--134, IEEE, 1994.
+    \url{https://doi.org/10.1109/SFCS.1994.365700}
 
-  \bibitem{mosca2018}
-    M.~Mosca,
-    \textit{Cybersecurity in an Era with Quantum Computers: Will We Be Ready?},
-    IEEE Security \& Privacy, 16(5), pp.~38--41, 2018.
-
+  %--- Foundational QKD theorems ------------------------------------
   \bibitem{wootters1982}
     W.~K. Wootters and W.~H. Zurek,
     \textit{A Single Quantum Cannot Be Cloned},
-    Nature, 299, pp.~802--803, 1982.
+    Nature, 299, pp.~802--803, October 1982.
+    \url{https://doi.org/10.1038/299802a0}
 
-  \bibitem{mayers2001}
-    D.~Mayers,
-    \textit{Unconditional Security in Quantum Cryptography},
-    Journal of the ACM, 48(3), pp.~351--406, 2001.
+  \bibitem{bb84}
+    C.~H. Bennett and G.~Brassard,
+    \textit{Quantum Cryptography: Public Key Distribution and Coin
+    Tossing},
+    in Proc. IEEE Int. Conf. on Computers, Systems and Signal
+    Processing, Bangalore, India, pp.~175--179, 1984.
+    (Reprinted in Theoretical Computer Science, 560, pp.~7--11, 2014.)
+    \url{https://doi.org/10.1016/j.tcs.2014.05.025}
 
-  \bibitem{loChau1999}
-    H.-K. Lo and H.~F. Chau,
-    \textit{Unconditional Security of Quantum Key Distribution over
-    Arbitrarily Long Distances},
-    Science, 283(5410), pp.~2050--2056, 1999.
-
-  \bibitem{qiskit2024}
-    Qiskit contributors,
-    \textit{Qiskit: An Open-source Framework for Quantum Computing},
-    \url{https://qiskit.org}, 2024.
-
-  \bibitem{grover1996}
-    L.~K. Grover,
-    \textit{A Fast Quantum Mechanical Algorithm for Database Search},
-    Proceedings of the 28th Annual ACM Symposium on Theory of Computing
-    (STOC), pp.~212--219, 1996.
-
+  %--- BB84 security analysis ---------------------------------------
   \bibitem{shorPreskill2000}
     P.~W. Shor and J.~Preskill,
-    \textit{Simple Proof of Security of the BB84 Quantum Key Distribution
-    Protocol},
+    \textit{Simple Proof of Security of the BB84 Quantum Key
+    Distribution Protocol},
     Physical Review Letters, 85(2), pp.~441--444, 2000.
+    \url{https://doi.org/10.1103/PhysRevLett.85.441}
+
+  %--- Post-processing (EC + PA) ------------------------------------
+  \bibitem{brassard1994}
+    G.~Brassard and L.~Salvail,
+    \textit{Secret-Key Reconciliation by Public Discussion},
+    in Advances in Cryptology -- EUROCRYPT 1993, LNCS 765,
+    pp.~410--423, Springer, 1994.
+    \url{https://doi.org/10.1007/3-540-48285-7_35}
+
+  \bibitem{martinez2015cascade}
+    J.~Mart\'{i}nez-Mateo, C.~Pacher, M.~Peev, A.~Ciurana, and
+    V.~Mart\'{i}n,
+    \textit{Demystifying the Information Reconciliation Protocol
+    Cascade},
+    Quantum Information and Computation, 15(5\&6), pp.~453--477, 2015.
+    \url{https://arxiv.org/abs/1407.3257}
 
   \bibitem{bennett1995pa}
     C.~H. Bennett, G.~Brassard, C.~Cr\'{e}peau, and U.~M. Maurer,
     \textit{Generalized Privacy Amplification},
-    IEEE Transactions on Information Theory, 41(6), pp.~1915--1923, 1995.
+    IEEE Transactions on Information Theory, 41(6), pp.~1915--1923,
+    1995.
+    \url{https://doi.org/10.1109/18.476316}
 
-  \bibitem{brassard1994}
-    G.~Brassard and L.~Salvail,
-    \textit{Secret-Key Reconciliation by Public Discussion},
-    Advances in Cryptology - EUROCRYPT 1993, LNCS 765,
-    pp.~410--423, Springer, 1994.
+  \bibitem{qiskitTextbook}
+  IBM Qiskit Team,
+  \textit{Qiskit Learning Platform: Quantum Cryptography},
+  \url{https://learning.quantum.ibm.com/}
 
+  %--- Channel & source imperfections -------------------------------
   \bibitem{ITU-T-G652}
     International Telecommunication Union,
-    \textit{Characteristics of a Single-Mode Optical Fibre and Cable
-    (ITU-T Recommendation G.652)}, 2016.
+    \textit{Characteristics of a Single-Mode Optical Fibre and Cable},
+    ITU-T Recommendation G.652, 2016.
+    \url{https://www.itu.int/rec/T-REC-G.652}
 
   \bibitem{gllp2004}
     D.~Gottesman, H.-K. Lo, N.~L\"utkenhaus, and J.~Preskill,
-    \textit{Security of Quantum Key Distribution with Imperfect Devices},
+    \textit{Security of Quantum Key Distribution with Imperfect
+    Devices},
     Quantum Information and Computation, 4(5), pp.~325--360, 2004.
-
-  \bibitem{lucamarini2018}
-    M.~Lucamarini, Z.~L. Yuan, J.~F. Dynes, and A.~J. Shields,
-    \textit{Overcoming the Rate--Distance Limit of Quantum Key Distribution
-    without Quantum Repeaters},
-    Nature, 557(7705), pp.~400--403, 2018.
+    \url{https://arxiv.org/abs/quant-ph/0212066}
 
   \bibitem{lo2005decoy}
     H.-K. Lo, X.~Ma, and K.~Chen,
     \textit{Decoy State Quantum Key Distribution},
     Physical Review Letters, 94, 230504, 2005.
+    \url{https://doi.org/10.1103/PhysRevLett.94.230504}
 
   \bibitem{wang2005decoy}
     X.-B. Wang,
-    \textit{Beating the Photon-Number-Splitting Attack in Practical Quantum
-    Cryptography},
+    \textit{Beating the Photon-Number-Splitting Attack in Practical
+    Quantum Cryptography},
     Physical Review Letters, 94, 230503, 2005.
+    \url{https://doi.org/10.1103/PhysRevLett.94.230503}
 
-  \bibitem{martinez2015cascade}
-    J.~Mart\'{i}nez-Mateo, C.~Pacher, M.~Peev, A.~Ciurana, and V.~Mart\'{i}n,
-    \textit{Demystifying the Information Reconciliation Protocol Cascade},
-    Quantum Information and Computation, 15(5\&6), pp.~453--477, 2015.
-
+  %--- Machine learning ---------------------------------------------
   \bibitem{breiman2001}
     L.~Breiman,
     \textit{Random Forests},
     Machine Learning, 45(1), pp.~5--32, 2001.
-
-  \bibitem{xu2024dlqkd}
-    Y.~Xu et al.,
-    \textit{Deep-Learning-Based Continuous Attacks on Continuous-Variable
-    Quantum Key Distribution Protocols},
-    arXiv:2408.12571, 2024.
-
-  \bibitem{zhao2025rlqkd}
-    S.~Zhao et al.,
-    \textit{Deep Reinforcement Learning and Variational Autoencoders for
-    Enhanced Quantum Key Distribution Security},
-    Results in Engineering, 2025.
-
-  \bibitem{b92}
-    C.~H. Bennett,
-    \textit{Quantum Cryptography Using Any Two Nonorthogonal States},
-    Physical Review Letters, 68(21), pp.~3121--3124, 1992.
-
-  \bibitem{sarg04}
-    V.~Scarani, A.~Ac\'{i}n, G.~Ribordy, and N.~Gisin,
-    \textit{Quantum Cryptography Protocols Robust against Photon Number
-    Splitting Attacks for Weak Laser Pulse Implementations},
-    Physical Review Letters, 92(5), 057901, 2004.
-
-  \bibitem{ekert1991}
-    A.~K. Ekert,
-    \textit{Quantum Cryptography Based on Bell's Theorem},
-    Physical Review Letters, 67(6), pp.~661--663, 1991.
+    \url{https://doi.org/10.1023/A:1010933404324}
 
   \bibitem{hochreiter1997}
     S.~Hochreiter and J.~Schmidhuber,
     \textit{Long Short-Term Memory},
     Neural Computation, 9(8), pp.~1735--1780, 1997.
+    \url{https://doi.org/10.1162/neco.1997.9.8.1735}
 
+  %--- Alternative QKD protocols ------------------------------------
+  \bibitem{b92}
+    C.~H. Bennett,
+    \textit{Quantum Cryptography Using Any Two Nonorthogonal States},
+    Physical Review Letters, 68(21), pp.~3121--3124, 1992.
+    \url{https://doi.org/10.1103/PhysRevLett.68.3121}
+
+  \bibitem{sarg04}
+    V.~Scarani, A.~Ac\'{i}n, G.~Ribordy, and N.~Gisin,
+    \textit{Quantum Cryptography Protocols Robust against Photon
+    Number Splitting Attacks for Weak Laser Pulse Implementations},
+    Physical Review Letters, 92(5), 057901, 2004.
+    
+    \url{https://doi.org/10.1103/PhysRevLett.92.057901}
+
+  \bibitem{ekert1991}
+    A.~K. Ekert,
+    \textit{Quantum Cryptography Based on Bell's Theorem},
+    Physical Review Letters, 67(6), pp.~661--663, 1991.
+    \url{https://doi.org/10.1103/PhysRevLett.67.661}
+
+  \bibitem{chsh1969}
+    J.~F. Clauser, M.~A. Horne, A.~Shimony, and R.~A. Holt,
+    \textit{Proposed Experiment to Test Local Hidden-Variable
+    Theories},
+    Physical Review Letters, 23(15), pp.~880--884, 1969.
+    \url{https://doi.org/10.1103/PhysRevLett.23.880}
+
+  %--- Finite-key analysis ------------------------------------------
   \bibitem{tomamichel2012}
     M.~Tomamichel, C.~C.~W. Lim, N.~Gisin, and R.~Renner,
     \textit{Tight Finite-Key Analysis for Quantum Cryptography},
     Nature Communications, 3, 634, 2012.
+    \url{https://doi.org/10.1038/ncomms1631}
+
+  %--- Software, frameworks and existing simulators -----------------
+  \bibitem{qiskit2024}
+    Qiskit Development Team,
+    \textit{Qiskit: An Open-Source Framework for Quantum Computing},
+    IBM Quantum, software documentation,
+    \url{https://qiskit.org/} (accessed June 2026).
 
   \bibitem{netsquid2021}
-    T.~Coopmans, R.~Knegjens, A.~Dahlberg, D.~Maier, L.~Nijsten,
-    J.~Oliveira, M.~Papendrecht, J.~Rabbie, F.~Rozp\k{e}dek,
-    M.~Skrzypczyk, L.~Wubben, W.~de~Jong, D.~Podareanu, A.~Torres-Knoop,
-    D.~Elkouss, and S.~Wehner,
-    \textit{NetSquid, a NETwork Simulator for QUantum Information using
-    Discrete events},
+    T.~Coopmans et al.,
+    \textit{NetSquid, a NETwork Simulator for QUantum Information
+    using Discrete events},
     Communications Physics, 4, 164, 2021.
+    \url{https://doi.org/10.1038/s42005-021-00647-8}
 
   \bibitem{qunetsim2021}
     S.~DiAdamo, J.~N\"otzel, B.~Zanger, and M.~M.~Bese,
     \textit{QuNetSim: A Software Framework for Quantum Networks},
     IEEE Transactions on Quantum Engineering, 2, pp.~1--12, 2021.
+    \url{https://doi.org/10.1109/TQE.2021.3092395}
 
   \bibitem{simulaqron2018}
     A.~Dahlberg and S.~Wehner,
-    \textit{SimulaQron - a simulator for developing quantum internet
+    \textit{SimulaQron -- a simulator for developing quantum internet
     software},
     Quantum Science and Technology, 4(1), 015001, 2018.
+    \url{https://doi.org/10.1088/2058-9565/aad56e}
 
 \end{thebibliography}
+
 
 \end{document}

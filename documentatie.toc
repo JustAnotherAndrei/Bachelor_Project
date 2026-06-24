@@ -1,86 +1,90 @@
 \babel@toc {english}{}\relax 
-\contentsline {section}{\numberline {1}Introduction}{6}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Motivation}{6}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Proposed Solution}{6}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3}Contributions and Impact}{7}{subsection.1.3}%
-\contentsline {section}{\numberline {2}Theoretical Background}{10}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Classical vs.\ Quantum Cryptography}{10}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Quantum Mechanics Primer}{10}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Qubits and Quantum States}{10}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}Measurement and State Collapse}{11}{subsubsection.2.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.3}Hadamard Gate and the Diagonal Basis}{11}{subsubsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.3}The No-Cloning Theorem}{11}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Heisenberg's Uncertainty Principle in QKD}{12}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}The BB84 Protocol}{12}{subsection.2.5}%
-\contentsline {paragraph}{Step 1: Qubit preparation (Alice).}{12}{paragraph*.2}%
-\contentsline {paragraph}{Step 2: Qubit measurement (Bob).}{12}{paragraph*.4}%
-\contentsline {paragraph}{Step 3: Basis sifting.}{13}{paragraph*.5}%
-\contentsline {paragraph}{Step 4: Error rate estimation (QBER).}{13}{paragraph*.6}%
-\contentsline {paragraph}{Step 5: Error correction.}{13}{paragraph*.7}%
-\contentsline {paragraph}{Step 6: Privacy amplification.}{13}{paragraph*.8}%
-\contentsline {subsection}{\numberline {2.6}Quantum Bit Error Rate (QBER)}{13}{subsection.2.6}%
-\contentsline {subsection}{\numberline {2.7}Error Correction \& Privacy Amplification}{14}{subsection.2.7}%
-\contentsline {subsubsection}{\numberline {2.7.1}Error Correction}{14}{subsubsection.2.7.1}%
-\contentsline {subsubsection}{\numberline {2.7.2}Privacy Amplification}{15}{subsubsection.2.7.2}%
-\contentsline {subsection}{\numberline {2.8}Optical-Fibre Channel Attenuation}{15}{subsection.2.8}%
-\contentsline {subsection}{\numberline {2.9}Decoy-State Method \& Photon-Number-Splitting Attack}{15}{subsection.2.9}%
-\contentsline {subsection}{\numberline {2.10}The CASCADE Information-Reconciliation Algorithm}{16}{subsection.2.10}%
-\contentsline {subsection}{\numberline {2.11}Machine Learning for QKD Security Monitoring}{17}{subsection.2.11}%
-\contentsline {subsection}{\numberline {2.12}Alternative QKD Protocols}{18}{subsection.2.12}%
-\contentsline {subsubsection}{\numberline {2.12.1}B92 (Bennett, 1992)}{18}{subsubsection.2.12.1}%
-\contentsline {subsubsection}{\numberline {2.12.2}SARG04 (Scarani et al., 2004)}{18}{subsubsection.2.12.2}%
-\contentsline {subsubsection}{\numberline {2.12.3}E91 (Ekert, 1991) and the CHSH Bell Test}{18}{subsubsection.2.12.3}%
-\contentsline {subsection}{\numberline {2.13}Finite-Key Security Bounds}{19}{subsection.2.13}%
-\contentsline {section}{\numberline {3}Existing QKD Simulators and Related Work}{20}{section.3}%
-\contentsline {subsection}{\numberline {3.1}QKDSim}{20}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}NetSquid}{20}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}QuNetSim and SimulaQron}{20}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Qiskit Textbook Demos}{21}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}Positioning of Sequre}{21}{subsection.3.5}%
-\contentsline {section}{\numberline {4}Technologies Used}{22}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Python 3.11}{22}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Qiskit and Qiskit-Aer}{22}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Qiskit IBM Runtime}{22}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}FastAPI}{23}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5}WebSockets for Real-Time Streaming}{23}{subsection.4.5}%
-\contentsline {subsection}{\numberline {4.6}SQLite and SQLAlchemy}{23}{subsection.4.6}%
-\contentsline {subsection}{\numberline {4.7}PyTorch}{23}{subsection.4.7}%
-\contentsline {subsection}{\numberline {4.8}React 19 and Vite}{24}{subsection.4.8}%
-\contentsline {subsection}{\numberline {4.9}Tailwind CSS}{24}{subsection.4.9}%
-\contentsline {subsection}{\numberline {4.10}Recharts}{24}{subsection.4.10}%
-\contentsline {subsection}{\numberline {4.11}Authentication Stack}{24}{subsection.4.11}%
-\contentsline {section}{\numberline {5}Application Architecture}{26}{section.5}%
-\contentsline {subsection}{\numberline {5.1}High-Level System Overview}{26}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Backend Module Structure}{26}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Frontend Component Tree}{27}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Database Schema}{27}{subsection.5.4}%
-\contentsline {subsection}{\numberline {5.5}Request and Event Flow}{28}{subsection.5.5}%
-\contentsline {section}{\numberline {6}Implementation and Features}{30}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Configuration Panel}{30}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}The BB84 Protocol Engine}{33}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Eve Eavesdropping Simulation}{33}{subsection.6.3}%
-\contentsline {subsection}{\numberline {6.4}Real-Time WebSocket Streaming and PhotonGrid}{34}{subsection.6.4}%
-\contentsline {subsection}{\numberline {6.5}Key Distillation Pipeline}{34}{subsection.6.5}%
-\contentsline {subsection}{\numberline {6.6}Decoy-State and PNS Attack Panels}{34}{subsection.6.6}%
-\contentsline {subsection}{\numberline {6.7}Finite-Key Security Panel}{35}{subsection.6.7}%
-\contentsline {subsection}{\numberline {6.8}Machine Learning Detection Panels}{35}{subsection.6.8}%
-\contentsline {subsection}{\numberline {6.9}Bell Test Panel (E91)}{35}{subsection.6.9}%
-\contentsline {subsection}{\numberline {6.10}QBER Historical Chart and Key Rate Curve}{35}{subsection.6.10}%
-\contentsline {subsection}{\numberline {6.11}Educational Panel and Fun Facts}{36}{subsection.6.11}%
-\contentsline {subsection}{\numberline {6.12}Challenge Mode}{36}{subsection.6.12}%
-\contentsline {subsubsection}{\numberline {6.12.1}Mission Catalogue}{36}{subsubsection.6.12.1}%
-\contentsline {subsubsection}{\numberline {6.12.2}Grading}{37}{subsubsection.6.12.2}%
-\contentsline {subsubsection}{\numberline {6.12.3}Progress and Leaderboard}{37}{subsubsection.6.12.3}%
-\contentsline {subsection}{\numberline {6.13}Session Metadata Widget}{39}{subsection.6.13}%
-\contentsline {section}{\numberline {7}Experimental Results}{40}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Methodology}{40}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}QBER under Different Eve Modes}{40}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Impact of Noise Parameters on Key Yield}{41}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4}Key Rate vs.\ Channel Distance}{41}{subsection.7.4}%
-\contentsline {subsection}{\numberline {7.5}B92 Sifting Efficiency}{42}{subsection.7.5}%
-\contentsline {subsection}{\numberline {7.6}E91 CHSH Parameter}{42}{subsection.7.6}%
-\contentsline {subsection}{\numberline {7.7}LSTM Detector Performance}{42}{subsection.7.7}%
-\contentsline {section}{\numberline {8}Conclusions}{43}{section.8}%
-\contentsline {subsection}{\numberline {8.1}General Achievements}{43}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Future Development Possibilities}{43}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3}Closing Remarks}{44}{subsection.8.3}%
+\contentsline {section}{\numberline {1}Introduction}{9}{section.1}%
+\contentsline {section}{\numberline {2}Application Context and Problem Statement}{13}{section.2}%
+\contentsline {subsection}{\numberline {2.1}The Problem}{13}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}What Sequre Does}{14}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Goals}{14}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}The Three Actors}{15}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Theoretical Background}{16}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Post-Quantum Cryptography vs QKD}{16}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Quantum Computing Foundations}{16}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Qubits and Quantum States}{16}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Measurement and State Collapse}{17}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Hadamard Gate and the Diagonal Basis}{17}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Pauli Gates}{18}{subsubsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.3}The No-Cloning Theorem}{18}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Heisenberg's Uncertainty Principle in QKD}{18}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Quantum Entanglement}{19}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Quantum Bit Error Rate (QBER)}{19}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}Error Correction \& Privacy Amplification}{20}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.8}The BB84 Protocol}{20}{subsection.3.8}%
+\contentsline {paragraph}{Step 1: Qubit preparation (Alice).}{20}{paragraph*.1}%
+\contentsline {paragraph}{Step 2: Qubit measurement (Bob).}{20}{paragraph*.3}%
+\contentsline {paragraph}{Step 3: Basis sifting.}{21}{paragraph*.4}%
+\contentsline {paragraph}{Step 4: Error rate estimation (QBER).}{21}{paragraph*.5}%
+\contentsline {paragraph}{Step 5: Error correction.}{21}{paragraph*.6}%
+\contentsline {paragraph}{Step 6: Privacy amplification.}{21}{paragraph*.7}%
+\contentsline {subsubsection}{\numberline {3.8.1}Error Correction}{21}{subsubsection.3.8.1}%
+\contentsline {subsubsection}{\numberline {3.8.2}Privacy Amplification}{21}{subsubsection.3.8.2}%
+\contentsline {subsection}{\numberline {3.9}The CASCADE Information-Reconciliation Algorithm}{22}{subsection.3.9}%
+\contentsline {subsection}{\numberline {3.10}Optical Fibre Channel Attenuation}{22}{subsection.3.10}%
+\contentsline {subsection}{\numberline {3.11}Decoy-State Method \& Photon Number Splitting Attack}{23}{subsection.3.11}%
+\contentsline {subsection}{\numberline {3.12}Machine Learning for QKD Security Monitoring}{24}{subsection.3.12}%
+\contentsline {subsection}{\numberline {3.13}Alternative QKD Protocols}{25}{subsection.3.13}%
+\contentsline {subsubsection}{\numberline {3.13.1}B92 (Bennett, 1992)}{25}{subsubsection.3.13.1}%
+\contentsline {subsubsection}{\numberline {3.13.2}SARG04 (Scarani-Acín-Ribordy-Gisin, 2004)}{25}{subsubsection.3.13.2}%
+\contentsline {subsubsection}{\numberline {3.13.3}E91 (Ekert, 1991) and the CHSH Bell Test}{26}{subsubsection.3.13.3}%
+\contentsline {subsection}{\numberline {3.14}Finite Key Security Bounds}{27}{subsection.3.14}%
+\contentsline {section}{\numberline {4}Existing QKD Simulators and Related Work}{28}{section.4}%
+\contentsline {subsection}{\numberline {4.1}NetSquid}{28}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}QuNetSim and SimulaQron}{28}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Qiskit Textbook Demos}{28}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Positioning of Sequre}{28}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Technologies Used}{30}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Python 3.11}{30}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Qiskit \& Qiskit-Aer}{30}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Qiskit IBM Runtime}{30}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}FastAPI}{31}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}WebSockets for Real-Time Streaming}{31}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}SQLite and SQLAlchemy}{31}{subsection.5.6}%
+\contentsline {subsection}{\numberline {5.7}PyTorch}{31}{subsection.5.7}%
+\contentsline {subsection}{\numberline {5.8}React 19 and Vite}{32}{subsection.5.8}%
+\contentsline {subsection}{\numberline {5.9}Tailwind CSS}{32}{subsection.5.9}%
+\contentsline {subsection}{\numberline {5.10}Recharts}{32}{subsection.5.10}%
+\contentsline {subsection}{\numberline {5.11}Authentication Stack}{32}{subsection.5.11}%
+\contentsline {section}{\numberline {6}Application Architecture}{34}{section.6}%
+\contentsline {subsection}{\numberline {6.1}High-Level System Overview}{34}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Backend Component Structure}{34}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Frontend Component Structure}{35}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Database Schema}{35}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Request and Event Flow}{36}{subsection.6.5}%
+\contentsline {section}{\numberline {7}Implementation and Features}{38}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Configuration Panel}{38}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}The BB84 Protocol Engine}{41}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Eve Eavesdropping Simulation}{41}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Real-Time WebSocket Streaming and PhotonGrid}{42}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Key Distillation Pipeline}{42}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}Decoy-State and PNS Attack Panels}{42}{subsection.7.6}%
+\contentsline {subsection}{\numberline {7.7}Finite Key Security Panel}{43}{subsection.7.7}%
+\contentsline {subsection}{\numberline {7.8}Machine Learning Detection Panels}{43}{subsection.7.8}%
+\contentsline {subsection}{\numberline {7.9}Bell Test Panel (E91)}{44}{subsection.7.9}%
+\contentsline {subsection}{\numberline {7.10}QBER Historical Chart and Key Rate Curve}{44}{subsection.7.10}%
+\contentsline {subsection}{\numberline {7.11}Educational Panel and Fun Facts}{44}{subsection.7.11}%
+\contentsline {subsection}{\numberline {7.12}Challenge Mode}{45}{subsection.7.12}%
+\contentsline {subsubsection}{\numberline {7.12.1}Mission Catalogue}{45}{subsubsection.7.12.1}%
+\contentsline {subsubsection}{\numberline {7.12.2}Grading}{45}{subsubsection.7.12.2}%
+\contentsline {subsubsection}{\numberline {7.12.3}Progress and Leaderboard}{46}{subsubsection.7.12.3}%
+\contentsline {subsection}{\numberline {7.13}Session Metadata Widget}{47}{subsection.7.13}%
+\contentsline {section}{\numberline {8}Experimental Results}{48}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Methodology}{48}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}QBER under Different Eve Modes}{48}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Impact of Noise Parameters on Key Yield}{49}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Key Rate vs.\ Channel Distance}{49}{subsection.8.4}%
+\contentsline {subsection}{\numberline {8.5}Hardware Validation on IBM Quantum Hardware}{50}{subsection.8.5}%
+\contentsline {subsection}{\numberline {8.6}B92 Sifting Efficiency}{51}{subsection.8.6}%
+\contentsline {subsection}{\numberline {8.7}E91 CHSH Parameter}{51}{subsection.8.7}%
+\contentsline {subsection}{\numberline {8.8}LSTM Detector Performance}{51}{subsection.8.8}%
+\contentsline {section}{\numberline {9}Conclusions}{52}{section.9}%
+\contentsline {subsection}{\numberline {9.1}General Achievements}{52}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Future Development Possibilities}{53}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Closing Remarks}{53}{subsection.9.3}%
